@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Time Dust.ogg-a9dc65c6fa9dd31a312c1be484b35edb.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Soundtrack/Time Dust.ogg"
+dest_files=[ "res://.import/Time Dust.ogg-a9dc65c6fa9dd31a312c1be484b35edb.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Fading Soul.ogg-0468c4e1bba9a8fcf6b1d21477509616.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Soundtrack/Fading Soul.ogg"
+dest_files=[ "res://.import/Fading Soul.ogg-0468c4e1bba9a8fcf6b1d21477509616.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

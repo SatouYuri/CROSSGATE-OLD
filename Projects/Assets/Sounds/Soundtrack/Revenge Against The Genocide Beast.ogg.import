@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Revenge Against The Genocide Beast.ogg-43a5f6f1bf675d1c445dcbf4ce2177d6.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Soundtrack/Revenge Against The Genocide Beast.ogg"
+dest_files=[ "res://.import/Revenge Against The Genocide Beast.ogg-43a5f6f1bf675d1c445dcbf4ce2177d6.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

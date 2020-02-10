@@ -1,0 +1,746 @@
+[gd_scene load_steps=31 format=2]
+
+[ext_resource path="res://Assets/Scenes/TrainStage.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Scenes/Soundtrack.tscn" type="PackedScene" id=2]
+[ext_resource path="res://Assets/Sprites/Background/sky.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_00.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_01.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_02.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_03.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_04.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_05.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_06.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_07.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_08.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_09.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_10.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_11.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_12.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_13.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Sprites/Background/clouds/clouds_14.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Sprites/Background/dunes.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Sprites/Background/sand_cactus.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Scenes/Player_.tscn" type="PackedScene" id=21]
+[ext_resource path="res://testTileset.tres" type="TileSet" id=22]
+[ext_resource path="res://Assets/Scenes/Enemy.tscn" type="PackedScene" id=23]
+[ext_resource path="res://Assets/Scenes/SpeedwagonB.tscn" type="PackedScene" id=24]
+[ext_resource path="res://Assets/Sprites/Tileset/Speedwagon1/Chain.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Scenes/SpeedwagonA.tscn" type="PackedScene" id=26]
+[ext_resource path="res://Assets/Scenes/SpeedwagonC.tscn" type="PackedScene" id=27]
+[ext_resource path="res://Assets/Scenes/DeathByTheRail.gd" type="Script" id=28]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 6.66667, 1.33334 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 2898, 10 )
+
+[node name="TrainStage" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Soundtrack" parent="." instance=ExtResource( 2 )]
+
+[node name="Background" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Sky" type="Node2D" parent="Background"]
+editor/display_folded = true
+
+[node name="Sky0" type="Sprite" parent="Background/Sky"]
+position = Vector2( -1221, 51 )
+texture = ExtResource( 3 )
+
+[node name="Sky1" type="Sprite" parent="Background/Sky"]
+position = Vector2( -197, -205 )
+texture = ExtResource( 3 )
+centered = false
+
+[node name="Sky2" type="Sprite" parent="Background/Sky"]
+position = Vector2( 2875, 51 )
+texture = ExtResource( 3 )
+
+[node name="Clouds" type="Node2D" parent="Background"]
+editor/display_folded = true
+
+[node name="Clouds0" type="Node2D" parent="Background/Clouds"]
+editor/display_folded = true
+
+[node name="Clouds0" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 564, -21 )
+texture = ExtResource( 4 )
+
+[node name="Clouds1" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 363, -33 )
+texture = ExtResource( 5 )
+
+[node name="Clouds2" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1177, -6 )
+texture = ExtResource( 6 )
+
+[node name="Clouds3" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 857, -33 )
+texture = ExtResource( 7 )
+
+[node name="Clouds4" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1559, -7 )
+texture = ExtResource( 8 )
+
+[node name="Clouds15" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 77, 5 )
+texture = ExtResource( 8 )
+
+[node name="Clouds5" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1367, -12 )
+texture = ExtResource( 9 )
+
+[node name="Clouds6" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1758, -8 )
+texture = ExtResource( 10 )
+
+[node name="Clouds7" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 225, -12 )
+texture = ExtResource( 11 )
+
+[node name="Clouds8" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 730, -68 )
+texture = ExtResource( 12 )
+
+[node name="Clouds16" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 0, -41 )
+texture = ExtResource( 12 )
+
+[node name="Clouds9" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1030, -46 )
+texture = ExtResource( 13 )
+
+[node name="Clouds18" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( -135, -5 )
+texture = ExtResource( 13 )
+
+[node name="Clouds10" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1473, -45 )
+texture = ExtResource( 14 )
+
+[node name="Clouds11" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 768, -40 )
+texture = ExtResource( 15 )
+
+[node name="Clouds12" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1262, -51 )
+texture = ExtResource( 16 )
+
+[node name="Clouds19" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1833, -65 )
+texture = ExtResource( 16 )
+
+[node name="Clouds13" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 361, 13 )
+texture = ExtResource( 17 )
+
+[node name="Clouds17" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( -83, -57 )
+texture = ExtResource( 17 )
+
+[node name="Clouds14" type="Sprite" parent="Background/Clouds/Clouds0"]
+position = Vector2( 1190, -51 )
+texture = ExtResource( 18 )
+
+[node name="Clouds1" type="Node2D" parent="Background/Clouds"]
+editor/display_folded = true
+position = Vector2( -2048, 0 )
+
+[node name="Clouds0" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 564, -21 )
+texture = ExtResource( 4 )
+
+[node name="Clouds1" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 363, -33 )
+texture = ExtResource( 5 )
+
+[node name="Clouds2" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1177, -6 )
+texture = ExtResource( 6 )
+
+[node name="Clouds3" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 857, -33 )
+texture = ExtResource( 7 )
+
+[node name="Clouds4" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1559, -7 )
+texture = ExtResource( 8 )
+
+[node name="Clouds15" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 77, 5 )
+texture = ExtResource( 8 )
+
+[node name="Clouds5" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1367, -12 )
+texture = ExtResource( 9 )
+
+[node name="Clouds6" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1758, -8 )
+texture = ExtResource( 10 )
+
+[node name="Clouds7" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 225, -12 )
+texture = ExtResource( 11 )
+
+[node name="Clouds8" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 730, -68 )
+texture = ExtResource( 12 )
+
+[node name="Clouds16" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 0, -41 )
+texture = ExtResource( 12 )
+
+[node name="Clouds9" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1030, -46 )
+texture = ExtResource( 13 )
+
+[node name="Clouds18" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( -135, -5 )
+texture = ExtResource( 13 )
+
+[node name="Clouds10" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1473, -45 )
+texture = ExtResource( 14 )
+
+[node name="Clouds11" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 768, -40 )
+texture = ExtResource( 15 )
+
+[node name="Clouds12" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1262, -51 )
+texture = ExtResource( 16 )
+
+[node name="Clouds19" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1833, -65 )
+texture = ExtResource( 16 )
+
+[node name="Clouds13" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 361, 13 )
+texture = ExtResource( 17 )
+
+[node name="Clouds17" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( -83, -57 )
+texture = ExtResource( 17 )
+
+[node name="Clouds14" type="Sprite" parent="Background/Clouds/Clouds1"]
+position = Vector2( 1190, -51 )
+texture = ExtResource( 18 )
+
+[node name="Clouds2" type="Node2D" parent="Background/Clouds"]
+editor/display_folded = true
+position = Vector2( 2048, 0 )
+
+[node name="Clouds0" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 564, -21 )
+texture = ExtResource( 4 )
+
+[node name="Clouds1" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 363, -33 )
+texture = ExtResource( 5 )
+
+[node name="Clouds2" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1177, -6 )
+texture = ExtResource( 6 )
+
+[node name="Clouds3" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 857, -33 )
+texture = ExtResource( 7 )
+
+[node name="Clouds4" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1559, -7 )
+texture = ExtResource( 8 )
+
+[node name="Clouds15" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 77, 5 )
+texture = ExtResource( 8 )
+
+[node name="Clouds5" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1367, -12 )
+texture = ExtResource( 9 )
+
+[node name="Clouds6" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1758, -8 )
+texture = ExtResource( 10 )
+
+[node name="Clouds7" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 225, -12 )
+texture = ExtResource( 11 )
+
+[node name="Clouds8" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 730, -68 )
+texture = ExtResource( 12 )
+
+[node name="Clouds16" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 0, -41 )
+texture = ExtResource( 12 )
+
+[node name="Clouds9" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1030, -46 )
+texture = ExtResource( 13 )
+
+[node name="Clouds18" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( -135, -5 )
+texture = ExtResource( 13 )
+
+[node name="Clouds10" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1473, -45 )
+texture = ExtResource( 14 )
+
+[node name="Clouds11" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 768, -40 )
+texture = ExtResource( 15 )
+
+[node name="Clouds12" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1262, -51 )
+texture = ExtResource( 16 )
+
+[node name="Clouds19" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1833, -65 )
+texture = ExtResource( 16 )
+
+[node name="Clouds13" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 361, 13 )
+texture = ExtResource( 17 )
+
+[node name="Clouds17" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( -83, -57 )
+texture = ExtResource( 17 )
+
+[node name="Clouds14" type="Sprite" parent="Background/Clouds/Clouds2"]
+position = Vector2( 1190, -51 )
+texture = ExtResource( 18 )
+
+[node name="Dunes" type="Node2D" parent="Background"]
+editor/display_folded = true
+position = Vector2( 0, 21 )
+
+[node name="Dunes0" type="Sprite" parent="Background/Dunes"]
+position = Vector2( -1221, -33 )
+texture = ExtResource( 19 )
+
+[node name="Dunes1" type="Sprite" parent="Background/Dunes"]
+position = Vector2( 827, -33 )
+texture = ExtResource( 19 )
+
+[node name="Dunes2" type="Sprite" parent="Background/Dunes"]
+position = Vector2( 2875, -33 )
+texture = ExtResource( 19 )
+
+[node name="Sand" type="Node2D" parent="Background"]
+editor/display_folded = true
+position = Vector2( 0, -12 )
+
+[node name="Sand0" type="Sprite" parent="Background/Sand"]
+position = Vector2( -1221, 92 )
+texture = ExtResource( 20 )
+
+[node name="Sand1" type="Sprite" parent="Background/Sand"]
+position = Vector2( 827, 92 )
+texture = ExtResource( 20 )
+
+[node name="Sand2" type="Sprite" parent="Background/Sand"]
+position = Vector2( 2875, 92 )
+texture = ExtResource( 20 )
+
+[node name="Player" parent="." instance=ExtResource( 21 )]
+position = Vector2( 113, 32 )
+
+[node name="TileMap" type="TileMap" parent="."]
+tile_set = ExtResource( 22 )
+cell_size = Vector2( 16, 16 )
+format = 1
+
+[node name="Gates" type="Node2D" parent="."]
+
+[node name="Enemies" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Enemy0" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( -429, 30 )
+
+[node name="Enemy1" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 442, -34 )
+
+[node name="Enemy2" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 683, -36 )
+
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 904, -42 )
+
+[node name="Enemy4" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 1423, 99 )
+
+[node name="Enemy6" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 2249, 97 )
+
+[node name="Enemy7" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 2257, 26 )
+
+[node name="Enemy8" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 2749, 31 )
+
+[node name="Enemy9" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 2520, 96 )
+
+[node name="Enemy10" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 2727, 104 )
+
+[node name="Enemy11" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 3335, 22 )
+
+[node name="Enemy12" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 3276, 24 )
+
+[node name="Enemy13" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 3563, 99 )
+
+[node name="Enemy14" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 3601, 30 )
+
+[node name="Enemy15" parent="Enemies" instance=ExtResource( 23 )]
+position = Vector2( 3791, 30 )
+
+[node name="Speedwagons" type="Node2D" parent="."]
+editor/display_folded = true
+z_index = 5
+
+[node name="SpeedwagonB1" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( -374, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonB1" index="0"]
+frame = 5
+
+[node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB1/Speedwagon/StaticBody2D" index="3"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB1"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB1/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB1/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA0" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( -110, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA0"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA0/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA0/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA1" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 154, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA1"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA1/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA1/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA2" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 682, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA2"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA2/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA2/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA3" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 418, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA3"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA3/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA3/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonB2" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( 946, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonB2" index="0"]
+frame = 6
+
+[node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB2/Speedwagon/StaticBody2D" index="2"]
+position = Vector2( -22, -0.5 )
+
+[node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB2/Speedwagon/StaticBody2D" index="3"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB2"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB2/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB2/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonB3" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( 1210, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB3"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB3/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB3/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonC1" parent="Speedwagons" instance=ExtResource( 27 )]
+editor/display_folded = true
+position = Vector2( 1473, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonC1" index="0"]
+frame = 2
+
+[node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonC1/Speedwagon/StaticBody2D" index="2"]
+disabled = true
+
+[node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonC1/Speedwagon/StaticBody2D" index="3"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonC1"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonC1/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonC1/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonC2" parent="Speedwagons" instance=ExtResource( 27 )]
+editor/display_folded = true
+position = Vector2( 1737, 103 )
+
+[node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonC2/Speedwagon/StaticBody2D" index="3"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonC2"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonC2/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonC2/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonB4" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( 2001, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonB4" index="0"]
+frame = 5
+
+[node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB4/Speedwagon/StaticBody2D" index="2"]
+disabled = true
+
+[node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB4/Speedwagon/StaticBody2D" index="3"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB4"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB4/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB4/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA4" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 2265, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA4"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA4/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA4/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA5" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 2529, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA5"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA5/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA5/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonB5" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( 2793, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonB5" index="0"]
+frame = 5
+
+[node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB5/Speedwagon/StaticBody2D" index="2"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB5"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB5/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB5/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonB6" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( 3057, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonB6" index="0"]
+frame = 4
+
+[node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB6/Speedwagon/StaticBody2D" index="2"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB6"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB6/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB6/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonB7" parent="Speedwagons" instance=ExtResource( 24 )]
+editor/display_folded = true
+position = Vector2( 3321, 103 )
+
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonB7" index="0"]
+frame = 3
+
+[node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB7/Speedwagon/StaticBody2D" index="2"]
+disabled = true
+
+[node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB7/Speedwagon/StaticBody2D" index="3"]
+disabled = true
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonB7"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonB7/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonB7/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA6" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 3585, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA6"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA6/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA6/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="SpeedwagonA7" parent="Speedwagons" instance=ExtResource( 26 )]
+editor/display_folded = true
+position = Vector2( 3849, 103 )
+
+[node name="Chain" type="Sprite" parent="Speedwagons/SpeedwagonA7"]
+position = Vector2( 132, 31 )
+scale = Vector2( 1.5, 1.5 )
+texture = ExtResource( 25 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="Speedwagons/SpeedwagonA7/Chain"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Speedwagons/SpeedwagonA7/Chain/StaticBody2D"]
+position = Vector2( 0, -0.666664 )
+shape = SubResource( 1 )
+
+[node name="DeathByTheRail" type="Area2D" parent="."]
+editor/display_folded = true
+position = Vector2( 1822, 291 )
+script = ExtResource( 28 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DeathByTheRail"]
+position = Vector2( 7, -110 )
+shape = SubResource( 2 )
+[connection signal="body_entered" from="DeathByTheRail" to="." method="_on_DeathByTheRail_body_entered"]
+
+[editable path="Speedwagons/SpeedwagonB1"]
+
+[editable path="Speedwagons/SpeedwagonB2"]
+
+[editable path="Speedwagons/SpeedwagonC1"]
+
+[editable path="Speedwagons/SpeedwagonC2"]
+
+[editable path="Speedwagons/SpeedwagonB4"]
+
+[editable path="Speedwagons/SpeedwagonB5"]
+
+[editable path="Speedwagons/SpeedwagonB6"]
+
+[editable path="Speedwagons/SpeedwagonB7"]

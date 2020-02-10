@@ -1,0 +1,126 @@
+[gd_scene load_steps=35 format=2]
+
+[ext_resource path="res://Assets/Scenes/Enemy.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Idle/enemy1_00.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Idle/enemy1_01.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Idle/enemy1_02.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Idle/enemy1_03.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Idle/enemy1_04.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_05.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_06.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_07.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_08.png" type="Texture" id=10]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_09.png" type="Texture" id=11]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_10.png" type="Texture" id=12]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_11.png" type="Texture" id=13]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_12.png" type="Texture" id=14]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_13.png" type="Texture" id=15]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_14.png" type="Texture" id=16]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Walk/enemy1_15.png" type="Texture" id=17]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_16.png" type="Texture" id=18]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_17.png" type="Texture" id=19]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_18.png" type="Texture" id=20]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_19.png" type="Texture" id=21]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_20.png" type="Texture" id=22]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_21.png" type="Texture" id=23]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_22.png" type="Texture" id=24]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_23.png" type="Texture" id=25]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_24.png" type="Texture" id=26]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_25.png" type="Texture" id=27]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Attack/enemy1_26.png" type="Texture" id=28]
+[ext_resource path="res://Assets/Sprites/Enemies/Enemy1/Dead/enemy1_0.png" type="Texture" id=29]
+[ext_resource path="res://Assets/Scenes/HealthBar.tscn" type="PackedScene" id=30]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ) ],
+"loop": true,
+"name": "Walk",
+"speed": 13.0
+}, {
+"frames": [ ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ), ExtResource( 22 ), ExtResource( 23 ), ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ) ],
+"loop": true,
+"name": "Shooting",
+"speed": 25.0
+}, {
+"frames": [ ExtResource( 18 ), null, ExtResource( 29 ), null, ExtResource( 29 ), null, ExtResource( 29 ), null, ExtResource( 29 ), null, ExtResource( 29 ), null, ExtResource( 29 ), null, ExtResource( 29 ), null ],
+"loop": false,
+"name": "Dead",
+"speed": 15.0
+} ]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 11, 23 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 90, 31 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 26, 31 )
+
+[node name="Enemy" type="KinematicBody2D"]
+collision_layer = 4
+collision_mask = 9
+script = ExtResource( 1 )
+
+[node name="LGUN_Position2D" type="Position2D" parent="."]
+position = Vector2( 27, -4 )
+
+[node name="RGUN_Position2D" type="Position2D" parent="."]
+position = Vector2( 16, 1 )
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+frames = SubResource( 1 )
+animation = "Idle"
+playing = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2( -2, -1 )
+shape = SubResource( 2 )
+
+[node name="PREVENT_FALL_RayCast2D" type="RayCast2D" parent="."]
+position = Vector2( 6, -1 )
+enabled = true
+cast_to = Vector2( 0, 24 )
+collision_mask = 8
+
+[node name="DETECT_PLAYER_FRONTVIEW" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DETECT_PLAYER_FRONTVIEW"]
+position = Vector2( 100, -9 )
+shape = SubResource( 3 )
+
+[node name="DETECT_PLAYER_BACKVIEW" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DETECT_PLAYER_BACKVIEW"]
+position = Vector2( -40, -9 )
+shape = SubResource( 4 )
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 6.0
+one_shot = true
+
+[node name="HealthBar" parent="." instance=ExtResource( 30 )]
+position = Vector2( -2, -29 )
+
+[node name="FadeTimer" type="Timer" parent="."]
+wait_time = 0.01
+
+[node name="RunTimer" type="Timer" parent="."]
+wait_time = 5.0
+
+[node name="Sprite" type="Sprite" parent="."]
+[connection signal="animation_finished" from="AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
+[connection signal="area_entered" from="DETECT_PLAYER_FRONTVIEW" to="." method="_on_DETECT_PLAYER_FRONTVIEW_area_entered"]
+[connection signal="body_entered" from="DETECT_PLAYER_FRONTVIEW" to="." method="_on_DETECT_PLAYER_FRONTVIEW_body_entered"]
+[connection signal="body_exited" from="DETECT_PLAYER_FRONTVIEW" to="." method="_on_DETECT_PLAYER_FRONTVIEW_body_exited"]
+[connection signal="area_entered" from="DETECT_PLAYER_BACKVIEW" to="." method="_on_DETECT_PLAYER_BACKVIEW_area_entered"]
+[connection signal="body_entered" from="DETECT_PLAYER_BACKVIEW" to="." method="_on_DETECT_PLAYER_BACKVIEW_body_entered"]
+[connection signal="timeout" from="Timer" to="." method="_on_Timer_timeout"]
+[connection signal="timeout" from="FadeTimer" to="." method="_on_FadeTimer_timeout"]
+[connection signal="timeout" from="RunTimer" to="." method="_on_RunTimer_timeout"]

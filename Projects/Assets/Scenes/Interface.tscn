@@ -1,0 +1,69 @@
+[gd_scene load_steps=12 format=2]
+
+[ext_resource path="res://Assets/Scenes/Interface.gd" type="Script" id=1]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/StatusBar/player_interface_frame.png" type="Texture" id=2]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/PlayerPic/hud_photo_0.png" type="Texture" id=3]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/PlayerPic/hud_photo_1.png" type="Texture" id=4]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/PlayerPic/hud_photo_2.png" type="Texture" id=5]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/PlayerPic/hud_photo_3.png" type="Texture" id=6]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/PlayerPic/hud_photo_4.png" type="Texture" id=7]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/StatusBar/player_hp_under.png" type="Texture" id=8]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/StatusBar/player_hp_progress.png" type="Texture" id=9]
+[ext_resource path="res://Assets/Sprites/HUD/PlayerInterface/StatusBar/player_hp_over.png" type="Texture" id=10]
+
+[sub_resource type="SpriteFrames" id=1]
+animations = [ {
+"frames": [ ExtResource( 3 ) ],
+"loop": true,
+"name": "Idle",
+"speed": 1.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 6 ), ExtResource( 5 ), ExtResource( 4 ), ExtResource( 3 ) ],
+"loop": false,
+"name": "Blink",
+"speed": 30.0
+} ]
+
+[node name="HUD" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="PlayerPicFrame" type="Sprite" parent="."]
+visible = false
+position = Vector2( 19, 19 )
+scale = Vector2( 0.45, 0.45 )
+texture = ExtResource( 2 )
+
+[node name="PLAYER_PICTURE_AnimatedSprite" type="AnimatedSprite" parent="PlayerPicFrame"]
+scale = Vector2( 1.0625, 1.0625 )
+frames = SubResource( 1 )
+animation = "Idle"
+playing = true
+
+[node name="BLINK_Timer" type="Timer" parent="PlayerPicFrame"]
+wait_time = 2.0
+one_shot = true
+
+[node name="HP_STEPDAMAGE" type="TextureProgress" parent="."]
+margin_left = 1.0
+margin_top = -1.0
+margin_right = 129.0
+margin_bottom = 39.0
+step = 0.01
+value = 100.0
+texture_under = ExtResource( 8 )
+texture_progress = ExtResource( 9 )
+tint_progress = Color( 1, 0.984314, 0, 1 )
+
+[node name="HP" type="TextureProgress" parent="."]
+margin_left = 2.0
+margin_top = -2.0
+margin_right = 131.0
+margin_bottom = 30.0
+step = 0.01
+value = 35.81
+texture_over = ExtResource( 10 )
+texture_progress = ExtResource( 9 )
+tint_over = Color( 1, 1, 1, 0.956863 )
+tint_progress = Color( 1, 0, 0, 1 )
+[connection signal="animation_finished" from="PlayerPicFrame/PLAYER_PICTURE_AnimatedSprite" to="." method="_on_PLAYER_PICTURE_AnimatedSprite_animation_finished"]
+[connection signal="timeout" from="PlayerPicFrame/BLINK_Timer" to="." method="_on_BLINK_Timer_timeout"]

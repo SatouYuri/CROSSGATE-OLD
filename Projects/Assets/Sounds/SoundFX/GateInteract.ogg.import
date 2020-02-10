@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/GateInteract.ogg-800d567d1d842b2689651e0746d98c41.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/SoundFX/GateInteract.ogg"
+dest_files=[ "res://.import/GateInteract.ogg-800d567d1d842b2689651e0746d98c41.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

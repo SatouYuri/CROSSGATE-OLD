@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/EnergyFlow.ogg-27215a3c17d242a5980e4fd5d7bb5c60.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/SoundFX/EnergyFlow.ogg"
+dest_files=[ "res://.import/EnergyFlow.ogg-27215a3c17d242a5980e4fd5d7bb5c60.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
