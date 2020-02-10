@@ -31,7 +31,7 @@ var throwFactor = 1
 var superthrow_active = false
 var gateLifeTime = 10
 var dashReady = true
-var dashCooldownTime = 1
+var dashCooldownTime = 30
 var smashTargetDetected = false
 
 func dead():
