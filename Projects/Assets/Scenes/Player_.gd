@@ -7,10 +7,13 @@ const FLOOR = Vector2(0, -1)
 const FADEFACTOR = 0.1
 const BULLET = preload("res://Assets/Scenes/Bullet.tscn") #Carregar a bullet na memória
 const DARKBALL = preload("res://Assets/Scenes/Portal.tscn") #Carregar a darkball na memória
+const SOUNDFX = preload("res://Assets/Scenes/SoundFX.tscn")
+const SMASH_DAMAGE = 400
 
 var velocity = Vector2()
 var on_ground = false
 var is_attacking = false
+var is_dashing = false
 var is_aiming = false
 var aimarrow_visible = false
 var is_crossing_gates = false
@@ -27,6 +30,9 @@ var DarkBall = null
 var throwFactor = 1
 var superthrow_active = false
 var gateLifeTime = 10
+var dashReady = true
+var dashCooldownTime = 1
+var smashTargetDetected = false
 
 func dead():
 	is_dead = true
@@ -34,6 +40,9 @@ func dead():
 	$UPBODY_AnimatedSprite.play("Dead")
 	$DOWNBODY_AnimatedSprite.play("Static")
 	$RIGHTHAND_AnimatedSprite.play("Static")
+	
+func getSpriteSide(): #Retorna false se o personagem estiver olhando para direita; true, caso contrário.
+	return $UPBODY_AnimatedSprite.flip_h
 	
 func aimArrowThrowFeedbackReset():
 	superthrow_active = false
@@ -50,6 +59,19 @@ func setAimAngle(angle):
 func getAimAngle():
 	return $AIMARROW.rotation_degrees
 	
+func dash(dashtime): #dashtime é o tempo do dash em segundos
+	if getSpriteSide() == false:
+		velocity = Vector2(3*MOVESPEED, 0)
+	else:
+		velocity = Vector2(-3*MOVESPEED, 0)
+		
+	$UPBODY_AnimatedSprite.play("Smash")
+	$DOWNBODY_AnimatedSprite.play("Smash")
+	$RIGHTHAND_AnimatedSprite.play("Smash")
+		
+	$DASH_Timer.wait_time = dashtime
+	$DASH_Timer.start()
+	
 func _ready():
 	$Interface/HUD/HP.max_value = lifepoints
 	$Interface/HUD/HP.value = lifepoints
@@ -59,108 +81,113 @@ func _ready():
 func _physics_process(delta):
 	if is_dead == false:
 		#Movimento: Eixo X
-		if Input.is_action_pressed("ui_right"):
-			#Checando se o personagem não está mirando
-			if is_aiming == false:
-				velocity.x = MOVESPEED
+		if !is_dashing:
+			if Input.is_action_pressed("ui_right"):
+				#Checando se o personagem não está mirando
+				if is_aiming == false:
+					velocity.x = MOVESPEED
+					if on_ground == true && is_attacking == false:
+						$UPBODY_AnimatedSprite.play("Walk")
+						$DOWNBODY_AnimatedSprite.play("Walk")
+						if hand_busy == false:
+							$RIGHTHAND_AnimatedSprite.play("Walk")
+					
+					if $UPBODY_AnimatedSprite.flip_h == true && $DOWNBODY_AnimatedSprite.flip_h == true && $RIGHTHAND_AnimatedSprite.flip_h == true:
+						$UPBODY_AnimatedSprite.flip_h = false
+						$RIGHTHAND_AnimatedSprite.flip_h = false
+						$DOWNBODY_AnimatedSprite.flip_h = false
+					
+					if sign($Position2D.position.x) == -1:
+						$Position2D.position.x *= -1
+						$DARKBALL_SPOT_Position2D.position.x *= -1
+						$OBJECT_DETECTION_Area2D/CollisionShape2D.position.x *= -1
+						
+				else: #Caso o personagem esteja mirando...
+					#Registrando que a AimArrow está visível
+					aimarrow_visible = true
+				
+					#Invertendo Sprites, se necessário...
+					if $UPBODY_AnimatedSprite.flip_h && $DOWNBODY_AnimatedSprite.flip_h && $RIGHTHAND_AnimatedSprite.flip_h:
+						$UPBODY_AnimatedSprite.flip_h = false
+						$RIGHTHAND_AnimatedSprite.flip_h = false
+						$DOWNBODY_AnimatedSprite.flip_h = false
+					
+					if sign($Position2D.position.x) == -1:
+						$Position2D.position.x *= -1
+						$DARKBALL_SPOT_Position2D.position.x *= -1
+						$OBJECT_DETECTION_Area2D/CollisionShape2D.position.x *= -1
+						
+					#Ajustando a AimArrow
+					$AIMARROW.visible = true
+					$AIMARROW/AIMARROW_AnimatedSprite.play("EnergyFlow")
+					if Input.is_action_pressed("ui_up"): #Caso diagonal 1
+						setAimAngle(45)
+					elif Input.is_action_pressed("ui_down"): #Caso diagonal 2
+						setAimAngle(135)
+					elif !Input.is_action_pressed("ui_up") && !Input.is_action_pressed("ui_down"): #Caso retilíneo
+						setAimAngle(90)
+						
+					#Invertendo a posição da DarkBall, se necessário...
+					if darkball_generated && $DARKBALL_SPOT_Position2D.position.x < 0:
+						if !darkball_thrown:
+							DarkBall.position.x = get_parent().get_node("Player").position.x + $DARKBALL_SPOT_Position2D.position.x
+				
+			elif Input.is_action_pressed("ui_left"):
+				#Checando se o personagem não está mirando
+				if is_aiming == false:
+					velocity.x = -MOVESPEED
+					if on_ground == true && is_attacking == false:
+						$UPBODY_AnimatedSprite.play("Walk")
+						$DOWNBODY_AnimatedSprite.play("Walk")
+						if hand_busy == false:
+							$RIGHTHAND_AnimatedSprite.play("Walk")
+					
+					if $UPBODY_AnimatedSprite.flip_h == false && $DOWNBODY_AnimatedSprite.flip_h == false && $RIGHTHAND_AnimatedSprite.flip_h == false:
+						$UPBODY_AnimatedSprite.flip_h = true
+						$RIGHTHAND_AnimatedSprite.flip_h = true
+						$DOWNBODY_AnimatedSprite.flip_h = true
+					
+					if sign($Position2D.position.x) == 1:
+						$Position2D.position.x *= -1
+						$DARKBALL_SPOT_Position2D.position.x *= -1
+						$OBJECT_DETECTION_Area2D/CollisionShape2D.position.x *= -1
+					
+				else: #Caso o personagem esteja mirando...
+					#Registrando que a AimArrow está visível
+					aimarrow_visible = true
+					
+					#Invertendo Sprites, se necessário...
+					if !$UPBODY_AnimatedSprite.flip_h && !$DOWNBODY_AnimatedSprite.flip_h && !$RIGHTHAND_AnimatedSprite.flip_h:
+						$UPBODY_AnimatedSprite.flip_h = true
+						$RIGHTHAND_AnimatedSprite.flip_h = true
+						$DOWNBODY_AnimatedSprite.flip_h = true
+					
+					if sign($Position2D.position.x) == 1:
+						$Position2D.position.x *= -1
+						$DARKBALL_SPOT_Position2D.position.x *= -1
+						$OBJECT_DETECTION_Area2D/CollisionShape2D.position.x *= -1
+						
+					#Ajustando a AimArrow
+					$AIMARROW.visible = true
+					$AIMARROW/AIMARROW_AnimatedSprite.play("EnergyFlow")
+					if Input.is_action_pressed("ui_up"): #Caso diagonal 1
+						setAimAngle(-45)
+					elif Input.is_action_pressed("ui_down"): #Caso diagonal 2
+						setAimAngle(-135)
+					elif !Input.is_action_pressed("ui_up") && !Input.is_action_pressed("ui_down"): #Caso retilíneo
+						setAimAngle(-90)
+					
+					#Invertendo a posição da DarkBall, se necessário...
+					if darkball_generated && $DARKBALL_SPOT_Position2D.position.x > 0:
+						if !darkball_thrown:
+							DarkBall.position.x = get_parent().get_node("Player").position.x + $DARKBALL_SPOT_Position2D.position.x
+			else:
+				velocity.x = 0
 				if on_ground == true && is_attacking == false:
-					$UPBODY_AnimatedSprite.play("Walk")
-					$DOWNBODY_AnimatedSprite.play("Walk")
+					$UPBODY_AnimatedSprite.play("Idle")
+					$DOWNBODY_AnimatedSprite.play("Idle")
 					if hand_busy == false:
-						$RIGHTHAND_AnimatedSprite.play("Walk")
-				
-				if $UPBODY_AnimatedSprite.flip_h == true && $DOWNBODY_AnimatedSprite.flip_h == true && $RIGHTHAND_AnimatedSprite.flip_h == true:
-					$UPBODY_AnimatedSprite.flip_h = false
-					$RIGHTHAND_AnimatedSprite.flip_h = false
-					$DOWNBODY_AnimatedSprite.flip_h = false
-				
-				if sign($Position2D.position.x) == -1:
-					$Position2D.position.x *= -1
-					$DARKBALL_SPOT_Position2D.position.x *= -1
-					
-			else: #Caso o personagem esteja mirando...
-				#Registrando que a AimArrow está visível
-				aimarrow_visible = true
-			
-				#Invertendo Sprites, se necessário...
-				if $UPBODY_AnimatedSprite.flip_h && $DOWNBODY_AnimatedSprite.flip_h && $RIGHTHAND_AnimatedSprite.flip_h:
-					$UPBODY_AnimatedSprite.flip_h = false
-					$RIGHTHAND_AnimatedSprite.flip_h = false
-					$DOWNBODY_AnimatedSprite.flip_h = false
-				
-				if sign($Position2D.position.x) == -1:
-					$Position2D.position.x *= -1
-					$DARKBALL_SPOT_Position2D.position.x *= -1
-					
-				#Ajustando a AimArrow
-				$AIMARROW.visible = true
-				$AIMARROW/AIMARROW_AnimatedSprite.play("EnergyFlow")
-				if Input.is_action_pressed("ui_up"): #Caso diagonal 1
-					setAimAngle(45)
-				elif Input.is_action_pressed("ui_down"): #Caso diagonal 2
-					setAimAngle(135)
-				elif !Input.is_action_pressed("ui_up") && !Input.is_action_pressed("ui_down"): #Caso retilíneo
-					setAimAngle(90)
-					
-				#Invertendo a posição da DarkBall, se necessário...
-				if darkball_generated && $DARKBALL_SPOT_Position2D.position.x < 0:
-					if !darkball_thrown:
-						DarkBall.position.x = get_parent().get_node("Player").position.x + $DARKBALL_SPOT_Position2D.position.x
-			
-		elif Input.is_action_pressed("ui_left"):
-			#Checando se o personagem não está mirando
-			if is_aiming == false:
-				velocity.x = -MOVESPEED
-				if on_ground == true && is_attacking == false:
-					$UPBODY_AnimatedSprite.play("Walk")
-					$DOWNBODY_AnimatedSprite.play("Walk")
-					if hand_busy == false:
-						$RIGHTHAND_AnimatedSprite.play("Walk")
-				
-				if $UPBODY_AnimatedSprite.flip_h == false && $DOWNBODY_AnimatedSprite.flip_h == false && $RIGHTHAND_AnimatedSprite.flip_h == false:
-					$UPBODY_AnimatedSprite.flip_h = true
-					$RIGHTHAND_AnimatedSprite.flip_h = true
-					$DOWNBODY_AnimatedSprite.flip_h = true
-				
-				if sign($Position2D.position.x) == 1:
-					$Position2D.position.x *= -1
-					$DARKBALL_SPOT_Position2D.position.x *= -1
-				
-			else: #Caso o personagem esteja mirando...
-				#Registrando que a AimArrow está visível
-				aimarrow_visible = true
-				
-				#Invertendo Sprites, se necessário...
-				if !$UPBODY_AnimatedSprite.flip_h && !$DOWNBODY_AnimatedSprite.flip_h && !$RIGHTHAND_AnimatedSprite.flip_h:
-					$UPBODY_AnimatedSprite.flip_h = true
-					$RIGHTHAND_AnimatedSprite.flip_h = true
-					$DOWNBODY_AnimatedSprite.flip_h = true
-				
-				if sign($Position2D.position.x) == 1:
-					$Position2D.position.x *= -1
-					$DARKBALL_SPOT_Position2D.position.x *= -1
-					
-				#Ajustando a AimArrow
-				$AIMARROW.visible = true
-				$AIMARROW/AIMARROW_AnimatedSprite.play("EnergyFlow")
-				if Input.is_action_pressed("ui_up"): #Caso diagonal 1
-					setAimAngle(-45)
-				elif Input.is_action_pressed("ui_down"): #Caso diagonal 2
-					setAimAngle(-135)
-				elif !Input.is_action_pressed("ui_up") && !Input.is_action_pressed("ui_down"): #Caso retilíneo
-					setAimAngle(-90)
-				
-				#Invertendo a posição da DarkBall, se necessário...
-				if darkball_generated && $DARKBALL_SPOT_Position2D.position.x > 0:
-					if !darkball_thrown:
-						DarkBall.position.x = get_parent().get_node("Player").position.x + $DARKBALL_SPOT_Position2D.position.x
-		else:
-			velocity.x = 0
-			if on_ground == true && is_attacking == false:
-				$UPBODY_AnimatedSprite.play("Idle")
-				$DOWNBODY_AnimatedSprite.play("Idle")
-				if hand_busy == false:
-					$RIGHTHAND_AnimatedSprite.play("Idle")
+						$RIGHTHAND_AnimatedSprite.play("Idle")
 		
 		#Movimento: Eixo Y
 		if Input.is_action_pressed("ui_up"):
@@ -180,7 +207,7 @@ func _physics_process(delta):
 					setAimAngle(0)
 		
 		#Ações
-		if Input.is_action_pressed("ui_select") && !is_attacking && !is_aiming:				
+		if Input.is_action_pressed("ui_select") && !is_attacking && !is_aiming && !is_dashing:				
 			is_attacking = true
 			var Bullet = BULLET.instance()
 			Bullet.damage = 10
@@ -197,7 +224,7 @@ func _physics_process(delta):
 			get_parent().add_child(Bullet) #Adicionando a bullet como nó filho de TrainStage
 			Bullet.position = $Position2D.global_position
 		
-		if Input.is_action_just_pressed("c_button"):
+		if Input.is_action_just_pressed("c_button") && !is_dashing:
 			if darkball_thrown:
 				aimArrowThrowFeedbackReset()
 				
@@ -236,14 +263,14 @@ func _physics_process(delta):
 						elif getAimAngle() == -135:
 							DarkBall.ballInitialize(true, Vector2(throwFactor*-500, throwFactor*10))
 							
-				else: #Se não estiver mirando...
-					if hand_busy == false:
-						hand_busy = true
-						$RIGHTHAND_AnimatedSprite.play("Throw")
-						#Timer para prevenção contra crashes de animação
-						$RIGHTHAND_AnimatedSprite/ANTI_ANIM_CRASH_Timer.start()
+				#else: #Se não estiver mirando... (Nota: Usar esse trecho do código para chamar o Tesseract de Zan, na Save Room.)
+				#	if hand_busy == false:
+				#		hand_busy = true
+				#		$RIGHTHAND_AnimatedSprite.play("Throw")
+				#		#Timer para prevenção contra crashes de animação
+				#		$RIGHTHAND_AnimatedSprite/ANTI_ANIM_CRASH_Timer.start()
 						
-		if Input.is_action_pressed("shift_button"):
+		if Input.is_action_pressed("shift_button") && !is_dashing:
 			is_aiming = true			
 			if on_ground == true && is_attacking == false:
 				velocity.x = 0
@@ -289,10 +316,52 @@ func _physics_process(delta):
 			#Ajustes finais nas variáveis
 			darkball_generated = false
 			darkball_thrown = false
-				
-	velocity.y = velocity.y + GRAVITY
+		
+		if Input.is_action_just_pressed("x_button") && !is_dashing && dashReady == true:
+			is_dashing = true
+			dash(1)
+			
+			#Desligando outros mecanismos para iniciar o Dash
+			hand_busy = false
+			is_aiming = false
+			aimarrow_visible = false
+			aimArrowThrowFeedbackReset()
+			
+			#Desligando a AimArrow
+			$AIMARROW.visible = false
+			$AIMARROW/AIMARROW_AnimatedSprite.stop()
+			
+			#Desinstanciando a DarkBall
+			if darkball_generated && !darkball_thrown:
+				darkball_generated = false
+				DarkBall.queue_free()
+				DarkBall = null
+			
+			#Ajustes finais nas variáveis
+			darkball_generated = false
+			darkball_thrown = false
+	
+	if !is_dashing:			
+		velocity.y = velocity.y + GRAVITY #GRAVIDADE ATUANDO
 		
 	#Verificações finais
+		#Batida contra um objeto/parede ao usar o Dash
+	if is_dashing && is_on_wall():
+		$DASH_Timer.wait_time = 0.0001 #Provocando a função timeout do DASH_Timer
+		$DASH_Timer.start()
+		for i in $OBJECT_DETECTION_Area2D.get_overlapping_bodies():
+			if "Enemy" in i.name: #Dano do Smash
+				i.lifepoints -= SMASH_DAMAGE
+				
+				#Som de feedback de acerto
+				var SoundFX = SOUNDFX.instance()
+				i.add_child(SoundFX)
+				SoundFX.playfx("Pain")
+				
+				if i.lifepoints <= 0:
+					i.lifepoints = 0
+					i.dead()
+	
 		#Cria o feedback de arremesso da AimArrow
 	if aimarrow_visible:
 		if $AIMARROW/AIMARROW_BACKMETER_Sprite.modulate.r < 1:
@@ -347,16 +416,17 @@ func _physics_process(delta):
 		else:
 			on_ground = false
 			#if is_attacking == false:
-			if velocity.y < 0:
-				$UPBODY_AnimatedSprite.play("Jump")
-				$DOWNBODY_AnimatedSprite.play("Jump")
-				if hand_busy == false:
-					$RIGHTHAND_AnimatedSprite.play("Jump")
-			else:
-				$UPBODY_AnimatedSprite.play("Fall")
-				$DOWNBODY_AnimatedSprite.play("Fall")
-				if hand_busy == false:	
-					$RIGHTHAND_AnimatedSprite.play("Fall")
+			if !is_dashing:
+				if velocity.y < 0:
+					$UPBODY_AnimatedSprite.play("Jump")
+					$DOWNBODY_AnimatedSprite.play("Jump")
+					if hand_busy == false:
+						$RIGHTHAND_AnimatedSprite.play("Jump")
+				else:
+					$UPBODY_AnimatedSprite.play("Fall")
+					$DOWNBODY_AnimatedSprite.play("Fall")
+					if hand_busy == false:	
+						$RIGHTHAND_AnimatedSprite.play("Fall")
 	
 	velocity = move_and_slide(velocity, FLOOR)
 
@@ -365,6 +435,9 @@ func _on_UPBODY_AnimatedSprite_animation_finished():
 	if is_dead == true:
 		get_parent().get_node("Soundtrack").stop()
 		get_tree().change_scene("res://Assets/Scenes/TitleScreen.tscn")
+	else:
+		if is_dashing:
+			$UPBODY_AnimatedSprite.play("Dashing")
 
 func _on_RIGHTHAND_AnimatedSprite_animation_finished():
 	hand_busy = false
@@ -406,5 +479,15 @@ func _on_AIMARROW_SUPERTHROW_Timer_timeout():
 	throwFactor = 2
 	gateLifeTime = 20
 
+func _on_DASH_Timer_timeout():
+	is_dashing = false
+	dashReady = false #Iniciando cooldown do Dash
+	$DASH_COOLDOWN_Timer.wait_time = dashCooldownTime
+	$DASH_COOLDOWN_Timer.start()
+	
+func _on_DASH_COOLDOWN_Timer_timeout():
+	dashReady = true
+
 func _on_DOWNBODY_AnimatedSprite_animation_finished():
 	pass # Replace with function body.
+
