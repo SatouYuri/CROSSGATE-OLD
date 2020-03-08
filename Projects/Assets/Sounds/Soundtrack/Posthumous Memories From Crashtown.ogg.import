@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Posthumous Memories From Crashtown.ogg-8b1c02a953cf3578a781f2a1baa03962.oggstr"
+
+[deps]
+
+source_file="res://Assets/Sounds/Soundtrack/Posthumous Memories From Crashtown.ogg"
+dest_files=[ "res://.import/Posthumous Memories From Crashtown.ogg-8b1c02a953cf3578a781f2a1baa03962.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0
