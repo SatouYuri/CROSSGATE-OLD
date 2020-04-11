@@ -1,0 +1,8 @@
+DOCUMENTAÇÃO: PLAYER (Brandon Woodfield)
+
+SUBDIVISÕES
+O nó Player é subdividido em 4 partes, que funcionam individual e coordenadamente, na mesma camada (z-index):
+-UBODY (Upper Body): Apenas a parte superior do personagem, sem os braços.
+-DBODY (Down Body): Apenas a parte inferior do personagem; apenas as pernas.
+-LARM (Left Arm): O braço do 'fundo', considerando que o personagem está olhando para a direita; braço cuja mão puxa o gatilho das armas de fogo.
+-RARM (Right Arm): O braço da 'frente', considerando que o personagem está olhando para a direita; braço cuja mão invoca os portais e segura armas de fogo de duas mãos (rifles, fuzis, cajados, etc.)
