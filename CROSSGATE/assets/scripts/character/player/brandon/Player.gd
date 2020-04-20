@@ -10,7 +10,16 @@ const FLOOR = Vector2(0, -1)
 var velocity = Vector2()
 
 #Funções
+func bodyLayerAdjust(anim): #Configura o valor de z-index em cada parte individual do corpo.
+	if(anim == 'idle'):
+		$UBODY.z_index = 3
+		$DBODY.z_index = 2
+		$LARM.z_index  = 2
+		$RARM.z_index  = 2
+	#elif(anim == 'run'): 3 2 1 4 ... etc
+
 func playAnim(anim): #Inicia, para todas as partes do corpo, a animação inserida.
+	bodyLayerAdjust(anim) #configura o z-index, dada a animação inserida.
 	$UBODY.play(anim)
 	$DBODY.play(anim)
 	$LARM.play(anim)
