@@ -41,7 +41,6 @@ script = ExtResource( 1 )
 [node name="Soundtrack" parent="." instance=ExtResource( 2 )]
 
 [node name="Background" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Sky" type="Node2D" parent="Background"]
 editor/display_folded = true
@@ -412,7 +411,7 @@ editor/display_folded = true
 position = Vector2( -374, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonB1" index="0"]
-frame = 5
+frame = 7
 
 [node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB1/Speedwagon/StaticBody2D" index="3"]
 disabled = true
@@ -493,7 +492,7 @@ editor/display_folded = true
 position = Vector2( 946, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonB2" index="0"]
-frame = 6
+frame = 0
 
 [node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB2/Speedwagon/StaticBody2D" index="2"]
 position = Vector2( -22, -0.5 )
@@ -532,7 +531,7 @@ editor/display_folded = true
 position = Vector2( 1473, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonC1" index="0"]
-frame = 2
+frame = 4
 
 [node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonC1/Speedwagon/StaticBody2D" index="2"]
 disabled = true
@@ -555,6 +554,9 @@ shape = SubResource( 1 )
 editor/display_folded = true
 position = Vector2( 1737, 103 )
 
+[node name="Speedwagon" parent="Speedwagons/SpeedwagonC2" index="0"]
+frame = 7
+
 [node name="RIGHTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonC2/Speedwagon/StaticBody2D" index="3"]
 disabled = true
 
@@ -574,7 +576,7 @@ editor/display_folded = true
 position = Vector2( 2001, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonB4" index="0"]
-frame = 5
+frame = 7
 
 [node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB4/Speedwagon/StaticBody2D" index="2"]
 disabled = true
@@ -628,7 +630,7 @@ editor/display_folded = true
 position = Vector2( 2793, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonB5" index="0"]
-frame = 5
+frame = 7
 
 [node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB5/Speedwagon/StaticBody2D" index="2"]
 disabled = true
@@ -649,7 +651,7 @@ editor/display_folded = true
 position = Vector2( 3057, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonB6" index="0"]
-frame = 4
+frame = 6
 
 [node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB6/Speedwagon/StaticBody2D" index="2"]
 disabled = true
@@ -670,7 +672,7 @@ editor/display_folded = true
 position = Vector2( 3321, 103 )
 
 [node name="Speedwagon" parent="Speedwagons/SpeedwagonB7" index="0"]
-frame = 3
+frame = 5
 
 [node name="LEFTDOOR_CollisionShape2D" parent="Speedwagons/SpeedwagonB7/Speedwagon/StaticBody2D" index="2"]
 disabled = true
