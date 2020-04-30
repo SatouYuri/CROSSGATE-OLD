@@ -228,7 +228,7 @@ func _physics_process(delta):
 					specifiedPlayAnim("idle_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
 				else:
 					specifiedPlayAnim("run_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
-				$Weapons/Ranger/AnimatedSprite.play("shoot") #NOTA: Depois, generalizar para qualquer arma...
+				$Weapons/Ranger/AnimatedSprite.play("shoot") #NOTA / WIP: Depois, generalizar para qualquer arma...
 				actionState = ATTACKING
 				$Weapons/Ranger.shoot("Player")
 		

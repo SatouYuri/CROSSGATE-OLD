@@ -57,6 +57,16 @@ CG_GATE={
  ]
 }
 
+[layer_names]
+
+2d_physics/layer_1="Player"
+2d_physics/layer_2="Enemies"
+2d_physics/layer_3="Bosses"
+2d_physics/layer_4="Collectibles"
+2d_physics/layer_5="Environment"
+2d_physics/layer_6="Dynamic Objects"
+2d_physics/layer_7="Static Objects"
+
 [rendering]
 
 environment/default_environment="res://default_env.tres"
