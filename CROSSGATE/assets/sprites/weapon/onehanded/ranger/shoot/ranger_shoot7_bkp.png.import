@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/testfloorBG.jpg-fcdc01765de374ebd73131c4c040df9e.stex"
+path="res://.import/ranger_shoot7_bkp.png-86ccf68fc2095286385974177495d1ef.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/environment/background/testfloorBG.jpg"
-dest_files=[ "res://.import/testfloorBG.jpg-fcdc01765de374ebd73131c4c040df9e.stex" ]
+source_file="res://assets/sprites/weapon/onehanded/ranger/shoot/ranger_shoot7_bkp.png"
+dest_files=[ "res://.import/ranger_shoot7_bkp.png-86ccf68fc2095286385974177495d1ef.stex" ]
 
 [params]
 

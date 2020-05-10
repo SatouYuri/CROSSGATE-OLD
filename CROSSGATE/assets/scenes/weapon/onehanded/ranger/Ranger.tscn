@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=13 format=2]
 
 [ext_resource path="res://assets/scripts/weapon/onehanded/Ranger/Ranger.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/weapon/onehanded/RANGER/shoot/ranger_shoot1.png" type="Texture" id=2]
@@ -10,6 +10,7 @@
 [ext_resource path="res://assets/sprites/weapon/onehanded/RANGER/shoot/ranger_shoot7.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/weapon/onehanded/ranger/aiming/ranger_aiming.png" type="Texture" id=9]
 [ext_resource path="res://assets/sprites/weapon/onehanded/RANGER/aiming/ranger_aiming.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/weapon/onehanded/ranger/hands/ranger_left_hand_brandon.png" type="Texture" id=11]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
@@ -35,3 +36,9 @@ offset = Vector2( -24, -26 )
 
 [node name="Position2D" type="Position2D" parent="."]
 position = Vector2( 13, -5 )
+
+[node name="Hands" type="Node2D" parent="."]
+
+[node name="Brandon" type="Sprite" parent="Hands"]
+position = Vector2( 0, -2 )
+texture = ExtResource( 11 )

@@ -1,6 +1,7 @@
 extends KinematicBody2D
 
 #Constantes
+const SCRIPT_TYPE = "Player"
 const DEAD = 0
 const STANDBY = 1
 const AIMING = 2
@@ -14,12 +15,12 @@ const FLOOR = Vector2(0, -1)
 #Variáveis de Estado
 var velocity = Vector2()
 var actionState = STANDBY
-var bodyType = "ACTOR"
+var stopped = false
 var lifepoints = 100
 
 #Funções
 func die():
-	actionState = DEAD
+	actionState = DEAD #NOTA / WIP: Depois, ajustar a função de morte.
 
 func bodyLayerAdjust(anim): #Configura o valor de z-index em cada parte individual do corpo.
 	if('idle' in anim):
@@ -117,6 +118,7 @@ func mirror(side): #Espelha os sprites de todas as partes do corpo a favor do la
 	$LARM.flip_h  = side
 	$RARM.flip_h  = side
 	$Weapons/Ranger.mirror(side)
+	$Weapons/Ranger.position.x = abs($Weapons/Ranger.position.x)*getSide()
 	$UNDERSLIDING_DETECTOR.cast_to.x = abs($UNDERSLIDING_DETECTOR.cast_to.x)*getSide()
 
 func collisionState(actionState): #Atualiza a caixa de colisão para o caso de deslizamento.
@@ -145,116 +147,152 @@ func isUndersliding(): #Retorna true se estiver deslizando e não for possível 
 	else:
 		return false
 
+func theWorld(time): #Paraliza o mundo pelo período de tempo (em segundos) inserido. Essa função deve ser chamada ao ativar o CROSSGATE.
+	#for i in get_tree().get_nodes_in_group("Stoppable"):
+	#	if !i.stopped:
+	#		i.stopped = true
+	#	else:
+	#		i.stopped = false
+	get_parent().theWorld(time)
+	
+func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada pelo nó pai "World.tscn".
+	if !stopped:
+		stopped = true
+		for t in $Timers.get_children():
+			t.paused = true
+		$UBODY.stop()
+		$LARM.stop()
+		$RARM.stop()
+		$DBODY.stop()
+		$Weapons/Ranger/AnimatedSprite.stop()
+	else:
+		stopped = false
+		for t in $Timers.get_children():
+			t.paused = false
+		$UBODY.play()
+		$LARM.play()
+		$RARM.play()
+		$DBODY.play()
+		$Weapons/Ranger/AnimatedSprite.play()
+
 #Código Principal
 func _physics_process(delta):
-	#Movimentação: Eixo X
-	if Input.is_action_pressed("CG_RIGHT") and !isUndersliding():
-		mirror(false)
-		if actionState == SLIDING:
-			velocity.x = MOVESPEED*2
-		else:
-			velocity.x = MOVESPEED
-	elif Input.is_action_pressed("CG_LEFT") and !isUndersliding():
-		mirror(true)
-		if actionState == SLIDING:
-			velocity.x = -MOVESPEED*2
-		else:
-			velocity.x = -MOVESPEED
-	elif actionState != SLIDING:# and is_on_floor():
-		velocity.x = 0
-
-	#Movimentação: Eixo Y
-	if Input.is_action_pressed("CG_UP") and is_on_floor() and !isUndersliding():
-		velocity.y = JUMP_HEIGHT
-		if actionState == SLIDING:
-			actionState = STANDBY
-			$Timers/SLIDING_COOLDOWN.start()
-		
-	velocity.y = velocity.y + GRAVITY #Força da gravidade
+	if !stopped:
+		#Movimentação: Eixo X
+		if Input.is_action_pressed("CG_RIGHT") and !isUndersliding():
+			mirror(false)
+			if actionState == SLIDING:
+				velocity.x = MOVESPEED*2
+			else:
+				velocity.x = MOVESPEED
+		elif Input.is_action_pressed("CG_LEFT") and !isUndersliding():
+			mirror(true)
+			if actionState == SLIDING:
+				velocity.x = -MOVESPEED*2
+			else:
+				velocity.x = -MOVESPEED
+		elif actionState != SLIDING:# and is_on_floor():
+			velocity.x = 0
+	
+		#Movimentação: Eixo Y
+		if Input.is_action_pressed("CG_UP") and is_on_floor() and !isUndersliding():
+			velocity.y = JUMP_HEIGHT
+			if actionState == SLIDING:
+				actionState = STANDBY
+				$Timers/SLIDING_COOLDOWN.start()
+			
+		velocity.y = velocity.y + GRAVITY #Força da gravidade
 
 	#Animações
 	if actionState != SLIDING: #Se não está deslizando...
 		weaponSpriteAdjust()
-		if actionState == STANDBY:
-			$Weapons/Ranger.visible = false
-			if is_on_floor():
-				if velocity.x == 0:
-					playAnim("idle")
+		if !stopped:
+			if actionState == STANDBY:
+				$Weapons/Ranger.visible = false
+				if is_on_floor():
+					if velocity.x == 0:
+						playAnim("idle")
+					else:
+						playAnim("run")
 				else:
-					playAnim("run")
-			else:
-				if velocity.y < 0: #Se está subindo...
+					if velocity.y < 0: #Se está subindo...
+						if velocity.x == 0:
+							playAnim("idle_jump")
+						else:
+							playAnim("run_jump")
+					elif velocity.y > 0: #Se está descendo...
+						if velocity.x == 0:
+							playAnim("idle_fall")
+						else:
+							playAnim("run_fall")
+			elif actionState == AIMING:
+				if is_on_floor():
+					#Sincronizando os braços com o corpo...
+					var synchroFrame = $UBODY.get_frame()
+					$DBODY.set_frame(synchroFrame)
+					$LARM.set_frame(synchroFrame)
+					$RARM.set_frame(synchroFrame)
 					if velocity.x == 0:
-						playAnim("idle_jump")
+						playAnim("idle_shoot_aiming")
 					else:
-						playAnim("run_jump")
-				elif velocity.y > 0: #Se está descendo...
-					if velocity.x == 0:
-						playAnim("idle_fall")
-					else:
-						playAnim("run_fall")
-		elif actionState == AIMING:
-			if is_on_floor():
-				#Sincronizando os braços com o corpo...
-				var synchroFrame = $UBODY.get_frame()
-				$DBODY.set_frame(synchroFrame)
-				$LARM.set_frame(synchroFrame)
-				$RARM.set_frame(synchroFrame)
-				if velocity.x == 0:
-					playAnim("idle_shoot_aiming")
+						playAnim("run_shoot_aiming")
 				else:
-					playAnim("run_shoot_aiming")
-			else:
-				if velocity.y < 0: #Se está subindo...
+					if velocity.y < 0: #Se está subindo...
+						if velocity.x == 0:
+							playAnim("idle_jump")
+							specifiedPlayAnim("idle_air_shoot_aiming", "LARM")
+						else:
+							playAnim("run_jump")
+							specifiedPlayAnim("run_air_shoot_aiming", "LARM")
+					elif velocity.y > 0: #Se está descendo...
+						if velocity.x == 0:
+							playAnim("idle_fall")
+							specifiedPlayAnim("idle_air_shoot_aiming", "LARM")
+						else:
+							playAnim("run_fall")
+							specifiedPlayAnim("run_air_shoot_aiming", "LARM")
+			#Ações
+			if Input.is_action_pressed("CG_SHOOT") and $Timers/SHOT_COOLDOWN.time_left == 0: #Disparo
+				$Weapons/Ranger.visible = true
+				$Timers/SHOT_COOLDOWN.start()
+				if actionState != ATTACKING:
 					if velocity.x == 0:
-						playAnim("idle_jump")
-						specifiedPlayAnim("idle_air_shoot_aiming", "LARM")
+						specifiedPlayAnim("idle_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
 					else:
-						playAnim("run_jump")
-						specifiedPlayAnim("run_air_shoot_aiming", "LARM")
-				elif velocity.y > 0: #Se está descendo...
-					if velocity.x == 0:
-						playAnim("idle_fall")
-						specifiedPlayAnim("idle_air_shoot_aiming", "LARM")
-					else:
-						playAnim("run_fall")
-						specifiedPlayAnim("run_air_shoot_aiming", "LARM")
-		#Ações
-		if Input.is_action_pressed("CG_SHOOT") and $Timers/SHOT_COOLDOWN.time_left == 0: #Disparo
-			$Weapons/Ranger.visible = true
-			$Timers/SHOT_COOLDOWN.start()
-			if actionState != ATTACKING:
-				if velocity.x == 0:
-					specifiedPlayAnim("idle_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
-				else:
-					specifiedPlayAnim("run_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
-				$Weapons/Ranger/AnimatedSprite.play("shoot") #NOTA / WIP: Depois, generalizar para qualquer arma...
-				actionState = ATTACKING
-				$Weapons/Ranger.shoot("Player")
-		
-		if Input.is_action_pressed("CG_DOWN") and $Timers/SLIDING_COOLDOWN.time_left == 0 and isUnderslidingPossible() and is_on_floor(): #Slide Start
-			if actionState != SLIDING:
-				if velocity.x != 0:
-					$Weapons/Ranger.visible = false
-					playAnim("slide")
-					actionState = SLIDING
-					$Timers/SLIDING.start()
+						specifiedPlayAnim("run_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
+					$Weapons/Ranger/AnimatedSprite.play("shoot") #NOTA / WIP: Depois, generalizar para qualquer arma...
+					actionState = ATTACKING
+					$Weapons/Ranger.shoot("Player")
+			
+			if Input.is_action_pressed("CG_DOWN") and $Timers/SLIDING_COOLDOWN.time_left == 0 and isUnderslidingPossible() and is_on_floor(): #Slide Start
+				if actionState != SLIDING:
+					if velocity.x != 0:
+						$Weapons/Ranger.visible = false
+						playAnim("slide")
+						actionState = SLIDING
+						$Timers/SLIDING.start()
 		
 	else: #Se está deslizando...
-		if is_on_wall(): #Se está colidindo com uma parede...
-			$Timers/SLIDING.stop()
-			actionState = STANDBY
-		else: #Se não está colidindo com uma parede...
-			if !isStandingPossible():
+		if !stopped:
+			if is_on_wall(): #Se está colidindo com uma parede...
 				$Timers/SLIDING.stop()
-			else:
-				if $Timers/SLIDING.is_stopped():
-					actionState = STANDBY
-					$Timers/SLIDING_COOLDOWN.start()
+				actionState = STANDBY
+			else: #Se não está colidindo com uma parede...
+				if !isStandingPossible():
+					$Timers/SLIDING.stop()
+				else:
+					if $Timers/SLIDING.is_stopped():
+						actionState = STANDBY
+						$Timers/SLIDING_COOLDOWN.start()
+	
+	#CROSSGATE
+	if Input.is_action_just_pressed("CG_GATE"): #NOTA / WIP: Ajustar para parar o tudo que for pertinente...
+		theWorld(0)
 
 	#Comandos finais do frame
 	collisionState(actionState)
-	velocity = move_and_slide(velocity, FLOOR)
+	if !stopped:
+		velocity = move_and_slide(velocity, FLOOR)
 
 func _on_LARM_animation_finished():
 	if '_shoot' in $LARM.animation and !'_aiming' in $LARM.animation: #Se a animação de ataque acabou...

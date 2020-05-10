@@ -1,10 +1,13 @@
 extends Node2D
 
+#Constantes
+const SCRIPT_TYPE = "Attachment"
 const BULLET = preload("res://assets/scenes/environment/objects/dynamic/bullets/Bullet.tscn") #Carregar a bullet na memória
 
+#Funções
 func mirror(side):
 	$AnimatedSprite.flip_h = side
-	#$Position2D.position.x = getSide()*$Position2D.position.x
+	$Hands/Brandon.flip_h = side
 	if !side:
 		$Position2D.position.x = abs($Position2D.position.x)
 	else:

@@ -1,0 +1,184 @@
+[gd_scene load_steps=11 format=2]
+
+[ext_resource path="res://assets/scripts/environment/background/sunlight/SunlightBackground.gd" type="Script" id=1]
+[ext_resource path="res://assets/sprites/environment/background/sunlight/sky.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/environment/background/sunlight/dunes.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/environment/background/sunlight/sand_cactus.png" type="Texture" id=4]
+
+[sub_resource type="Shader" id=6]
+code = "shader_type canvas_item;
+uniform float scrollSpeed;
+
+void fragment() {
+	vec2 shiftedUV = UV;
+	shiftedUV.x += TIME * scrollSpeed;
+	vec4 col = texture(TEXTURE, shiftedUV);
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=7]
+shader = SubResource( 6 )
+shader_param/scrollSpeed = null
+
+[sub_resource type="Shader" id=4]
+code = "shader_type canvas_item;
+uniform float scrollSpeed;
+
+void fragment() {
+	vec2 shiftedUV = UV;
+	shiftedUV.x += TIME * scrollSpeed;
+	vec4 col = texture(TEXTURE, shiftedUV);
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=5]
+shader = SubResource( 4 )
+shader_param/scrollSpeed = null
+
+[sub_resource type="Shader" id=3]
+code = "shader_type canvas_item;
+uniform float scrollSpeed;
+
+void fragment() {
+	vec2 shiftedUV = UV;
+	shiftedUV.x += TIME * scrollSpeed;
+	vec4 col = texture(TEXTURE, shiftedUV);
+	COLOR = col;
+}"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 3 )
+shader_param/scrollSpeed = null
+
+[node name="SunlightBackground" type="Node2D"]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [  ]
+}
+
+[node name="Sky" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Region0" type="Node2D" parent="Sky"]
+position = Vector2( -819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Sky/Region0"]
+material = SubResource( 7 )
+margin_left = -409.0
+margin_top = -434.0
+margin_right = 1639.0
+margin_bottom = 590.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="Region1" type="Node2D" parent="Sky"]
+
+[node name="TextureRect" type="TextureRect" parent="Sky/Region1"]
+material = SubResource( 7 )
+margin_left = -409.0
+margin_top = -434.0
+margin_right = 1639.0
+margin_bottom = 590.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="Region2" type="Node2D" parent="Sky"]
+position = Vector2( 819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Sky/Region2"]
+material = SubResource( 7 )
+margin_left = -409.0
+margin_top = -434.0
+margin_right = 1639.0
+margin_bottom = 590.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 2 )
+stretch_mode = 2
+
+[node name="Dunes" type="Node2D" parent="."]
+editor/display_folded = true
+
+[node name="Region0" type="Node2D" parent="Dunes"]
+editor/display_folded = true
+position = Vector2( -819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Dunes/Region0"]
+material = SubResource( 5 )
+margin_left = -409.0
+margin_top = -178.0
+margin_right = 1639.0
+margin_bottom = 334.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="Region1" type="Node2D" parent="Dunes"]
+editor/display_folded = true
+
+[node name="TextureRect" type="TextureRect" parent="Dunes/Region1"]
+material = SubResource( 5 )
+margin_left = -409.0
+margin_top = -178.0
+margin_right = 1639.0
+margin_bottom = 334.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="Region2" type="Node2D" parent="Dunes"]
+editor/display_folded = true
+position = Vector2( 819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Dunes/Region2"]
+material = SubResource( 5 )
+margin_left = -409.0
+margin_top = -178.0
+margin_right = 1639.0
+margin_bottom = 334.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 3 )
+stretch_mode = 2
+
+[node name="Sand" type="Node2D" parent="."]
+
+[node name="Region0" type="Node2D" parent="Sand"]
+editor/display_folded = true
+position = Vector2( -819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Sand/Region0"]
+material = SubResource( 2 )
+margin_left = -409.0
+margin_top = -125.0
+margin_right = 1639.0
+margin_bottom = 387.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Region1" type="Node2D" parent="Sand"]
+editor/display_folded = true
+
+[node name="TextureRect" type="TextureRect" parent="Sand/Region1"]
+material = SubResource( 2 )
+margin_left = -409.0
+margin_top = -125.0
+margin_right = 1639.0
+margin_bottom = 387.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+stretch_mode = 2
+
+[node name="Region2" type="Node2D" parent="Sand"]
+position = Vector2( 819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="Sand/Region2"]
+material = SubResource( 2 )
+margin_left = -409.0
+margin_top = -125.0
+margin_right = 1639.0
+margin_bottom = 387.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 4 )
+stretch_mode = 2

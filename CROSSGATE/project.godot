@@ -16,7 +16,7 @@ _global_script_class_icons={
 [application]
 
 config/name="CROSSGATE"
-run/main_scene="res://assets/scenes/environment/objects/static/test/Testfloor.tscn"
+run/main_scene="res://assets/scenes/environment/world/World.tscn"
 config/icon="res://icon.png"
 
 [display]
