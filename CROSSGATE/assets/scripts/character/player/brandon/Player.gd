@@ -177,7 +177,11 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 
 #Código Principal
 func _physics_process(delta):
-	if !stopped:
+	if !stopped: #Se o tempo não estiver parado...
+		#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
+		if $TIMESTOP_MASK.modulate.a > 0:
+			$TIMESTOP_MASK.modulate.a -= 0.1
+		
 		#Movimentação: Eixo X
 		if Input.is_action_pressed("CG_RIGHT") and !isUndersliding():
 			mirror(false)
@@ -202,6 +206,11 @@ func _physics_process(delta):
 				$Timers/SLIDING_COOLDOWN.start()
 			
 		velocity.y = velocity.y + GRAVITY #Força da gravidade
+		
+	else: #Se o tempo estiver parado...
+		#Ajustando a máscara TIMESTOP_MASK (tempo parando)...
+		if $TIMESTOP_MASK.modulate.a < 1:
+			$TIMESTOP_MASK.modulate.a += 0.1
 
 	#Animações
 	if actionState != SLIDING: #Se não está deslizando...

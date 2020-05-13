@@ -5,50 +5,83 @@
 [ext_resource path="res://assets/sprites/environment/background/sunlight/dunes.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/environment/background/sunlight/sand_cactus.png" type="Texture" id=4]
 
-[sub_resource type="Shader" id=6]
+[sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
 uniform float scrollSpeed;
+uniform float time;
+uniform bool stopped;
 
 void fragment() {
 	vec2 shiftedUV = UV;
-	shiftedUV.x += TIME * scrollSpeed;
+	shiftedUV.x += time * scrollSpeed;
 	vec4 col = texture(TEXTURE, shiftedUV);
-	COLOR = col;
+	COLOR = col;	
+}
+
+void vertex() {
+	if(stopped){
+		VERTEX.x += cos(TIME) * 15.0;
+		VERTEX.y += sin(TIME) * 15.0;
+	}
 }"
 
-[sub_resource type="ShaderMaterial" id=7]
-shader = SubResource( 6 )
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
 shader_param/scrollSpeed = null
-
-[sub_resource type="Shader" id=4]
-code = "shader_type canvas_item;
-uniform float scrollSpeed;
-
-void fragment() {
-	vec2 shiftedUV = UV;
-	shiftedUV.x += TIME * scrollSpeed;
-	vec4 col = texture(TEXTURE, shiftedUV);
-	COLOR = col;
-}"
-
-[sub_resource type="ShaderMaterial" id=5]
-shader = SubResource( 4 )
-shader_param/scrollSpeed = null
+shader_param/time = null
+shader_param/stopped = null
 
 [sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 uniform float scrollSpeed;
+uniform float time;
+uniform bool stopped;
 
 void fragment() {
 	vec2 shiftedUV = UV;
-	shiftedUV.x += TIME * scrollSpeed;
+	shiftedUV.x += time * scrollSpeed;
 	vec4 col = texture(TEXTURE, shiftedUV);
-	COLOR = col;
+	COLOR = col;	
+}
+
+void vertex() {
+	if(stopped){
+		VERTEX.x += cos(TIME) * 25.0;
+		VERTEX.y += sin(TIME) * 25.0;
+	}
 }"
 
-[sub_resource type="ShaderMaterial" id=2]
+[sub_resource type="ShaderMaterial" id=4]
 shader = SubResource( 3 )
 shader_param/scrollSpeed = null
+shader_param/time = null
+shader_param/stopped = null
+
+[sub_resource type="Shader" id=5]
+code = "shader_type canvas_item;
+uniform float scrollSpeed;
+uniform float time;
+uniform bool stopped;
+
+void fragment() {
+	vec2 shiftedUV = UV;
+	shiftedUV.x += time * scrollSpeed;
+	vec4 col = texture(TEXTURE, shiftedUV);
+	COLOR = col;	
+}
+
+void vertex() {
+	if(stopped){
+		VERTEX.x += cos(TIME) * 30.0;
+		VERTEX.y += sin(TIME) * 30.0;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=6]
+shader = SubResource( 5 )
+shader_param/scrollSpeed = 0.0
+shader_param/time = null
+shader_param/stopped = null
 
 [node name="SunlightBackground" type="Node2D"]
 script = ExtResource( 1 )
@@ -57,13 +90,13 @@ __meta__ = {
 }
 
 [node name="Sky" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Region0" type="Node2D" parent="Sky"]
+editor/display_folded = true
 position = Vector2( -819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="Sky/Region0"]
-material = SubResource( 7 )
+material = SubResource( 2 )
 margin_left = -409.0
 margin_top = -434.0
 margin_right = 1639.0
@@ -73,9 +106,10 @@ texture = ExtResource( 2 )
 stretch_mode = 2
 
 [node name="Region1" type="Node2D" parent="Sky"]
+editor/display_folded = true
 
 [node name="TextureRect" type="TextureRect" parent="Sky/Region1"]
-material = SubResource( 7 )
+material = SubResource( 2 )
 margin_left = -409.0
 margin_top = -434.0
 margin_right = 1639.0
@@ -85,10 +119,11 @@ texture = ExtResource( 2 )
 stretch_mode = 2
 
 [node name="Region2" type="Node2D" parent="Sky"]
+editor/display_folded = true
 position = Vector2( 819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="Sky/Region2"]
-material = SubResource( 7 )
+material = SubResource( 2 )
 margin_left = -409.0
 margin_top = -434.0
 margin_right = 1639.0
@@ -98,14 +133,13 @@ texture = ExtResource( 2 )
 stretch_mode = 2
 
 [node name="Dunes" type="Node2D" parent="."]
-editor/display_folded = true
 
 [node name="Region0" type="Node2D" parent="Dunes"]
 editor/display_folded = true
 position = Vector2( -819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="Dunes/Region0"]
-material = SubResource( 5 )
+material = SubResource( 4 )
 margin_left = -409.0
 margin_top = -178.0
 margin_right = 1639.0
@@ -118,7 +152,7 @@ stretch_mode = 2
 editor/display_folded = true
 
 [node name="TextureRect" type="TextureRect" parent="Dunes/Region1"]
-material = SubResource( 5 )
+material = SubResource( 4 )
 margin_left = -409.0
 margin_top = -178.0
 margin_right = 1639.0
@@ -132,7 +166,7 @@ editor/display_folded = true
 position = Vector2( 819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="Dunes/Region2"]
-material = SubResource( 5 )
+material = SubResource( 4 )
 margin_left = -409.0
 margin_top = -178.0
 margin_right = 1639.0
@@ -148,7 +182,7 @@ editor/display_folded = true
 position = Vector2( -819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="Sand/Region0"]
-material = SubResource( 2 )
+material = SubResource( 6 )
 margin_left = -409.0
 margin_top = -125.0
 margin_right = 1639.0
@@ -161,7 +195,7 @@ stretch_mode = 2
 editor/display_folded = true
 
 [node name="TextureRect" type="TextureRect" parent="Sand/Region1"]
-material = SubResource( 2 )
+material = SubResource( 6 )
 margin_left = -409.0
 margin_top = -125.0
 margin_right = 1639.0
@@ -171,10 +205,11 @@ texture = ExtResource( 4 )
 stretch_mode = 2
 
 [node name="Region2" type="Node2D" parent="Sand"]
+editor/display_folded = true
 position = Vector2( 819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="Sand/Region2"]
-material = SubResource( 2 )
+material = SubResource( 6 )
 margin_left = -409.0
 margin_top = -125.0
 margin_right = 1639.0

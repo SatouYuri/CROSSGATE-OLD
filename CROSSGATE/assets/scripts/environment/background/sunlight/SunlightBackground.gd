@@ -4,14 +4,20 @@ extends Node2D
 const SCRIPT_TYPE = "Background"
 
 #Variáveis de Estado
-var scrollSpeed = 0.1
+var scrollSpeed = 0.25
 var distBetweenRegionCenters
 var curRegionConfig
 var curOrigin
+var stopped = false
+var time = 0
 
 #Funções
 func timeStop(): #Paraliza/Desparaliza o background.
-	pass
+	if !stopped:
+		stopped = true
+	else:
+		stopped = false
+	updateShaders("stopped", stopped)
 
 func executeRealoc(side): #Atualiza a posição/arranjo das regiões conforme a configuração de regiões atual (curRegionConfig). Deve ser chamada apenas pela função updateRegionConfig().
 	if !side: #Se for uma realocação de região para a direita...
@@ -54,14 +60,22 @@ func updateRegionConfig(side): #Atualiza o vetor de configuação atual das regi
 		curRegionConfig[0] = realocTarget
 	executeRealoc(side)
 
+func updateShaders(shaderParamName, shaderParamValue):
+	for node in $Sand.get_children():
+		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
+	for node in $Dunes.get_children():
+		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
+	for node in $Sky.get_children():
+		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
+
 #Código Inicial
 func _ready():
 	for node in $Sand.get_children():
 		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed)
 	for node in $Dunes.get_children():
-		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed*0.6)
+		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed * 0.6)
 	for node in $Sky.get_children():
-		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed*0.4)
+		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed * 0.3)
 	position = Vector2(get_parent().get_parent().get_node("Player").position.x, 0)
 	curOrigin = position
 	curRegionConfig = [0, 1, 2]
@@ -69,14 +83,19 @@ func _ready():
 
 #Código Principal
 func _physics_process(delta):
+	#Atualizando o contador de tempo...
+	if !stopped:
+		time += delta
+	else:
+		time += delta * 0.025
+	
+	#Executando realocação de região, caso necessário...
 	if abs(get_parent().get_parent().get_node("Player").position.x - curOrigin.x) > distBetweenRegionCenters/2:
 		if get_parent().get_parent().get_node("Player").position.x > curOrigin.x:
 			updateRegionConfig(false)
 		elif get_parent().get_parent().get_node("Player").position.x < curOrigin.x:
 			updateRegionConfig(true)
 	
-	#Teste de parar o tempo/slow motion: remover depois
-	if Input.is_action_just_pressed("CG_GATE"):
-		Engine.time_scale = 0.01
-	elif Input.is_action_just_released("CG_GATE"):
-		Engine.time_scale = 1
+	#Atualizando o estado de imagem de cada região com base no contador de tempo (parâmetro passado ao shader de cada TextureRect, a cada frame, para controlar a velocidade do background)...
+	updateShaders("time", time)
+
