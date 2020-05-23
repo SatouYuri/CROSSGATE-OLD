@@ -11,12 +11,15 @@ const MOVESPEED = 160
 const GRAVITY = 20
 const JUMP_HEIGHT = -450
 const FLOOR = Vector2(0, -1)
+const GATE = preload("res://assets/scenes/environment/object/dynamic/gate/Gate.tscn") #NOTA / WIP: Depois, generalizar para qualquer Gate. #Carregar o Gate na memória
 
 #Variáveis de Estado
 var velocity = Vector2()
 var actionState = STANDBY
 var stopped = false
 var lifepoints = 100
+var globalMousePosition
+var crossingGates = false
 
 #Funções
 func die():
@@ -154,7 +157,7 @@ func theWorld(time): #Paraliza o mundo pelo período de tempo (em segundos) inse
 	#	else:
 	#		i.stopped = false
 	get_parent().theWorld(time)
-	
+
 func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada pelo nó pai "World.tscn".
 	if !stopped:
 		stopped = true
@@ -176,11 +179,29 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 		$Weapons/Ranger/AnimatedSprite.play()
 
 #Código Principal
+func _input(event):
+	if stopped and event is InputEventMouseButton:
+		if event.is_action_pressed("CG_L_CLICK"): #Inicializar um Gate e adicioná-lo ao mundo, no nó "Background".
+			var gate = GATE.instance()
+			get_parent().gateList.append(gate)
+			get_parent().get_node("Background").add_child(gate)
+			gate.position = get_global_mouse_position()
+		elif event.is_action_pressed("CG_R_CLICK") and get_parent().gateList.size() > 0: #Excluir o último Gate inicializado. 
+			get_parent().gateList[get_parent().gateList.size() - 1].queue_free()
+			get_parent().gateList.remove(get_parent().gateList.size() - 1)
+
 func _physics_process(delta):
 	if !stopped: #Se o tempo não estiver parado...
 		#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
 		if $TIMESTOP_MASK.modulate.a > 0:
 			$TIMESTOP_MASK.modulate.a -= 0.1
+		#Ajustando o círculo do éter CROSSGATE (tempo voltando a correr)...
+		if $AetherCircle.modulate.a > 0:
+			$AetherCircle.modulate.a -= 0.05
+		if $AetherCircle.scale.x > 0:
+			$AetherCircle.scale.x -= 0.01
+		if $AetherCircle.scale.y > 0:
+			$AetherCircle.scale.y -= 0.01
 		
 		#Movimentação: Eixo X
 		if Input.is_action_pressed("CG_RIGHT") and !isUndersliding():
@@ -211,6 +232,13 @@ func _physics_process(delta):
 		#Ajustando a máscara TIMESTOP_MASK (tempo parando)...
 		if $TIMESTOP_MASK.modulate.a < 1:
 			$TIMESTOP_MASK.modulate.a += 0.1
+		#Ajustando o círculo do éter CROSSGATE (tempo parando)...
+		if $AetherCircle.modulate.a < 1:
+			$AetherCircle.modulate.a += 0.1
+		if $AetherCircle.scale.x < 0.5:
+			$AetherCircle.scale.x += 0.1
+		if $AetherCircle.scale.y < 0.5:
+			$AetherCircle.scale.y += 0.1
 
 	#Animações
 	if actionState != SLIDING: #Se não está deslizando...

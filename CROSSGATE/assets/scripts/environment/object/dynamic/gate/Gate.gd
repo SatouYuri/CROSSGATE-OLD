@@ -1,0 +1,105 @@
+extends Node2D
+#Gates sempre devem ser instanciados no nó "Background".
+
+#Constantes
+const SCRIPT_TYPE = "DynamicObject"
+
+#Variáveis de Estado
+var open
+var flashing
+
+#Funções
+func timeStop(): #Gates não são afetados pela parada do tempo
+	pass 
+
+func gateOpen():
+	for node in get_node("SpriteSetClosed").get_children():
+		node.play("opening")
+
+func gateClose():
+	$SpriteSetOpen.visible = false
+	$SpriteSetClosed.visible = true
+	for node in get_node("SpriteSetClosed").get_children():
+		node.play("closing")
+
+#Código Inicial
+func _ready():
+	open = false
+	flashing = false
+	$SpriteSetClosed/Closed1.play("locked")
+	$SpriteSetClosed/Closed2.play("locked")
+	$SpriteSetClosed/Closed3.play("locked")
+	$SpriteSetClosed/Closed4.play("locked")
+	$SpriteSetClosed/Closed5.play("locked")
+
+#Código Principal
+func _physics_process(delta):
+	if open:
+		$SpriteSetOpen/OpenFront.rotate(-3.1415/180)
+		$SpriteSetOpen/Open1.rotate(-3.1415/360)
+		$SpriteSetOpen/Open2.rotate(-3.1415/720)
+		$SpriteSetOpen/Open3.rotate(-3.1415/800)
+		if flashing:
+			$SpriteSetOpen/OpenFront.modulate.a = 3
+		else:
+			$SpriteSetOpen/OpenFront.modulate.a = 1
+	else:
+		$SpriteSetClosed/Closed1.rotate(-3.1415/360)
+		$SpriteSetClosed/Closed2.rotate(-3.1415/720)
+		$SpriteSetClosed/Closed3.rotate(-3.1415/800)
+		$SpriteSetClosed/Closed4.rotate(-3.1415/360)
+		$SpriteSetClosed/Closed5.rotate(-3.1415/720)
+		
+	if Input.is_action_just_pressed("CG_TEST"): #NOTA / WIP: Remover depois
+		if !open:
+			gateOpen();
+		else:
+			gateClose();
+
+func _on_Closed1_animation_finished():
+	if $SpriteSetClosed/Closed1.animation == "opening":
+		open = true
+		$SpriteSetOpen.visible = true
+		$SpriteSetClosed.visible = false
+	elif $SpriteSetClosed/Closed1.animation == "closing":
+		open = false
+		for node in get_node("SpriteSetClosed").get_children():
+			node.play("locked")
+
+func _on_Interact_body_entered(body):
+	if open and get_parent().get_parent().gateList.size() >= 2:
+		if "Player" in body.name:
+			flashing = true
+			if !body.crossingGates:
+				body.crossingGates = true
+				for i in range(get_parent().get_parent().gateList.size()):
+					if get_parent().get_parent().gateList[i].name == name:
+						if i == (get_parent().get_parent().gateList.size() - 1):
+							body.position = get_parent().get_parent().gateList[0].position
+						else:
+							body.position = get_parent().get_parent().gateList[i + 1].position
+
+func _on_Interact_body_exited(body):
+	if open: #Se o portal está aberto...
+		if "Player" in body.name:
+			flashing = false
+			body.crossingGates = false
+
+func _on_Interact_area_entered(area):
+	if open and get_parent().get_parent().gateList.size() >= 2:
+		if "Bullet" in area.name:
+			flashing = true
+			if !area.crossingGates:
+				area.crossingGates = true
+				for i in range(get_parent().get_parent().gateList.size()):
+					if get_parent().get_parent().gateList[i].name == name:
+						if i == (get_parent().get_parent().gateList.size() - 1):
+							area.position = get_parent().get_parent().gateList[0].position
+						else:
+							area.position = get_parent().get_parent().gateList[i + 1].position
+
+func _on_Interact_area_exited(area):
+	if open: #Se o portal está aberto...
+		if "Bullet" in area.name:
+			flashing = false
+			area.crossingGates = false

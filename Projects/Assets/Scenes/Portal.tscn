@@ -42,10 +42,10 @@ animations = [ {
 } ]
 
 [sub_resource type="CircleShape2D" id=2]
-radius = 4.0
+radius = 21.0238
 
 [sub_resource type="CircleShape2D" id=3]
-radius = 21.0238
+radius = 4.0
 
 [node name="Portal" type="KinematicBody2D"]
 collision_layer = 2
@@ -129,16 +129,15 @@ modulate = Color( 0.627451, 0, 1, 1 )
 scale = Vector2( 1.2, 1.2 )
 texture = ExtResource( 21 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-z_index = -1
-shape = SubResource( 2 )
-disabled = true
-
 [node name="INTERACT_Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="INTERACT_Area2D"]
-visible = false
+shape = SubResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = -1
 shape = SubResource( 3 )
+disabled = true
 
 [node name="SoundFX" parent="." instance=ExtResource( 22 )]
 
