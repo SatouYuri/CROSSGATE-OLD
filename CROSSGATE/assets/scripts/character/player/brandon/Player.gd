@@ -20,6 +20,7 @@ var stopped = false
 var lifepoints = 100
 var globalMousePosition
 var crossingGates = false
+var timeStopInterval = 3
 
 #Funções
 func die():
@@ -150,13 +151,8 @@ func isUndersliding(): #Retorna true se estiver deslizando e não for possível 
 	else:
 		return false
 
-func theWorld(time): #Paraliza o mundo pelo período de tempo (em segundos) inserido. Essa função deve ser chamada ao ativar o CROSSGATE.
-	#for i in get_tree().get_nodes_in_group("Stoppable"):
-	#	if !i.stopped:
-	#		i.stopped = true
-	#	else:
-	#		i.stopped = false
-	get_parent().theWorld(time)
+func theWorld(): #Paraliza o mundo. Essa função deve ser chamada ao ativar o CROSSGATE.
+	get_parent().theWorld()
 
 func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada pelo nó pai "World.tscn".
 	if !stopped:
@@ -182,13 +178,15 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 func _input(event):
 	if stopped and event is InputEventMouseButton:
 		if event.is_action_pressed("CG_L_CLICK"): #Inicializar um Gate e adicioná-lo ao mundo, no nó "Background".
-			var gate = GATE.instance()
-			get_parent().gateList.append(gate)
-			get_parent().get_node("Background").add_child(gate)
-			gate.position = get_global_mouse_position()
-		elif event.is_action_pressed("CG_R_CLICK") and get_parent().gateList.size() > 0: #Excluir o último Gate inicializado. 
-			get_parent().gateList[get_parent().gateList.size() - 1].queue_free()
-			get_parent().gateList.remove(get_parent().gateList.size() - 1)
+			if get_parent().gateList.size() < 2:
+				var gate = GATE.instance()
+				get_parent().gateList.append(gate)
+				get_parent().get_node("Background").add_child(gate)
+				gate.position = get_global_mouse_position()
+		elif event.is_action_pressed("CG_R_CLICK") and get_parent().gateList.size() > 0: #Excluir e desinstanciar os Gates.
+			for g in get_parent().gateList:
+				g.queue_free()
+			get_parent().gateList = []
 
 func _physics_process(delta):
 	if !stopped: #Se o tempo não estiver parado...
@@ -324,8 +322,18 @@ func _physics_process(delta):
 	
 	#CROSSGATE
 	if Input.is_action_just_pressed("CG_GATE"): #NOTA / WIP: Ajustar para parar o tudo que for pertinente...
-		theWorld(0)
-
+		if !stopped: 
+			if get_parent().gateList.size() > 0:
+				for g in get_parent().gateList:
+					g.gateClose()
+			else:
+				theWorld()
+				$TIMESTOP_COUNTDOWN.wait_time = timeStopInterval # NOTA / WIP : O intervalo de tempo depende do tipo de Gate
+				$TIMESTOP_COUNTDOWN.start()
+		else:
+			theWorld()
+			$TIMESTOP_COUNTDOWN.stop()
+		
 	#Comandos finais do frame
 	collisionState(actionState)
 	if !stopped:
@@ -346,3 +354,7 @@ func _on_SLIDING_timeout():
 		$Timers/SLIDING.stop()
 		actionState = STANDBY
 		$Timers/SLIDING_COOLDOWN.start()
+
+func _on_TIMESTOP_COUNTDOWN_timeout(): #Tempo voltando a correr (timeout da pausa no tempo atingido)...
+	if stopped:
+		theWorld()

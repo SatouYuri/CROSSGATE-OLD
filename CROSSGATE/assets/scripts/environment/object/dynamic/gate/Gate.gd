@@ -7,14 +7,28 @@ const SCRIPT_TYPE = "DynamicObject"
 #Variáveis de Estado
 var open
 var flashing
+var stopped #Se o tempo está ou não parado (não afeta o funcionamento do Gate)
+var lifetime = 10 #Tempo de vida do Gate (ajustável)
 
 #Funções
 func timeStop(): #Gates não são afetados pela parada do tempo
-	pass 
+	if !stopped:
+		stopped = true
+	else:
+		stopped = false
+		gateOpenWithLifetime(lifetime)
 
 func gateOpen():
+	open = true
 	for node in get_node("SpriteSetClosed").get_children():
 		node.play("opening")
+
+func gateOpenWithLifetime(lifetime):
+	open = true
+	for node in get_node("SpriteSetClosed").get_children():
+		node.play("opening")
+	$LIFETIME.wait_time = lifetime
+	$LIFETIME.start()
 
 func gateClose():
 	$SpriteSetOpen.visible = false
@@ -26,6 +40,7 @@ func gateClose():
 func _ready():
 	open = false
 	flashing = false
+	stopped = true
 	$SpriteSetClosed/Closed1.play("locked")
 	$SpriteSetClosed/Closed2.play("locked")
 	$SpriteSetClosed/Closed3.play("locked")
@@ -58,13 +73,14 @@ func _physics_process(delta):
 
 func _on_Closed1_animation_finished():
 	if $SpriteSetClosed/Closed1.animation == "opening":
-		open = true
 		$SpriteSetOpen.visible = true
 		$SpriteSetClosed.visible = false
 	elif $SpriteSetClosed/Closed1.animation == "closing":
 		open = false
-		for node in get_node("SpriteSetClosed").get_children():
-			node.play("locked")
+		#for node in get_node("SpriteSetClosed").get_children(): #NOTA / WIP : Isso seria usado em um Gate fixo no mapa. Não é o caso.
+		#	node.play("locked")
+		get_parent().get_parent().gateList.erase(self)
+		queue_free()
 
 func _on_Interact_body_entered(body):
 	if open and get_parent().get_parent().gateList.size() >= 2:
@@ -103,3 +119,6 @@ func _on_Interact_area_exited(area):
 		if "Bullet" in area.name:
 			flashing = false
 			area.crossingGates = false
+
+func _on_LIFETIME_timeout(): #Timeout por Lifetime atingido (fechando o portal)...
+	gateClose()
