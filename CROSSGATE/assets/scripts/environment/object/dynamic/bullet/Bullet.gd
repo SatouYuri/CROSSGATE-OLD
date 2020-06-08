@@ -43,11 +43,8 @@ func _on_BULLET_DISTANCE_timeout():
 	queue_free()
 
 func _on_Bullet_body_entered(body):
-	if body.SCRIPT_TYPE == "Enemy": #or body.SCRIPT_TYPE == "Player":
-		body.lifepoints -= damage
-		if body.lifepoints <= 0:
-			body.lifepoints = 0
-			body.die()
+	if (body.SCRIPT_TYPE == "Enemy") or (body.SCRIPT_TYPE == "Player" and shooter != "Player"):
+		body.takeDamage(damage)
 	queue_free()
 
 func _on_VisibilityNotifier2D_screen_exited():

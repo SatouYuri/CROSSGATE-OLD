@@ -17,7 +17,10 @@ const GATE = preload("res://assets/scenes/environment/object/dynamic/gate/Gate.t
 var velocity = Vector2()
 var actionState = STANDBY
 var stopped = false
+var maxLifepoints = 200
 var lifepoints = 100
+var maxEtherpoints = 200
+var etherpoints = 100
 var globalMousePosition
 var crossingGates = false
 var timeStopInterval = 3
@@ -25,6 +28,13 @@ var timeStopInterval = 3
 #Funções
 func die():
 	actionState = DEAD #NOTA / WIP: Depois, ajustar a função de morte.
+
+func takeDamage(damage):
+	lifepoints -= damage
+	$hud.updateLifepoints()
+	if lifepoints <= 0:
+		lifepoints = 0
+		die()
 
 func bodyLayerAdjust(anim): #Configura o valor de z-index em cada parte individual do corpo.
 	if('idle' in anim):
@@ -173,6 +183,16 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 		$RARM.play()
 		$DBODY.play()
 		$Weapons/Ranger/AnimatedSprite.play()
+
+#Código Inicial
+func _ready():
+	#Configurando máscara TIMESTOP_MASK (Se a resolução for atualizada, reinicialize estes valores)
+	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
+	$TIMESTOP_MASK.margin_right = +(get_viewport().size.x/2)*1.2
+	$TIMESTOP_MASK.margin_bottom = +(get_viewport().size.y/2)*1.2
+	$TIMESTOP_MASK.margin_left = -(get_viewport().size.x/2)*1.2
+	#Atualizando o HUD
+	$hud.update()
 
 #Código Principal
 func _input(event):
