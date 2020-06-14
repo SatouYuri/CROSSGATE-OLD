@@ -12,6 +12,10 @@ const GRAVITY = 20
 const JUMP_HEIGHT = -450
 const FLOOR = Vector2(0, -1)
 const GATE = preload("res://assets/scenes/environment/object/dynamic/gate/Gate.tscn") #NOTA / WIP: Depois, generalizar para qualquer Gate. #Carregar o Gate na memória
+const WEAPONS = [
+				preload("res://assets/scenes/weapon/onehanded/ranger/Ranger.tscn"),
+				preload("res://assets/scenes/weapon/onehanded/tec9/Tec9.tscn")
+			   ]
 
 #Variáveis de Estado
 var velocity = Vector2()
@@ -24,6 +28,8 @@ var etherpoints = 100
 var globalMousePosition
 var crossingGates = false
 var timeStopInterval = 3
+var ownedWeapons = [0, 1] #NOTA / WIP: As armas que o jogador possui devem vir de dados salvos depois... // Array contendo os índices no array WEAPONS das armas que o jogador possui atualmente no inventário.
+var currentWeaponIndex = 0 #NOTA / WIP: A última arma que o jogador usou deve vir de dados salvos depois... // Índice no array WEAPONS o qual representa a arma atualmente selecionada.
 
 #Funções
 func die():
@@ -87,43 +93,46 @@ func getSide(): #Retorna o lado atual (-1: esquerda; 1: direita)
 	else: 
 		return -1
 
+func getSideBool(): #Retorna o lado atual (true: esquerda; false: direita)
+	return $UBODY.flip_h
+
 func weaponSpriteAdjust(): #Ajusta a arma atualmente selecionada à mão do personagem.
-	if !actionState in [AIMING, ATTACKING]:
+	if (!actionState in [AIMING, ATTACKING]) or !$Weapons.has_node("currentWeapon"):
 		return
 	var s = getSide()
 	if velocity.x == 0:
 		if actionState == ATTACKING:
 			if $LARM.get_frame() == 0:
-				$Weapons/Ranger.position = Vector2(s*14, -5)
+				$Weapons/currentWeapon.position = Vector2(s*14, -5)
 			elif $LARM.get_frame() == 1:
-				$Weapons/Ranger.position = Vector2(s*12, -6)
+				$Weapons/currentWeapon.position = Vector2(s*12, -6)
 			elif $LARM.get_frame() == 2:
-				$Weapons/Ranger.position = Vector2(s*12, -5)
+				$Weapons/currentWeapon.position = Vector2(s*12, -5)
 			return
 		if actionState == AIMING:
 			if $LARM.get_frame() in [0, 2]:
-				$Weapons/Ranger.position = Vector2(s*14, -4)
+				$Weapons/currentWeapon.position = Vector2(s*14, -4)
 			elif $LARM.get_frame() == 1:
-				$Weapons/Ranger.position = Vector2(s*14, -3)
+				$Weapons/currentWeapon.position = Vector2(s*14, -3)
 			elif $LARM.get_frame() == 3:
-				$Weapons/Ranger.position = Vector2(s*14, -5)
+				$Weapons/currentWeapon.position = Vector2(s*14, -5)
 			return
 	else:
 		if actionState == ATTACKING:
 			if $LARM.get_frame() == 0:
-				$Weapons/Ranger.position = Vector2(s*13,2)
+				$Weapons/currentWeapon.position = Vector2(s*13,2)
 			elif $LARM.get_frame() == 1:
-				$Weapons/Ranger.position = Vector2(s*11,-4)
+				$Weapons/currentWeapon.position = Vector2(s*11,-4)
 			elif $LARM.get_frame() == 2:
-				$Weapons/Ranger.position = Vector2(s*13,-2)
+				$Weapons/currentWeapon.position = Vector2(s*13,-2)
 			return
 		if actionState == AIMING:
 			if $LARM.get_frame() in [0, 1, 5, 6, 7, 11]:
-				$Weapons/Ranger.position = Vector2(s*13, 2)
+				$Weapons/currentWeapon.position = Vector2(s*13, 2)
 			elif $LARM.get_frame() in [2, 4, 8, 10]:
-				$Weapons/Ranger.position = Vector2(s*13, 1)
+				$Weapons/currentWeapon.position = Vector2(s*13, 1)
 			elif $LARM.get_frame() in [3, 9]:
-				$Weapons/Ranger.position = Vector2(s*13, 0)
+				$Weapons/currentWeapon.position = Vector2(s*13, 0)
 			return
 
 func mirror(side): #Espelha os sprites de todas as partes do corpo a favor do lado inserido (false: direita; true: esquerda)
@@ -131,8 +140,8 @@ func mirror(side): #Espelha os sprites de todas as partes do corpo a favor do la
 	$DBODY.flip_h = side
 	$LARM.flip_h  = side
 	$RARM.flip_h  = side
-	$Weapons/Ranger.mirror(side)
-	$Weapons/Ranger.position.x = abs($Weapons/Ranger.position.x)*getSide()
+	$Weapons/currentWeapon.mirror(side)
+	$Weapons/currentWeapon.position.x = abs($Weapons/currentWeapon.position.x)*getSide()
 	$UNDERSLIDING_DETECTOR.cast_to.x = abs($UNDERSLIDING_DETECTOR.cast_to.x)*getSide()
 
 func collisionState(actionState): #Atualiza a caixa de colisão para o caso de deslizamento.
@@ -173,7 +182,7 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 		$LARM.stop()
 		$RARM.stop()
 		$DBODY.stop()
-		$Weapons/Ranger/AnimatedSprite.stop()
+		$Weapons/currentWeapon/AnimatedSprite.stop()
 	else:
 		stopped = false
 		for t in $Timers.get_children():
@@ -182,17 +191,54 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 		$LARM.play()
 		$RARM.play()
 		$DBODY.play()
-		$Weapons/Ranger/AnimatedSprite.play()
+		$Weapons/currentWeapon/AnimatedSprite.play()
+
+func selectWeapon(weaponIndex):
+	if $Weapons.has_node("currentWeapon"):
+		get_node("Weapons").remove_child(get_node("Weapons").get_node("currentWeapon"))
+	currentWeaponIndex = weaponIndex
+	var currentWeapon = WEAPONS[currentWeaponIndex].instance()
+	currentWeapon.set_name("currentWeapon")
+	currentWeapon.z_index = 5
+	currentWeapon.position.x = getSide()*14
+	currentWeapon.position.y = -5
+	currentWeapon.mirror(getSideBool())
+	if !actionState in [AIMING, ATTACKING]:
+		currentWeapon.visible = false
+	get_node("Weapons").add_child(currentWeapon)
+	currentWeapon.adjustSpeed()
+
+func selectNextWeapon():
+	selectWeapon(getNextWeaponIndex())
+
+func selectPrevWeapon():
+	selectWeapon(getPrevWeaponIndex())
+
+func getNextWeaponIndex():
+	if ownedWeapons.find(currentWeaponIndex) + 1 == len(ownedWeapons):
+		return ownedWeapons[0]
+	else:
+		return ownedWeapons[ownedWeapons.find(currentWeaponIndex) + 1]
+
+func getPrevWeaponIndex():
+	if ownedWeapons.find(currentWeaponIndex) - 1 < 0:
+		return ownedWeapons[len(ownedWeapons) - 1]
+	else:
+		return ownedWeapons[ownedWeapons.find(currentWeaponIndex) - 1]
 
 #Código Inicial
 func _ready():
-	#Configurando máscara TIMESTOP_MASK (Se a resolução for atualizada, reinicialize estes valores)
+	#Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
 	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
 	$TIMESTOP_MASK.margin_right = +(get_viewport().size.x/2)*1.2
 	$TIMESTOP_MASK.margin_bottom = +(get_viewport().size.y/2)*1.2
 	$TIMESTOP_MASK.margin_left = -(get_viewport().size.x/2)*1.2
+	
 	#Atualizando o HUD
 	$hud.update()
+	
+	#Instanciando arma atual
+	selectWeapon(currentWeaponIndex)
 
 #Código Principal
 func _input(event):
@@ -263,7 +309,8 @@ func _physics_process(delta):
 		weaponSpriteAdjust()
 		if !stopped:
 			if actionState == STANDBY:
-				$Weapons/Ranger.visible = false
+				if $Weapons.has_node("currentWeapon"):
+					$Weapons/currentWeapon.visible = false
 				if is_on_floor():
 					if velocity.x == 0:
 						playAnim("idle")
@@ -307,22 +354,22 @@ func _physics_process(delta):
 							playAnim("run_fall")
 							specifiedPlayAnim("run_air_shoot_aiming", "LARM")
 			#Ações
-			if Input.is_action_pressed("CG_SHOOT") and $Timers/SHOT_COOLDOWN.time_left == 0: #Disparo
-				$Weapons/Ranger.visible = true
-				$Timers/SHOT_COOLDOWN.start()
-				if actionState != ATTACKING:
+			if Input.is_action_pressed("CG_SHOOT"): #Disparo
+				if actionState != ATTACKING and $Weapons.has_node("currentWeapon") and $Weapons/currentWeapon.readyToShoot():
+					$Weapons/currentWeapon.visible = true
 					if velocity.x == 0:
 						specifiedPlayAnim("idle_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
 					else:
 						specifiedPlayAnim("run_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
-					$Weapons/Ranger/AnimatedSprite.play("shoot") #NOTA / WIP: Depois, generalizar para qualquer arma...
+					$Weapons/currentWeapon/AnimatedSprite.play("shoot")
 					actionState = ATTACKING
-					$Weapons/Ranger.shoot("Player")
+					$Weapons/currentWeapon.shoot("Player")
 			
 			if Input.is_action_pressed("CG_DOWN") and $Timers/SLIDING_COOLDOWN.time_left == 0 and isUnderslidingPossible() and is_on_floor(): #Slide Start
 				if actionState != SLIDING:
 					if velocity.x != 0:
-						$Weapons/Ranger.visible = false
+						if $Weapons.has_node("currentWeapon"):
+							$Weapons/currentWeapon.visible = false
 						playAnim("slide")
 						actionState = SLIDING
 						$Timers/SLIDING.start()
@@ -361,7 +408,7 @@ func _physics_process(delta):
 
 func _on_LARM_animation_finished():
 	if '_shoot' in $LARM.animation and !'_aiming' in $LARM.animation: #Se a animação de ataque acabou...
-		$Weapons/Ranger/AnimatedSprite.play("aiming") #NOTA: Depois, generalizar para qualquer arma...
+		$Weapons/currentWeapon/AnimatedSprite.play("aiming")
 		actionState = AIMING
 		$Timers/AIMING.start() #COUNTDOWN: Resolução em _on_AIMING_timeout()
 

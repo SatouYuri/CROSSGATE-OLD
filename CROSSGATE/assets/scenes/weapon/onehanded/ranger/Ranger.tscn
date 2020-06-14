@@ -9,14 +9,14 @@
 [ext_resource path="res://assets/sprites/weapon/onehanded/ranger/shoot/ranger_shoot6.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/weapon/onehanded/ranger/shoot/ranger_shoot7.png" type="Texture" id=8]
 [ext_resource path="res://assets/sprites/weapon/onehanded/ranger/aiming/ranger_aiming.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/weapon/onehanded/ranger/hands/ranger_left_hand_brandon.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/weapon/hands/left_hand_brandon.png" type="Texture" id=10]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ), ExtResource( 9 ) ],
 "loop": false,
 "name": "shoot",
-"speed": 50.0
+"speed": 60.0
 }, {
 "frames": [ ExtResource( 9 ) ],
 "loop": false,
@@ -41,3 +41,7 @@ position = Vector2( 13, -5 )
 [node name="Brandon" type="Sprite" parent="Hands"]
 position = Vector2( 0, -2 )
 texture = ExtResource( 10 )
+
+[node name="SHOOT_COOLDOWN" type="Timer" parent="."]
+wait_time = 0.25
+one_shot = true

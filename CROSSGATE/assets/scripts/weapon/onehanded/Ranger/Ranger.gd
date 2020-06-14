@@ -1,3 +1,4 @@
+#Certifique-se de que a animação do disparo é mais rápida do que a animação de recuo do atirador.
 extends Node2D
 
 #Constantes
@@ -13,7 +14,22 @@ func mirror(side):
 	else:
 		$Position2D.position.x = -abs($Position2D.position.x)
 
+func readyToShoot():
+	if $SHOOT_COOLDOWN.is_stopped():
+		return true
+	else:
+		return false
+
+func adjustSpeed():
+	get_parent().get_parent().get_node("LARM").frames.set_animation_speed("idle_shoot", 18) #FPS da animação de recoil do atirador (idle).
+	get_parent().get_parent().get_node("LARM").frames.set_animation_speed("run_shoot", 18) #FPS da animação de recoil do atirador (run).
+	$AnimatedSprite.frames.set_animation_speed("shoot", 60) #FPS da animação de tiro desta arma.
+
+func setRateOfFire(timeBetweenShots): #Taxa de tiro padrão: timeBetweenShots = 0.25
+	$SHOOT_COOLDOWN.wait_time = timeBetweenShots
+
 func shoot(shooterName):
+	$SHOOT_COOLDOWN.start()
 	var bullet = BULLET.instance() #Instanciando a bullet
 	bullet.damage = 20 #Definindo o dano da bullet
 	bullet.shooter = shooterName #Definindo o atirador da bullet

@@ -46,4 +46,3 @@ func _on_SHOOT_COOLDOWN_timeout():
 	if !stopped:
 		$Weapons/Ranger.shoot(SCRIPT_TYPE)
 		$SHOOT_COOLDOWN.wait_time = (randi()%10 + 1)/10.0
-		print($SHOOT_COOLDOWN.wait_time)

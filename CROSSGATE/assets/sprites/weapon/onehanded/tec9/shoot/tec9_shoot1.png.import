@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/ranger_left_hand_brandon.png-fd4ad7a64855370d4da51a5d5f1e377c.stex"
+path="res://.import/tec9_shoot1.png-295e5ddf50c9641c055c8e3fe4b0fc74.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/weapon/onehanded/ranger/hands/ranger_left_hand_brandon.png"
-dest_files=[ "res://.import/ranger_left_hand_brandon.png-fd4ad7a64855370d4da51a5d5f1e377c.stex" ]
+source_file="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot1.png"
+dest_files=[ "res://.import/tec9_shoot1.png-295e5ddf50c9641c055c8e3fe4b0fc74.stex" ]
 
 [params]
 
