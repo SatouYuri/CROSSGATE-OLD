@@ -3,6 +3,8 @@ extends Node2D
 
 #Constantes
 const SCRIPT_TYPE = "Attachment"
+const WEAPON_NAME = "WHISPERHELD RANGER"
+const WEAPON_AMMO_TYPE = "CAL45"
 const BULLET = preload("res://assets/scenes/environment/object/dynamic/bullet/Bullet.tscn") #Carregar a bullet na memória
 
 #Funções
@@ -31,7 +33,7 @@ func setRateOfFire(timeBetweenShots): #Taxa de tiro padrão: timeBetweenShots = 
 func shoot(shooterName):
 	$SHOOT_COOLDOWN.start()
 	var bullet = BULLET.instance() #Instanciando a bullet
-	bullet.damage = 20 #Definindo o dano da bullet
+	bullet.damage = 40 #Definindo o dano da bullet
 	bullet.shooter = shooterName #Definindo o atirador da bullet
 	bullet.set_direction($AnimatedSprite.flip_h) #Definindo a direção da bullet
 	get_parent().get_parent().get_parent().add_child(bullet) #Primeiro parent: O nó Weapons de Player.tscn; Segundo parent: O próprio Player.tscn; Terceiro parent: O mundo.

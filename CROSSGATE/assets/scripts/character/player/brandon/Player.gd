@@ -15,16 +15,16 @@ const GATE = preload("res://assets/scenes/environment/object/dynamic/gate/Gate.t
 const WEAPONS = [
 				preload("res://assets/scenes/weapon/onehanded/ranger/Ranger.tscn"),
 				preload("res://assets/scenes/weapon/onehanded/tec9/Tec9.tscn")
-			   ]
+			    ]
 
 #Variáveis de Estado
 var velocity = Vector2()
 var actionState = STANDBY
 var stopped = false
 var maxLifepoints = 200
-var lifepoints = 100
+var lifepoints = 200
 var maxEtherpoints = 200
-var etherpoints = 100
+var etherpoints = 200
 var globalMousePosition
 var crossingGates = false
 var timeStopInterval = 3
@@ -200,8 +200,12 @@ func selectWeapon(weaponIndex):
 	var currentWeapon = WEAPONS[currentWeaponIndex].instance()
 	currentWeapon.set_name("currentWeapon")
 	currentWeapon.z_index = 5
-	currentWeapon.position.x = getSide()*14
-	currentWeapon.position.y = -5
+	if actionState == AIMING and velocity.x != 0:
+		currentWeapon.position.x = getSide()*13
+		currentWeapon.position.y = 1
+	else:
+		currentWeapon.position.x = getSide()*14
+		currentWeapon.position.y = -5
 	currentWeapon.mirror(getSideBool())
 	if !actionState in [AIMING, ATTACKING]:
 		currentWeapon.visible = false

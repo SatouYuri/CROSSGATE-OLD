@@ -26,6 +26,7 @@ __meta__ = {
 [node name="Weapons" type="Node2D" parent="."]
 
 [node name="Ranger" parent="Weapons" instance=ExtResource( 3 )]
+visible = false
 position = Vector2( 17, 0 )
 
 [node name="SHOOT_COOLDOWN" type="Timer" parent="."]

@@ -3,6 +3,8 @@ extends Node2D
 
 #Constantes
 const SCRIPT_TYPE = "Attachment"
+const WEAPON_NAME = "CROSSDYNAMIC TEC-9"
+const WEAPON_AMMO_TYPE = "9mm"
 const BULLET = preload("res://assets/scenes/environment/object/dynamic/bullet/Bullet.tscn") #Carregar a bullet na memória
 
 #Funções

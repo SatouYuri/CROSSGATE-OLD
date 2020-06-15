@@ -1,24 +1,24 @@
 [gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://assets/scripts/weapon/onehanded/Tec9/Tec9.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot1.png" type="Texture" id=2]
-[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot3.png" type="Texture" id=3]
-[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot2.png" type="Texture" id=4]
-[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot4.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/aiming/tec9_aiming.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/aiming/tec9_aiming.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot1.png" type="Texture" id=3]
+[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot3.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot2.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot4.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/weapon/hands/left_hand_brandon.png" type="Texture" id=7]
 
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
-"frames": [ ExtResource( 2 ), ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ) ],
-"loop": false,
-"name": "shoot",
-"speed": 60.0
-}, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": false,
 "name": "aiming",
 "speed": 0.0
+}, {
+"frames": [ ExtResource( 3 ), ExtResource( 4 ), ExtResource( 5 ), ExtResource( 6 ) ],
+"loop": false,
+"name": "shoot",
+"speed": 60.0
 } ]
 
 [node name="Tec9" type="Node2D"]
