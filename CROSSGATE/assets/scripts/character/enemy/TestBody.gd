@@ -35,7 +35,7 @@ func timeStop(): #Paraliza/Desparaliza este inimigo.
 func _physics_process(delta):
 	if !stopped:
 		if is_on_floor():
-			velocity.y = JUMP_HEIGHT #Quicar
+			#velocity.y = JUMP_HEIGHT #Quicar
 			pass
 		
 		velocity.y = velocity.y + GRAVITY #Força da gravidade
@@ -44,6 +44,6 @@ func _physics_process(delta):
 
 func _on_SHOOT_COOLDOWN_timeout():
 	if !stopped:
-		#$Weapons/Ranger.shoot(SCRIPT_TYPE)
-		#$SHOOT_COOLDOWN.wait_time = (randi()%10 + 1)/10.0
+		$Weapons/Ranger.shoot(SCRIPT_TYPE)
+		$SHOOT_COOLDOWN.wait_time = (randi()%10 + 1)/10.0
 		pass

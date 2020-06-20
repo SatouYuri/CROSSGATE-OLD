@@ -4,7 +4,9 @@ extends Node2D
 #Constantes
 const SCRIPT_TYPE = "Attachment"
 const WEAPON_NAME = "WHISPERHELD RANGER"
+const WEAPON_SHORT_NAME = "Ranger"
 const WEAPON_AMMO_TYPE = "CAL45"
+const WEAPON_AMMO_TYPE_INDEX = 1
 const BULLET = preload("res://assets/scenes/environment/object/dynamic/bullet/Bullet.tscn") #Carregar a bullet na memória
 
 #Funções

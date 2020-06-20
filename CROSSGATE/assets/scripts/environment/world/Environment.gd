@@ -10,6 +10,7 @@ var stage #O estágio atualmente selecionado
 func loadStage(stageName): #Carrega e instancia o estágio alvo.
 	if "TestStage" == stageName:
 		stage = preload("res://assets/scenes/environment/stage/TestStage.tscn").instance()
+		stage.set_name("loadedStage")
 		get_parent().get_node("Background").loadBackground("Sunlight") #Todo estágio tem um background inicial associado. No caso de "TestStage", esse Background é "Sunlight".
 	#/*Adicione mais Stages...*/#
 	add_child(stage)

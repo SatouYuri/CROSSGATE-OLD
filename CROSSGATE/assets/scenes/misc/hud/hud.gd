@@ -52,7 +52,8 @@ func _physics_process(delta):
 	if get_parent().get_node("Weapons").has_node("currentWeapon"):
 		$WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite/Text/Name.text = get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_NAME
 		$WeaponSelect/WeaponDisplay/BaseBlock/Text/AmmoType/AmmoType.text =  get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_AMMO_TYPE
-	
+		$WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.text = str(get_parent().ammunition[get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_AMMO_TYPE_INDEX])
+		
 	if weaponSwitchFading:
 		if $WeaponSelect/WeaponSwitch.modulate.a < 0.6:
 			$WeaponSelect/WeaponSwitch.modulate.a += 0.1
@@ -73,7 +74,12 @@ func _physics_process(delta):
 		else:
 			weaponSwitching = 0
 			$WeaponSelect/WeaponSwitch.rotation_degrees = 0
-	elif weaponSwitching == 0:
+			for icon in $WeaponSelect/WeaponDisplay/IconBlock.get_children():
+				if get_parent().get_node("Weapons").has_node("currentWeapon") and icon.name == get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_SHORT_NAME:
+					icon.visible = true
+				else:
+					icon.visible = false
+	else:
 		if Input.is_action_just_pressed("CG_SWITCH_NEXT"):
 			switchWeapon(+1)
 		elif Input.is_action_just_pressed("CG_SWITCH_PREV"):

@@ -18,18 +18,63 @@ const WEAPONS = [
 			    ]
 
 #Variáveis de Estado
-var velocity = Vector2()
-var actionState = STANDBY
-var stopped = false
-var maxLifepoints = 200
-var lifepoints = 200
-var maxEtherpoints = 200
-var etherpoints = 200
+var time
+var bobbingAmplitude #Amplitude da onda senoidal que descreve o balanço da tela
+var bobbingFrequency #Frequência da onda senoidal que descreve o balanço da tela
+var bkpAmplitude
+var bkpFrequency
+var velocity
+var actionState
+var stopped
+var maxLifepoints
+var lifepoints
+var maxEtherpoints
+var etherpoints
 var globalMousePosition
-var crossingGates = false
-var timeStopInterval = 3
-var ownedWeapons = [0, 1] #NOTA / WIP: As armas que o jogador possui devem vir de dados salvos depois... // Array contendo os índices no array WEAPONS das armas que o jogador possui atualmente no inventário.
-var currentWeaponIndex = 0 #NOTA / WIP: A última arma que o jogador usou deve vir de dados salvos depois... // Índice no array WEAPONS o qual representa a arma atualmente selecionada.
+var crossingGates
+var timeStopInterval
+var ownedWeapons #Array contendo os índices no array WEAPONS das armas que o jogador possui atualmente no inventário.
+var currentWeaponIndex #Índice no array WEAPONS o qual representa a arma atualmente selecionada.
+var ammunition #[9mm; CAL45;]
+
+#Código Inicial
+func _ready():
+	#Inicializando variáveis de estado
+	time = 0
+	#NOTA / WIP: Algumas combinações (Ampl, Freq) para teste: (0.0625; 1) - Idle (balanço suave); (2; 100) - Dano; (0.25; 20) - Balanço do Trem; 
+	#NOTA / WIP: Não fazer balanços de tela mais violentos que o de dano, exceto em cutscenes.
+	#NOTA / WIP: O balanço de visão do estágio deve ser inicializado em _ready() utilizando valores das constantes de amplitude e frequência padrões do estágio.
+	#Definindo o balanço de tela padrão do estágio (bobbingAmplitude e bobbingFrequency)
+	if get_parent().get_node("Environment").has_node("loadedStage"):
+		setViewBobbing(get_parent().get_node("Environment").get_node("loadedStage").DEFAULT_AMPLITUDE, get_parent().get_node("Environment").get_node("loadedStage").DEFAULT_FREQUENCY)
+		
+	bkpAmplitude = 0
+	bkpFrequency = 0
+	velocity = Vector2()
+	actionState = STANDBY
+	stopped = false
+	maxLifepoints = 1000
+	lifepoints = 1000
+	maxEtherpoints = 200
+	etherpoints = 200
+	globalMousePosition
+	crossingGates = false
+	timeStopInterval = 3
+	ownedWeapons = [0, 1] #NOTA / WIP: As armas que o jogador possui devem vir de dados salvos depois... // Array contendo os índices no array WEAPONS das armas que o jogador possui atualmente no inventário.
+	currentWeaponIndex = 0 #NOTA / WIP: A última arma que o jogador usou deve vir de dados salvos depois... // Índice no array WEAPONS o qual representa a arma atualmente selecionada.
+	ammunition = [115, 50] #NOTA / WIP: A quantidade de cada munição em posse do jogador deve vir de dados salvos depois... // Array com cada posição sendo a quantidade de munição do respectivo calibre na posse do jogador [9mm; CAL45;]
+	
+	#Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
+	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
+	$TIMESTOP_MASK.margin_right = +(get_viewport().size.x/2)*1.2
+	$TIMESTOP_MASK.margin_bottom = +(get_viewport().size.y/2)*1.2
+	$TIMESTOP_MASK.margin_left = -(get_viewport().size.x/2)*1.2
+	
+	#Atualizando o HUD
+	$hud.update()
+	
+	#Instanciando arma atual
+	selectWeapon(currentWeaponIndex)
 
 #Funções
 func die():
@@ -38,6 +83,11 @@ func die():
 func takeDamage(damage):
 	lifepoints -= damage
 	$hud.updateLifepoints()
+	if $Timers/DAMAGE_BOBBING.is_stopped():
+		bkpAmplitude = bobbingAmplitude
+		bkpFrequency = bobbingFrequency
+	setViewBobbing(2, 100)
+	$Timers/DAMAGE_BOBBING.start()
 	if lifepoints <= 0:
 		lifepoints = 0
 		die()
@@ -230,19 +280,13 @@ func getPrevWeaponIndex():
 	else:
 		return ownedWeapons[ownedWeapons.find(currentWeaponIndex) - 1]
 
-#Código Inicial
-func _ready():
-	#Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
-	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
-	$TIMESTOP_MASK.margin_right = +(get_viewport().size.x/2)*1.2
-	$TIMESTOP_MASK.margin_bottom = +(get_viewport().size.y/2)*1.2
-	$TIMESTOP_MASK.margin_left = -(get_viewport().size.x/2)*1.2
-	
-	#Atualizando o HUD
-	$hud.update()
-	
-	#Instanciando arma atual
-	selectWeapon(currentWeaponIndex)
+func viewBobbing():
+	$Camera2D.offset.x += bobbingAmplitude*cos(bobbingFrequency*time)
+	$Camera2D.offset.y += bobbingAmplitude*sin(bobbingFrequency*time)
+
+func setViewBobbing(amplitude, frequency):
+	bobbingAmplitude = amplitude
+	bobbingFrequency = frequency
 
 #Código Principal
 func _input(event):
@@ -260,6 +304,10 @@ func _input(event):
 
 func _physics_process(delta):
 	if !stopped: #Se o tempo não estiver parado...
+		#Atualizando o timeclock e o balanço de visão
+		time += delta
+		viewBobbing()
+			
 		#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
 		if $TIMESTOP_MASK.modulate.a > 0:
 			$TIMESTOP_MASK.modulate.a -= 0.1
@@ -359,7 +407,7 @@ func _physics_process(delta):
 							specifiedPlayAnim("run_air_shoot_aiming", "LARM")
 			#Ações
 			if Input.is_action_pressed("CG_SHOOT"): #Disparo
-				if actionState != ATTACKING and $Weapons.has_node("currentWeapon") and $Weapons/currentWeapon.readyToShoot():
+				if actionState != ATTACKING and $Weapons.has_node("currentWeapon") and $Weapons/currentWeapon.readyToShoot() and ammunition[$Weapons/currentWeapon.WEAPON_AMMO_TYPE_INDEX] > 0:
 					$Weapons/currentWeapon.visible = true
 					if velocity.x == 0:
 						specifiedPlayAnim("idle_shoot", "LARM") #ASSINCRONIA: Resolução em _on_LARM_animation_finished()
@@ -368,6 +416,7 @@ func _physics_process(delta):
 					$Weapons/currentWeapon/AnimatedSprite.play("shoot")
 					actionState = ATTACKING
 					$Weapons/currentWeapon.shoot("Player")
+					ammunition[$Weapons/currentWeapon.WEAPON_AMMO_TYPE_INDEX] -= 1
 			
 			if Input.is_action_pressed("CG_DOWN") and $Timers/SLIDING_COOLDOWN.time_left == 0 and isUnderslidingPossible() and is_on_floor(): #Slide Start
 				if actionState != SLIDING:
@@ -429,3 +478,9 @@ func _on_SLIDING_timeout():
 func _on_TIMESTOP_COUNTDOWN_timeout(): #Tempo voltando a correr (timeout da pausa no tempo atingido)...
 	if stopped:
 		theWorld()
+
+func _on_DAMAGE_BOBBING_timeout():
+	bobbingAmplitude = bkpAmplitude
+	bobbingFrequency = bkpFrequency
+	$Camera2D.offset.x = 0
+	$Camera2D.offset.y = -20

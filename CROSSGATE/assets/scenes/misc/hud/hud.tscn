@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=2]
+[gd_scene load_steps=27 format=2]
 
 [ext_resource path="res://assets/scenes/misc/hud/hud.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/misc/hud/eyes/eyes_under.png" type="Texture" id=2]
@@ -16,23 +16,25 @@
 [ext_resource path="res://assets/sprites/misc/hud/weapon_select/weapon_display_name2.png" type="Texture" id=14]
 [ext_resource path="res://assets/sprites/misc/hud/weapon_select/weapon_display_name3.png" type="Texture" id=15]
 [ext_resource path="res://assets/sprites/misc/hud/weapon_select/weapon_display_name4.png" type="Texture" id=16]
-[ext_resource path="res://assets/sprites/misc/hud/partner_call/partner_call.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/weapon/onehanded/ranger/aiming/ranger_aiming.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/weapon/onehanded/tec9/aiming/tec9_aiming.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/misc/hud/partner_call/partner_call.png" type="Texture" id=19]
 
-[sub_resource type="DynamicFontData" id=2]
+[sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
 
-[sub_resource type="DynamicFont" id=3]
+[sub_resource type="DynamicFont" id=2]
 size = 32
-font_data = SubResource( 2 )
+font_data = SubResource( 1 )
 
-[sub_resource type="DynamicFontData" id=4]
+[sub_resource type="DynamicFontData" id=3]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
 
-[sub_resource type="DynamicFont" id=5]
+[sub_resource type="DynamicFont" id=4]
 size = 32
-font_data = SubResource( 4 )
+font_data = SubResource( 3 )
 
-[sub_resource type="SpriteFrames" id=6]
+[sub_resource type="SpriteFrames" id=5]
 animations = [ {
 "frames": [ ExtResource( 13 ) ],
 "loop": true,
@@ -45,12 +47,12 @@ animations = [ {
 "speed": 30.0
 } ]
 
-[sub_resource type="DynamicFontData" id=7]
+[sub_resource type="DynamicFontData" id=6]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
 
-[sub_resource type="DynamicFont" id=8]
+[sub_resource type="DynamicFont" id=7]
 size = 32
-font_data = SubResource( 7 )
+font_data = SubResource( 6 )
 
 [node name="hud" type="CanvasLayer"]
 scale = Vector2( 1.2, 1.2 )
@@ -141,7 +143,7 @@ margin_left = 901.0
 margin_top = 505.0
 margin_right = 967.0
 margin_bottom = 537.0
-custom_fonts/font = SubResource( 3 )
+custom_fonts/font = SubResource( 2 )
 text = "999"
 align = 1
 valign = 1
@@ -155,17 +157,18 @@ margin_left = 1718.0
 margin_top = 1017.0
 margin_right = 1801.0
 margin_bottom = 1058.0
-custom_fonts/font = SubResource( 5 )
+custom_fonts/font = SubResource( 4 )
 text = "?"
 align = 1
 valign = 1
 
 [node name="NameBlock" type="Node2D" parent="WeaponSelect/WeaponDisplay"]
+editor/display_folded = true
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="WeaponSelect/WeaponDisplay/NameBlock"]
 position = Vector2( 400.217, 258.616 )
 scale = Vector2( 1.516, 1.516 )
-frames = SubResource( 6 )
+frames = SubResource( 5 )
 animation = "idle"
 
 [node name="Text" type="Node2D" parent="WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite"]
@@ -177,12 +180,24 @@ margin_left = 1302.0
 margin_top = 1023.0
 margin_right = 1681.0
 margin_bottom = 1055.0
-custom_fonts/font = SubResource( 8 )
+custom_fonts/font = SubResource( 7 )
 text = "?"
 valign = 1
 
-[node name="WeaponData" type="Node2D" parent="WeaponSelect"]
-scale = Vector2( 0.5, 0.5 )
+[node name="IconBlock" type="Node2D" parent="WeaponSelect/WeaponDisplay"]
+editor/display_folded = true
+
+[node name="Ranger" type="Sprite" parent="WeaponSelect/WeaponDisplay/IconBlock"]
+visible = false
+position = Vector2( 445.486, 240.278 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 17 )
+
+[node name="Tec9" type="Sprite" parent="WeaponSelect/WeaponDisplay/IconBlock"]
+visible = false
+position = Vector2( 443.75, 243.403 )
+scale = Vector2( 2, 2 )
+texture = ExtResource( 18 )
 
 [node name="PartnerCall" type="Node2D" parent="."]
 editor/display_folded = true
@@ -190,7 +205,7 @@ editor/display_folded = true
 [node name="Sprite" type="Sprite" parent="PartnerCall"]
 position = Vector2( 76.6667, 620 )
 scale = Vector2( 2, 2 )
-texture = ExtResource( 17 )
+texture = ExtResource( 19 )
 
 [node name="Timers" type="Node2D" parent="."]
 
