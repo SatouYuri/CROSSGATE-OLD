@@ -1,6 +1,6 @@
-[gd_scene load_steps=27 format=2]
+[gd_scene load_steps=35 format=2]
 
-[ext_resource path="res://assets/scenes/misc/hud/hud.gd" type="Script" id=1]
+[ext_resource path="res://assets/scripts/misc/hud/hud.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/misc/hud/eyes/eyes_under.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/misc/hud/eyes/BW_eyes.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/misc/hud/ether/ether_bar_under.png" type="Texture" id=4]
@@ -19,6 +19,9 @@
 [ext_resource path="res://assets/sprites/weapon/onehanded/ranger/aiming/ranger_aiming.png" type="Texture" id=17]
 [ext_resource path="res://assets/sprites/weapon/onehanded/tec9/aiming/tec9_aiming.png" type="Texture" id=18]
 [ext_resource path="res://assets/sprites/misc/hud/partner_call/partner_call.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/misc/hud/dialogbox/textbox.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/misc/hud/dialogbox/dialogbox.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/misc/ShaderFX/glitch.jpg" type="Texture" id=22]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
@@ -54,6 +57,58 @@ font_path = "res://assets/fonts/Basis33/basis33.ttf"
 size = 32
 font_data = SubResource( 6 )
 
+[sub_resource type="SpriteFrames" id=10]
+animations = [ {
+"frames": [ ExtResource( 20 ) ],
+"loop": true,
+"name": "text",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
+"loop": true,
+"name": "dialog",
+"speed": 5.0
+} ]
+
+[sub_resource type="DynamicFontData" id=11]
+font_path = "res://assets/fonts/Basis33/basis33.ttf"
+
+[sub_resource type="DynamicFont" id=12]
+size = 32
+font_data = SubResource( 11 )
+
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+render_mode unshaded;
+
+uniform bool grayscale = false;
+uniform sampler2D displace : hint_albedo;
+uniform float displaceAmount : hint_range(0, 0.1);
+uniform float abberationAmount : hint_range(0, 0.1);
+uniform float displaceSize : hint_range(0, 1);
+uniform float displaceFrequency : hint_range(0, 10);
+
+void fragment() {
+	vec4 disp = texture(displace, SCREEN_UV * abs(sin(TIME * displaceFrequency))*displaceSize);
+	vec2 newUV = SCREEN_UV + disp.xy * abs(sin(TIME))*displaceAmount;
+	COLOR.r = 1.0 - texture(SCREEN_TEXTURE, newUV - cos(TIME)*abberationAmount).r;
+	COLOR.g = 1.0 - texture(SCREEN_TEXTURE, newUV).g;
+	COLOR.b = 1.0 - texture(SCREEN_TEXTURE, newUV - sin(TIME)*abberationAmount).b;
+	COLOR.a = texture(SCREEN_TEXTURE, newUV).a;
+	if(grayscale){
+		COLOR.rgb = vec3(dot(COLOR.rgb, vec3(0.299, 0.587, 0.114)));
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/grayscale = false
+shader_param/displaceAmount = 0.008
+shader_param/abberationAmount = 0.012
+shader_param/displaceSize = 1.0
+shader_param/displaceFrequency = 10.0
+shader_param/displace = ExtResource( 22 )
+
 [node name="hud" type="CanvasLayer"]
 scale = Vector2( 1.2, 1.2 )
 transform = Transform2D( 1.2, 0, 0, 1.2, 0, 0 )
@@ -84,7 +139,7 @@ margin_right = 141.0
 margin_bottom = 21.0
 step = 0.01
 page = 1.0
-value = 99.0
+value = 54.21
 texture_under = ExtResource( 4 )
 texture_over = ExtResource( 5 )
 texture_progress = ExtResource( 6 )
@@ -207,7 +262,27 @@ position = Vector2( 76.6667, 620 )
 scale = Vector2( 2, 2 )
 texture = ExtResource( 19 )
 
+[node name="DialogBox" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="DialogBox"]
+position = Vector2( 582.5, 564.167 )
+scale = Vector2( 4, 4 )
+frames = SubResource( 10 )
+animation = "dialog"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="DialogBox/AnimatedSprite"]
+margin_left = -58.0
+margin_top = -12.0
+margin_right = 551.0
+margin_bottom = 96.0
+rect_scale = Vector2( 0.25, 0.25 )
+custom_fonts/normal_font = SubResource( 12 )
+bbcode_enabled = true
+bbcode_text = "[fill]Este é um texto teste. Talvez isso acabe causando problemas mais tarde. [color=#ff0000]Não sei.[/color] Aqueles que uma vez [/fill]"
+text = "Este é um texto teste. Talvez isso acabe causando problemas mais tarde. Não sei. Aqueles que uma vez "
+
 [node name="Timers" type="Node2D" parent="."]
+editor/display_folded = true
 
 [node name="DELAY_SPEED" type="Timer" parent="Timers"]
 wait_time = 0.01
@@ -215,6 +290,14 @@ wait_time = 0.01
 [node name="FADING_COUNTDOWN" type="Timer" parent="Timers"]
 wait_time = 3.0
 one_shot = true
+
+[node name="TIMESTOP_MASK" type="ColorRect" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+material = SubResource( 9 )
+margin_left = -344.167
+margin_top = -295.0
+margin_right = 1454.83
+margin_bottom = 888.0
 [connection signal="animation_finished" from="WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Timers/DELAY_SPEED" to="." method="_on_DELAY_SPEED_timeout"]
 [connection signal="timeout" from="Timers/FADING_COUNTDOWN" to="." method="_on_FADING_COUNTDOWN_timeout"]

@@ -24,3 +24,10 @@ texture = ExtResource( 4 )
 [node name="External2" type="Sprite" parent="."]
 modulate = Color( 0, 0, 0, 1 )
 texture = ExtResource( 5 )
+
+[node name="FX" type="Node2D" parent="."]
+
+[node name="ActivateSkill" type="Sprite" parent="FX"]
+modulate = Color( 0, 0, 0, 1 )
+scale = Vector2( 1e-005, 1e-005 )
+texture = ExtResource( 3 )

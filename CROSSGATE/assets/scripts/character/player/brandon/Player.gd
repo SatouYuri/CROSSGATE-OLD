@@ -56,7 +56,7 @@ func _ready():
 	maxLifepoints = 1000
 	lifepoints = 1000
 	maxEtherpoints = 200
-	etherpoints = 200
+	etherpoints = 150
 	globalMousePosition
 	crossingGates = false
 	timeStopInterval = 3
@@ -64,7 +64,7 @@ func _ready():
 	currentWeaponIndex = 0 #NOTA / WIP: A última arma que o jogador usou deve vir de dados salvos depois... // Índice no array WEAPONS o qual representa a arma atualmente selecionada.
 	ammunition = [115, 50] #NOTA / WIP: A quantidade de cada munição em posse do jogador deve vir de dados salvos depois... // Array com cada posição sendo a quantidade de munição do respectivo calibre na posse do jogador [9mm; CAL45;]
 	
-	#Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
+	#[DEPRECATED após transferir a TIMESTOP_MASK para a cena do HUD] Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
 	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
 	$TIMESTOP_MASK.margin_right = +(get_viewport().size.x/2)*1.2
 	$TIMESTOP_MASK.margin_bottom = +(get_viewport().size.y/2)*1.2
@@ -233,6 +233,7 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 		$RARM.stop()
 		$DBODY.stop()
 		$Weapons/currentWeapon/AnimatedSprite.stop()
+		$AetherCircle.playFX($AetherCircle.ACTIVATESKILL_FX)
 	else:
 		stopped = false
 		for t in $Timers.get_children():
@@ -309,8 +310,8 @@ func _physics_process(delta):
 		viewBobbing()
 			
 		#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
-		if $TIMESTOP_MASK.modulate.a > 0:
-			$TIMESTOP_MASK.modulate.a -= 0.1
+		if $hud/TIMESTOP_MASK.modulate.a > 0:
+			$hud/TIMESTOP_MASK.modulate.a -= 0.1
 		#Ajustando o círculo do éter CROSSGATE (tempo voltando a correr)...
 		if $AetherCircle.modulate.a > 0:
 			$AetherCircle.modulate.a -= 0.05
@@ -346,8 +347,8 @@ func _physics_process(delta):
 		
 	else: #Se o tempo estiver parado...
 		#Ajustando a máscara TIMESTOP_MASK (tempo parando)...
-		if $TIMESTOP_MASK.modulate.a < 1:
-			$TIMESTOP_MASK.modulate.a += 0.1
+		if $hud/TIMESTOP_MASK.modulate.a < 1:
+		   $hud/TIMESTOP_MASK.modulate.a += 0.1
 		#Ajustando o círculo do éter CROSSGATE (tempo parando)...
 		if $AetherCircle.modulate.a < 1:
 			$AetherCircle.modulate.a += 0.1

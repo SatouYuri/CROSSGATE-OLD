@@ -5,9 +5,18 @@ extends CanvasLayer
 const SCRIPT_TYPE = "HUD"
 
 #Variáveis de Estado
+var fxName = "" #Nome do efeito de tela atual
 var weaponSwitching = 0 #-1 se estiver girando no sentido anti-horário; 0 se não estiver girando; +1 se estiver girando no sentido horário.
 var weaponSwitchFading = false #false caso esteja sumindo ou já tenha sumido; true caso esteja aparecendo.
 var weaponNameFading = false #false caso esteja sumindo ou já tenha sumido; true caso esteja aparecendo.
+var dialogBoxFading = false
+var dialogBoxOpen = false
+
+var dialogTitle : String = ""
+var dialogText : String = ""
+var dialogExpression : String
+var dialogConversation : Array
+var dialogCurrentIndex : int = 0
 
 func update():
 	updateLifepoints()
@@ -34,11 +43,78 @@ func switchWeapon(nextOrPrev): #nextOrPrev: +1 para selecionar próxima arma; -1
 		$WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite/Text/Name.text = get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_NAME
 		$WeaponSelect/WeaponDisplay/BaseBlock/Text/AmmoType/AmmoType.text =  get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_AMMO_TYPE
 
+func dialogBox():
+	if dialogBoxFading:
+		if !dialogBoxOpen: #Se a caixa de diálogo está fechando
+			if $DialogBox/AnimatedSprite.modulate.a > 0.2:
+				$DialogBox/AnimatedSprite.modulate.a -= 0.2
+				$PartnerCall/Sprite.modulate.a += 0.2
+				$WeaponSelect.modulate.a += 0.2
+				$StatusBars.modulate.a += 0.2
+				$Under.modulate.a += 0.2
+				$Face.modulate.a += 0.2
+			else:
+				dialogBoxFading = false
+		else: #Se a caixa de diálogo está abrindo
+			if $DialogBox/AnimatedSprite.modulate.a < 1:
+				$DialogBox/AnimatedSprite.modulate.a += 0.2
+				$PartnerCall/Sprite.modulate.a -= 0.2
+				$WeaponSelect.modulate.a -= 0.2
+				$StatusBars.modulate.a -= 0.2
+				$Under.modulate.a -= 0.2
+				$Face.modulate.a -= 0.2
+			else:
+				dialogBoxFading = false
+
+func openDialogBox(isDialog):
+	if isDialog:
+		$DialogBox/AnimatedSprite.play("dialog")
+	else:
+		$DialogBox/AnimatedSprite.play("text")
+	dialogBoxFading = true
+	dialogBoxOpen = true
+
+func closeDialogBox():
+	dialogBoxFading = true
+	dialogBoxOpen = false
+
+func loadDialog(dialogFilePath) -> Dictionary:
+	var file = File.new()
+	assert file.file_exists(dialogFilePath)
+	file.open(dialogFilePath, file.READ)
+	var dialog = parse_json(file.get_as_text())
+	assert dialog.size() > 0
+	return dialog
+
+func startDialog(dialogFilePath, isDialog):
+	openDialogBox(isDialog)
+	var dialog : Dictionary = loadDialog(dialogFilePath)
+	dialogConversation = dialog.values()
+	dialogCurrentIndex = 0
+	updateDialog()
+
+func nextDialog():
+	dialogCurrentIndex += 1
+	if dialogCurrentIndex < dialogConversation.size():
+		updateDialog()
+	elif dialogCurrentIndex == dialogConversation.size():
+		closeDialogBox()
+		#endDialog() #NOTA / WIP : Depois, finalizar adequadamente o diálogo.
+
+func updateDialog():
+	dialogText = dialogConversation[dialogCurrentIndex].text
+	dialogTitle = dialogConversation[dialogCurrentIndex].name
+	dialogExpression = dialogConversation[dialogCurrentIndex].expression
+	print(dialogText) #PAROU AQUI
+
 #Código Inicial
 func _ready():
 	#Ajustes iniciais no WeaponSelect
 	$WeaponSelect/WeaponSwitch.modulate.a = 0
 	$WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite.modulate.a = 0
+	
+	#Ajustes inicias na DialogBox
+	$DialogBox/AnimatedSprite.modulate.a = 0
 
 #Código Principal
 func _physics_process(delta):
@@ -48,11 +124,30 @@ func _physics_process(delta):
 	elif $StatusBars/DELAY/TextureProgress.value <= $StatusBars/HP/TextureProgress.value:
 		$Timers/DELAY_SPEED.stop()
 	
+	#Caixa de Diálogo
+	dialogBox()
+	if Input.is_action_just_pressed("CG_TEST"):
+		if !dialogBoxOpen:
+			#openDialogBox(true)
+			startDialog("res://assets/dialogues/TestStage_dazuva.json", true)
+		else:
+			closeDialogBox()
+	
+	if Input.is_action_just_pressed("CG_TEST2"):
+		if dialogBoxOpen:
+			nextDialog()
+	
 	#Troca de Armas
 	if get_parent().get_node("Weapons").has_node("currentWeapon"):
 		$WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite/Text/Name.text = get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_NAME
 		$WeaponSelect/WeaponDisplay/BaseBlock/Text/AmmoType/AmmoType.text =  get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_AMMO_TYPE
 		$WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.text = str(get_parent().ammunition[get_parent().get_node("Weapons").get_node("currentWeapon").WEAPON_AMMO_TYPE_INDEX])
+		if($WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.text == "0"): #Se não houver munição, o contador de munição fica vermelho
+			$WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.modulate.g = 0
+			$WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.modulate.b = 0
+		else:
+			$WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.modulate.g = 1
+			$WeaponSelect/WeaponDisplay/BaseBlock/Text/Ammo/Ammo.modulate.b = 1
 		
 	if weaponSwitchFading:
 		if $WeaponSelect/WeaponSwitch.modulate.a < 0.6:
