@@ -4,6 +4,9 @@ extends CanvasLayer
 #Constantes
 const SCRIPT_TYPE = "HUD"
 
+#Sinais
+signal dialogBoxReady
+
 #Variáveis de Estado
 var fxName = "" #Nome do efeito de tela atual
 var weaponSwitching = 0 #-1 se estiver girando no sentido anti-horário; 0 se não estiver girando; +1 se estiver girando no sentido horário.
@@ -11,6 +14,8 @@ var weaponSwitchFading = false #false caso esteja sumindo ou já tenha sumido; t
 var weaponNameFading = false #false caso esteja sumindo ou já tenha sumido; true caso esteja aparecendo.
 var dialogBoxFading = false
 var dialogBoxOpen = false
+var dialogWriting = false
+var dialogWritingSpeed = 0.5
 
 var dialogTitle : String = ""
 var dialogText : String = ""
@@ -65,6 +70,12 @@ func dialogBox():
 				$Face.modulate.a -= 0.2
 			else:
 				dialogBoxFading = false
+				emit_signal("dialogBoxReady") #Depois que a caixa de diálogo estiver pronta, emitir esse sinal chamará updateDialog().
+	elif dialogWriting:
+		if $DialogBox/AnimatedSprite/RichTextLabel.percent_visible >= 1.00:
+			dialogWriting = false
+		else:
+			$DialogBox/AnimatedSprite/RichTextLabel.percent_visible += (dialogWritingSpeed/($DialogBox/AnimatedSprite/RichTextLabel.get_total_character_count()))
 
 func openDialogBox(isDialog):
 	if isDialog:
@@ -91,21 +102,30 @@ func startDialog(dialogFilePath, isDialog):
 	var dialog : Dictionary = loadDialog(dialogFilePath)
 	dialogConversation = dialog.values()
 	dialogCurrentIndex = 0
-	updateDialog()
 
 func nextDialog():
-	dialogCurrentIndex += 1
-	if dialogCurrentIndex < dialogConversation.size():
-		updateDialog()
-	elif dialogCurrentIndex == dialogConversation.size():
-		closeDialogBox()
-		#endDialog() #NOTA / WIP : Depois, finalizar adequadamente o diálogo.
+	if $DialogBox/AnimatedSprite/RichTextLabel.percent_visible >= 1.00:
+		dialogWritingSpeed = 0.5
+		dialogCurrentIndex += 1
+		if dialogCurrentIndex < dialogConversation.size():
+			updateDialog()
+		elif dialogCurrentIndex == dialogConversation.size():
+			endDialog()
+	else:
+		dialogWritingSpeed = 1.0
+
+func endDialog():
+	closeDialogBox()
+	$DialogBox/AnimatedSprite/RichTextLabel.bbcode_text = ""
+	$DialogBox/AnimatedSprite/RichTextLabel.percent_visible = 0
 
 func updateDialog():
+	$DialogBox/AnimatedSprite/RichTextLabel.percent_visible = 0
+	dialogWriting = true
 	dialogText = dialogConversation[dialogCurrentIndex].text
 	dialogTitle = dialogConversation[dialogCurrentIndex].name
 	dialogExpression = dialogConversation[dialogCurrentIndex].expression
-	print(dialogText) #PAROU AQUI
+	$DialogBox/AnimatedSprite/RichTextLabel.bbcode_text = "[fill]" + dialogText + "[/fill]"
 
 #Código Inicial
 func _ready():
@@ -128,7 +148,6 @@ func _physics_process(delta):
 	dialogBox()
 	if Input.is_action_just_pressed("CG_TEST"):
 		if !dialogBoxOpen:
-			#openDialogBox(true)
 			startDialog("res://assets/dialogues/TestStage_dazuva.json", true)
 		else:
 			closeDialogBox()
@@ -191,3 +210,6 @@ func _on_AnimatedSprite_animation_finished():
 	if $WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite.animation == "switch":
 		$WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite.play("idle")
 		$WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite/Text.visible = true
+
+func _on_hud_dialogBoxReady():
+	updateDialog()

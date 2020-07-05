@@ -57,7 +57,7 @@ font_path = "res://assets/fonts/Basis33/basis33.ttf"
 size = 32
 font_data = SubResource( 6 )
 
-[sub_resource type="SpriteFrames" id=10]
+[sub_resource type="SpriteFrames" id=8]
 animations = [ {
 "frames": [ ExtResource( 20 ) ],
 "loop": true,
@@ -70,14 +70,14 @@ animations = [ {
 "speed": 5.0
 } ]
 
-[sub_resource type="DynamicFontData" id=11]
+[sub_resource type="DynamicFontData" id=9]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
 
-[sub_resource type="DynamicFont" id=12]
+[sub_resource type="DynamicFont" id=10]
 size = 32
-font_data = SubResource( 11 )
+font_data = SubResource( 9 )
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=11]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -100,8 +100,8 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
+[sub_resource type="ShaderMaterial" id=12]
+shader = SubResource( 11 )
 shader_param/grayscale = false
 shader_param/displaceAmount = 0.008
 shader_param/abberationAmount = 0.012
@@ -267,7 +267,7 @@ texture = ExtResource( 19 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="DialogBox"]
 position = Vector2( 582.5, 564.167 )
 scale = Vector2( 4, 4 )
-frames = SubResource( 10 )
+frames = SubResource( 8 )
 animation = "dialog"
 
 [node name="RichTextLabel" type="RichTextLabel" parent="DialogBox/AnimatedSprite"]
@@ -276,10 +276,10 @@ margin_top = -12.0
 margin_right = 551.0
 margin_bottom = 96.0
 rect_scale = Vector2( 0.25, 0.25 )
-custom_fonts/normal_font = SubResource( 12 )
+custom_fonts/normal_font = SubResource( 10 )
 bbcode_enabled = true
-bbcode_text = "[fill]Este é um texto teste. Talvez isso acabe causando problemas mais tarde. [color=#ff0000]Não sei.[/color] Aqueles que uma vez [/fill]"
-text = "Este é um texto teste. Talvez isso acabe causando problemas mais tarde. Não sei. Aqueles que uma vez "
+visible_characters = 0
+percent_visible = 0.0
 
 [node name="Timers" type="Node2D" parent="."]
 editor/display_folded = true
@@ -293,11 +293,12 @@ one_shot = true
 
 [node name="TIMESTOP_MASK" type="ColorRect" parent="."]
 modulate = Color( 1, 1, 1, 0 )
-material = SubResource( 9 )
+material = SubResource( 12 )
 margin_left = -344.167
 margin_top = -295.0
 margin_right = 1454.83
 margin_bottom = 888.0
+[connection signal="dialogBoxReady" from="." to="." method="_on_hud_dialogBoxReady"]
 [connection signal="animation_finished" from="WeaponSelect/WeaponDisplay/NameBlock/AnimatedSprite" to="." method="_on_AnimatedSprite_animation_finished"]
 [connection signal="timeout" from="Timers/DELAY_SPEED" to="." method="_on_DELAY_SPEED_timeout"]
 [connection signal="timeout" from="Timers/FADING_COUNTDOWN" to="." method="_on_FADING_COUNTDOWN_timeout"]

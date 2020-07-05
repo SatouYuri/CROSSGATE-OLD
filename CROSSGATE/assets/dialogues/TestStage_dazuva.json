@@ -1,4 +1,9 @@
 {
-    "0001" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "Onde é que foi Tio Dazuva?"},
-    "0002" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "Não acho esse velhote em lugar nenhum..."}
+    "001" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "Olá, amigos."},
+    "002" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "Sabe, fico feliz que o sistema de diálogo esteja progredindo."},
+    "003" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "É realmente promissor."},
+    "004" : {"name": "Brandon Woodfield", "expression": "neutral", "text": ". . .    "},
+    "005" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "Não sei exatamente quando, mas em breve o sistema de expressões dos personagens também estará de pé."},
+    "006" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "Só espero que os desenvolvedores não fiquem enrolando demais..."},
+    "007" : {"name": "Brandon Woodfield", "expression": "neutral", "text": "*suspiro de cansaço*"},
 }
