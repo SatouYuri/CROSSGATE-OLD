@@ -72,10 +72,11 @@ func dialogBox():
 				dialogBoxFading = false
 				emit_signal("dialogBoxReady") #Depois que a caixa de diálogo estiver pronta, emitir esse sinal chamará updateDialog().
 	elif dialogWriting:
-		if $DialogBox/AnimatedSprite/RichTextLabel.percent_visible >= 1.00:
+		if $DialogBox/AnimatedSprite/DialogLabel.percent_visible >= 1.00:
 			dialogWriting = false
 		else:
-			$DialogBox/AnimatedSprite/RichTextLabel.percent_visible += (dialogWritingSpeed/($DialogBox/AnimatedSprite/RichTextLabel.get_total_character_count()))
+			if $DialogBox/AnimatedSprite/DialogLabel.get_total_character_count() > 0:
+				$DialogBox/AnimatedSprite/DialogLabel.percent_visible += (dialogWritingSpeed/($DialogBox/AnimatedSprite/DialogLabel.get_total_character_count()))
 
 func openDialogBox(isDialog):
 	if isDialog:
@@ -89,6 +90,12 @@ func closeDialogBox():
 	dialogBoxFading = true
 	dialogBoxOpen = false
 
+func isDialogRunning():
+	if dialogBoxOpen == false:
+		return false
+	else:
+		return true
+
 func loadDialog(dialogFilePath) -> Dictionary:
 	var file = File.new()
 	assert file.file_exists(dialogFilePath)
@@ -99,12 +106,18 @@ func loadDialog(dialogFilePath) -> Dictionary:
 
 func startDialog(dialogFilePath, isDialog):
 	openDialogBox(isDialog)
+	if isDialog:
+		$DialogBox/AnimatedSprite/DialogLabel.margin_left = -58
+		$DialogBox/AnimatedSprite/DialogLabel.margin_right = 550
+	else:
+		$DialogBox/AnimatedSprite/DialogLabel.margin_left = -92
+		$DialogBox/AnimatedSprite/DialogLabel.margin_right = 654
 	var dialog : Dictionary = loadDialog(dialogFilePath)
 	dialogConversation = dialog.values()
 	dialogCurrentIndex = 0
 
 func nextDialog():
-	if $DialogBox/AnimatedSprite/RichTextLabel.percent_visible >= 1.00:
+	if $DialogBox/AnimatedSprite/DialogLabel.percent_visible >= 1.00:
 		dialogWritingSpeed = 0.5
 		dialogCurrentIndex += 1
 		if dialogCurrentIndex < dialogConversation.size():
@@ -112,20 +125,20 @@ func nextDialog():
 		elif dialogCurrentIndex == dialogConversation.size():
 			endDialog()
 	else:
-		dialogWritingSpeed = 1.0
+		dialogWritingSpeed = 3.0
 
 func endDialog():
 	closeDialogBox()
-	$DialogBox/AnimatedSprite/RichTextLabel.bbcode_text = ""
-	$DialogBox/AnimatedSprite/RichTextLabel.percent_visible = 0
+	$DialogBox/AnimatedSprite/DialogLabel.bbcode_text = ""
+	$DialogBox/AnimatedSprite/DialogLabel.percent_visible = 0
 
 func updateDialog():
-	$DialogBox/AnimatedSprite/RichTextLabel.percent_visible = 0
+	$DialogBox/AnimatedSprite/DialogLabel.percent_visible = 0
 	dialogWriting = true
 	dialogText = dialogConversation[dialogCurrentIndex].text
 	dialogTitle = dialogConversation[dialogCurrentIndex].name
 	dialogExpression = dialogConversation[dialogCurrentIndex].expression
-	$DialogBox/AnimatedSprite/RichTextLabel.bbcode_text = "[fill]" + dialogText + "[/fill]"
+	$DialogBox/AnimatedSprite/DialogLabel.bbcode_text = "[fill]" + dialogText + "[/fill]"
 
 #Código Inicial
 func _ready():
@@ -148,12 +161,9 @@ func _physics_process(delta):
 	dialogBox()
 	if Input.is_action_just_pressed("CG_TEST"):
 		if !dialogBoxOpen:
-			startDialog("res://assets/dialogues/TestStage_dazuva.json", true)
+			startDialog("res://assets/dialogues/TestStage_dazuva.json", true) #NOTA / WIP: Dialogue Test
+			#startDialog("res://assets/dialogues/TestStage_dazuva.json", false) #NOTA / WIP: Text Test
 		else:
-			closeDialogBox()
-	
-	if Input.is_action_just_pressed("CG_TEST2"):
-		if dialogBoxOpen:
 			nextDialog()
 	
 	#Troca de Armas
