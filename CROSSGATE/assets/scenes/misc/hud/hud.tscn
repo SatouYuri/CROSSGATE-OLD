@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=2]
+[gd_scene load_steps=36 format=2]
 
 [ext_resource path="res://assets/scripts/misc/hud/hud.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/misc/hud/eyes/eyes_under.png" type="Texture" id=2]
@@ -21,7 +21,8 @@
 [ext_resource path="res://assets/sprites/misc/hud/partner_call/partner_call.png" type="Texture" id=19]
 [ext_resource path="res://assets/sprites/misc/hud/dialogbox/textbox.png" type="Texture" id=20]
 [ext_resource path="res://assets/sprites/misc/hud/dialogbox/dialogbox.png" type="Texture" id=21]
-[ext_resource path="res://assets/sprites/misc/ShaderFX/glitch.jpg" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/misc/deprecated/Brandon-Neutral.png" type="Texture" id=22]
+[ext_resource path="res://assets/sprites/misc/ShaderFX/glitch.jpg" type="Texture" id=23]
 
 [sub_resource type="DynamicFontData" id=1]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
@@ -107,7 +108,7 @@ shader_param/displaceAmount = 0.008
 shader_param/abberationAmount = 0.012
 shader_param/displaceSize = 1.0
 shader_param/displaceFrequency = 10.0
-shader_param/displace = ExtResource( 22 )
+shader_param/displace = ExtResource( 23 )
 
 [node name="hud" type="CanvasLayer"]
 scale = Vector2( 1.2, 1.2 )
@@ -280,7 +281,11 @@ custom_fonts/normal_font = SubResource( 10 )
 bbcode_enabled = true
 visible_characters = 0
 percent_visible = 0.0
-text = "dfhgdherherherh"
+
+[node name="Placeholder" type="Sprite" parent="DialogBox/AnimatedSprite"]
+position = Vector2( -79.9792, 0.0207367 )
+scale = Vector2( 0.195806, 0.195806 )
+texture = ExtResource( 22 )
 
 [node name="Timers" type="Node2D" parent="."]
 editor/display_folded = true

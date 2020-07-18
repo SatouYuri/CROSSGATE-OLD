@@ -32,10 +32,10 @@ func timeStop(): #Paraliza/Desparaliza este inimigo.
 	else:
 		stopped = false
 
-func triggerDialog(): #Exemplo de diálogo (os diálogos por interação devem funcionar desta maneira, esperando que o jogador aperte a tecla de interação); triggerDialog() é uma função chamada a cada frame.
+func triggerDialog(): #Exemplo de gatilho de diálogo (os diálogos por interação devem funcionar desta maneira, esperando que o jogador aperte a tecla de interação); triggerDialog() é uma função chamada a cada frame.
 	if Input.is_action_just_pressed("CG_INTERACT"):
-		if isPlayerInsideDialogArea and !getPlayerHud().isDialogRunning():
-			getPlayerHud().startDialog("res://assets/dialogues/TestStage_dazuva.json", true)
+		if isPlayerInsideDialogArea and !getPlayerHud().isDialogRunning() and !getPlayer().stopped:
+			getPlayerHud().startDialog("res://assets/dialogues/TestStage_dazuva.json", true, true)
 		elif getPlayerHud().isDialogRunning():
 			getPlayerHud().nextDialog()
 
@@ -45,8 +45,14 @@ func getWorld():
 func getPlayerHud():
 	return get_parent().get_parent().get_parent().get_node("Player").get_node("hud")
 
+func getPlayer():
+	return get_parent().get_parent().get_parent().get_node("Player")
+
 #Código Principal
 func _physics_process(delta):
+	#Teste de diálogo
+	triggerDialog()
+		
 	if !stopped:
 		if is_on_floor():
 			#velocity.y = JUMP_HEIGHT #Quicar
@@ -55,9 +61,6 @@ func _physics_process(delta):
 		velocity.y = velocity.y + GRAVITY #Força da gravidade
 		
 		velocity = move_and_slide(velocity, FLOOR)
-		
-		#Teste de diálogo
-		triggerDialog()
 
 func _on_SHOOT_COOLDOWN_timeout():
 	if !stopped:

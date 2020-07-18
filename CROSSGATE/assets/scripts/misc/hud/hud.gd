@@ -91,7 +91,7 @@ func closeDialogBox():
 	dialogBoxOpen = false
 
 func isDialogRunning():
-	if dialogBoxOpen == false:
+	if !dialogBoxOpen:
 		return false
 	else:
 		return true
@@ -104,8 +104,13 @@ func loadDialog(dialogFilePath) -> Dictionary:
 	assert dialog.size() > 0
 	return dialog
 
-func startDialog(dialogFilePath, isDialog):
+func theWorld(stopType) -> void: #Paraliza o mundo para a ocorrência de um diálogo.
+	get_parent().get_parent().theWorld(stopType)
+
+func startDialog(dialogFilePath, isDialog, enableDialogTimeStop):
 	openDialogBox(isDialog)
+	if enableDialogTimeStop:
+		get_parent().get_parent().theWorld("DIALOG")
 	if isDialog:
 		$DialogBox/AnimatedSprite/DialogLabel.margin_left = -58
 		$DialogBox/AnimatedSprite/DialogLabel.margin_right = 550
@@ -117,20 +122,21 @@ func startDialog(dialogFilePath, isDialog):
 	dialogCurrentIndex = 0
 
 func nextDialog():
-	if $DialogBox/AnimatedSprite/DialogLabel.percent_visible >= 1.00:
+	if $DialogBox/AnimatedSprite/DialogLabel.percent_visible == 1.00:
 		dialogWritingSpeed = 0.5
 		dialogCurrentIndex += 1
 		if dialogCurrentIndex < dialogConversation.size():
 			updateDialog()
 		elif dialogCurrentIndex == dialogConversation.size():
 			endDialog()
-	else:
+	elif $DialogBox/AnimatedSprite/DialogLabel.percent_visible > 0:
 		dialogWritingSpeed = 3.0
 
 func endDialog():
 	closeDialogBox()
 	$DialogBox/AnimatedSprite/DialogLabel.bbcode_text = ""
 	$DialogBox/AnimatedSprite/DialogLabel.percent_visible = 0
+	get_parent().get_parent().theWorld("DIALOG")
 
 func updateDialog():
 	$DialogBox/AnimatedSprite/DialogLabel.percent_visible = 0
@@ -161,7 +167,7 @@ func _physics_process(delta):
 	dialogBox()
 	if Input.is_action_just_pressed("CG_TEST"):
 		if !dialogBoxOpen:
-			startDialog("res://assets/dialogues/TestStage_dazuva.json", true) #NOTA / WIP: Dialogue Test
+			startDialog("res://assets/dialogues/TestStage_dazuva.json", true, true) #NOTA / WIP: Dialogue Test
 			#startDialog("res://assets/dialogues/TestStage_dazuva.json", false) #NOTA / WIP: Text Test
 		else:
 			nextDialog()

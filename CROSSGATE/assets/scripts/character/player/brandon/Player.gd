@@ -220,8 +220,8 @@ func isUndersliding(): #Retorna true se estiver deslizando e não for possível 
 	else:
 		return false
 
-func theWorld(): #Paraliza o mundo. Essa função deve ser chamada ao ativar o CROSSGATE.
-	get_parent().theWorld()
+func theWorld(stopType): #Paraliza o mundo. Essa função deve ser chamada ao ativar o CROSSGATE.
+	get_parent().theWorld(stopType)
 
 func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada pelo nó pai "World.tscn".
 	if !stopped:
@@ -291,7 +291,7 @@ func setViewBobbing(amplitude, frequency):
 
 #Código Principal
 func _input(event):
-	if stopped and event is InputEventMouseButton:
+	if event is InputEventMouseButton and stopped and !$hud.isDialogRunning():
 		if event.is_action_pressed("CG_L_CLICK"): #Inicializar um Gate e adicioná-lo ao mundo, no nó "Background".
 			if get_parent().gateList.size() < 2:
 				var gate = GATE.instance()
@@ -308,17 +308,18 @@ func _physics_process(delta):
 		#Atualizando o timeclock e o balanço de visão
 		time += delta
 		viewBobbing()
-			
-		#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
-		if $hud/TIMESTOP_MASK.modulate.a > 0:
-			$hud/TIMESTOP_MASK.modulate.a -= 0.1
-		#Ajustando o círculo do éter CROSSGATE (tempo voltando a correr)...
-		if $AetherCircle.modulate.a > 0:
-			$AetherCircle.modulate.a -= 0.05
-		if $AetherCircle.scale.x > 0:
-			$AetherCircle.scale.x -= 0.01
-		if $AetherCircle.scale.y > 0:
-			$AetherCircle.scale.y -= 0.01
+		
+		if !$hud.isDialogRunning():
+			#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
+			if $hud/TIMESTOP_MASK.modulate.a > 0:
+				$hud/TIMESTOP_MASK.modulate.a -= 0.1
+			#Ajustando o círculo do éter CROSSGATE (tempo voltando a correr)...
+			if $AetherCircle.modulate.a > 0:
+				$AetherCircle.modulate.a -= 0.05
+			if $AetherCircle.scale.x > 0:
+				$AetherCircle.scale.x -= 0.01
+			if $AetherCircle.scale.y > 0:
+				$AetherCircle.scale.y -= 0.01
 		
 		#Movimentação: Eixo X
 		if Input.is_action_pressed("CG_RIGHT") and !isUndersliding():
@@ -346,16 +347,17 @@ func _physics_process(delta):
 		velocity.y = velocity.y + GRAVITY #Força da gravidade
 		
 	else: #Se o tempo estiver parado...
-		#Ajustando a máscara TIMESTOP_MASK (tempo parando)...
-		if $hud/TIMESTOP_MASK.modulate.a < 1:
-		   $hud/TIMESTOP_MASK.modulate.a += 0.1
-		#Ajustando o círculo do éter CROSSGATE (tempo parando)...
-		if $AetherCircle.modulate.a < 1:
-			$AetherCircle.modulate.a += 0.1
-		if $AetherCircle.scale.x < 0.5:
-			$AetherCircle.scale.x += 0.1
-		if $AetherCircle.scale.y < 0.5:
-			$AetherCircle.scale.y += 0.1
+		if !$hud.isDialogRunning():
+			#Ajustando a máscara TIMESTOP_MASK (tempo parando)...
+			if $hud/TIMESTOP_MASK.modulate.a < 1:
+			   $hud/TIMESTOP_MASK.modulate.a += 0.1
+			#Ajustando o círculo do éter CROSSGATE (tempo parando)...
+			if $AetherCircle.modulate.a < 1:
+				$AetherCircle.modulate.a += 0.1
+			if $AetherCircle.scale.x < 0.5:
+				$AetherCircle.scale.x += 0.1
+			if $AetherCircle.scale.y < 0.5:
+				$AetherCircle.scale.y += 0.1
 
 	#Animações
 	if actionState != SLIDING: #Se não está deslizando...
@@ -442,17 +444,17 @@ func _physics_process(delta):
 						$Timers/SLIDING_COOLDOWN.start()
 	
 	#CROSSGATE
-	if Input.is_action_just_pressed("CG_GATE"): #NOTA / WIP: Ajustar para parar o tudo que for pertinente...
+	if Input.is_action_just_pressed("CG_GATE") and !$hud.isDialogRunning(): #NOTA / WIP: Ajustar para parar o tudo que for pertinente...
 		if !stopped: 
 			if get_parent().gateList.size() > 0:
 				for g in get_parent().gateList:
 					g.gateClose()
 			else:
-				theWorld()
+				theWorld("SKILL")
 				$TIMESTOP_COUNTDOWN.wait_time = timeStopInterval # NOTA / WIP : O intervalo de tempo depende do tipo de Gate
 				$TIMESTOP_COUNTDOWN.start()
 		else:
-			theWorld()
+			theWorld("SKILL")
 			$TIMESTOP_COUNTDOWN.stop()
 		
 	#Comandos finais do frame
@@ -478,7 +480,7 @@ func _on_SLIDING_timeout():
 
 func _on_TIMESTOP_COUNTDOWN_timeout(): #Tempo voltando a correr (timeout da pausa no tempo atingido)...
 	if stopped:
-		theWorld()
+		theWorld("SKILL")
 
 func _on_DAMAGE_BOBBING_timeout():
 	bobbingAmplitude = bkpAmplitude
