@@ -71,7 +71,9 @@ func _on_SHOOT_COOLDOWN_timeout():
 func _on_DialogArea_body_entered(body):
 	if "Player" in body.name:
 		isPlayerInsideDialogArea = true
+		body.setInteractionIconVisible(true)
 
 func _on_DialogArea_body_exited(body):
 	if "Player" in body.name:
 		isPlayerInsideDialogArea = false
+		body.setInteractionIconVisible(false)

@@ -289,6 +289,10 @@ func setViewBobbing(amplitude, frequency):
 	bobbingAmplitude = amplitude
 	bobbingFrequency = frequency
 
+func setInteractionIconVisible(isVisible):
+	$InteractionIcon.visible = isVisible
+	$InteractionIcon.playing = isVisible
+
 #Código Principal
 func _input(event):
 	if event is InputEventMouseButton and stopped and !$hud.isDialogRunning():

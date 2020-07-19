@@ -53,6 +53,7 @@ func dialogBox():
 		if !dialogBoxOpen: #Se a caixa de diálogo está fechando
 			if $DialogBox/AnimatedSprite.modulate.a > 0.2:
 				$DialogBox/AnimatedSprite.modulate.a -= 0.2
+				get_parent().get_node("InteractionIcon").modulate.a += 0.2
 				$PartnerCall/Sprite.modulate.a += 0.2
 				$WeaponSelect.modulate.a += 0.2
 				$StatusBars.modulate.a += 0.2
@@ -63,6 +64,7 @@ func dialogBox():
 		else: #Se a caixa de diálogo está abrindo
 			if $DialogBox/AnimatedSprite.modulate.a < 1:
 				$DialogBox/AnimatedSprite.modulate.a += 0.2
+				get_parent().get_node("InteractionIcon").modulate.a -= 0.2
 				$PartnerCall/Sprite.modulate.a -= 0.2
 				$WeaponSelect.modulate.a -= 0.2
 				$StatusBars.modulate.a -= 0.2
