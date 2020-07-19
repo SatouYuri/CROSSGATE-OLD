@@ -17,7 +17,7 @@ var dialogBoxOpen = false
 var dialogWriting = false
 var dialogWritingSpeed = 0.5
 
-var dialogTitle : String = ""
+var dialogCharName : String = ""
 var dialogText : String = ""
 var dialogExpression : String
 var dialogConversation : Array
@@ -142,9 +142,19 @@ func updateDialog():
 	$DialogBox/AnimatedSprite/DialogLabel.percent_visible = 0
 	dialogWriting = true
 	dialogText = dialogConversation[dialogCurrentIndex].text
-	dialogTitle = dialogConversation[dialogCurrentIndex].name
+	dialogCharName = dialogConversation[dialogCurrentIndex].name
 	dialogExpression = dialogConversation[dialogCurrentIndex].expression
 	$DialogBox/AnimatedSprite/DialogLabel.bbcode_text = "[fill]" + dialogText + "[/fill]"
+	playDialogExpression(dialogCharName, dialogExpression)
+
+func playDialogExpression(charName : String, expression : String):
+	var charIndex = 0
+	if charName == "Brandon Woodfield":
+		charIndex = 1
+	for node in get_node("DialogBox/AnimatedSprite/DialogImage").get_children():
+		if node.name != "Face":
+			node.play(expression)
+		node.frame = charIndex
 
 #Código Inicial
 func _ready():
@@ -165,12 +175,6 @@ func _physics_process(delta):
 	
 	#Caixa de Diálogo
 	dialogBox()
-	if Input.is_action_just_pressed("CG_TEST"):
-		if !dialogBoxOpen:
-			startDialog("res://assets/dialogues/TestStage_dazuva.json", true, true) #NOTA / WIP: Dialogue Test
-			#startDialog("res://assets/dialogues/TestStage_dazuva.json", false) #NOTA / WIP: Text Test
-		else:
-			nextDialog()
 	
 	#Troca de Armas
 	if get_parent().get_node("Weapons").has_node("currentWeapon"):
