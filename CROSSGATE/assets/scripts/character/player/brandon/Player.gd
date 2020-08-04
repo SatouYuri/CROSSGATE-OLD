@@ -36,6 +36,7 @@ var timeStopInterval
 var ownedWeapons #Array contendo os índices no array WEAPONS das armas que o jogador possui atualmente no inventário.
 var currentWeaponIndex #Índice no array WEAPONS o qual representa a arma atualmente selecionada.
 var ammunition #[9mm; CAL45;]
+var meleeComboCount #0: Aguardando 1º hit; 1: Aguardando 2º hit; 2: Aguardando 3º hit; 3: Fim do combo e o cooldown Timer do melee começa a contar...
 
 #Código Inicial
 func _ready():
@@ -63,6 +64,7 @@ func _ready():
 	ownedWeapons = [0, 1] #NOTA / WIP: As armas que o jogador possui devem vir de dados salvos depois... // Array contendo os índices no array WEAPONS das armas que o jogador possui atualmente no inventário.
 	currentWeaponIndex = 0 #NOTA / WIP: A última arma que o jogador usou deve vir de dados salvos depois... // Índice no array WEAPONS o qual representa a arma atualmente selecionada.
 	ammunition = [115, 50] #NOTA / WIP: A quantidade de cada munição em posse do jogador deve vir de dados salvos depois... // Array com cada posição sendo a quantidade de munição do respectivo calibre na posse do jogador [9mm; CAL45;]
+	meleeComboCount = 0
 	
 	#[DEPRECATED após transferir a TIMESTOP_MASK para a cena do HUD] Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
 	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
@@ -137,6 +139,34 @@ func synchronizedPlayAnim(anim, target, synchroFrame): #[USO APENAS PARA ANIMAÇ
 		$DBODY.play(anim)
 		$DBODY.set_frame(synchroFrame)
 
+func meleeCombo(start): #start = true inicia o combo; start = false termina o combo;
+	$UBODY.visible = !start
+	$DBODY.visible = !start
+	$LARM.visible = !start
+	$RARM.visible = !start
+	$MELEE.visible = start
+	if !start:
+		meleeComboCount = 0
+
+func meleeHit(meleeWeaponName, meleeComboCount): #Habilita a caixa de dano adequada de acordo com a arma corpo a corpo atual e o hit atual.
+	if meleeWeaponName == "Saber":
+		if meleeComboCount == 1:
+			if $MeleeHitArea/Saber/Hit1.get_overlapping_bodies().size() > 0:
+				for body in $MeleeHitArea/Saber/Hit1.get_overlapping_bodies():
+					if body.SCRIPT_TYPE in ["Enemy"]: #NOTA / WIP: Adicione mais alvos depois // Podemos generalizar os alvos numa constante do projeto...
+						body.takeDamage(30)
+		elif meleeComboCount == 2:
+			if $MeleeHitArea/Saber/Hit2.get_overlapping_bodies().size() > 0:
+				for body in $MeleeHitArea/Saber/Hit2.get_overlapping_bodies():
+					if body.SCRIPT_TYPE in ["Enemy"]: #NOTA / WIP: Adicione mais alvos depois // Podemos generalizar os alvos numa constante do projeto...
+						body.takeDamage(30)
+		elif meleeComboCount == 3:
+			if $MeleeHitArea/Saber/Hit3.get_overlapping_bodies().size() > 0:
+				for body in $MeleeHitArea/Saber/Hit3.get_overlapping_bodies():
+					if body.SCRIPT_TYPE in ["Enemy"]: #NOTA / WIP: Adicione mais alvos depois // Podemos generalizar os alvos numa constante do projeto...
+						body.takeDamage(40)
+	#if meleeWeaponName == "Punch":
+
 func getSide(): #Retorna o lado atual (-1: esquerda; 1: direita)
 	if !$UBODY.flip_h:
 		return 1
@@ -190,6 +220,18 @@ func mirror(side): #Espelha os sprites de todas as partes do corpo a favor do la
 	$DBODY.flip_h = side
 	$LARM.flip_h  = side
 	$RARM.flip_h  = side
+	$MELEE.flip_h = side
+	assert has_node("MeleeHitArea")
+	if side:
+		$MELEE.position = Vector2(-16, -16)
+		for meleeWeapon in $MeleeHitArea.get_children():
+			for area in meleeWeapon.get_children():
+				area.get_node("CollisionShape2D").position.x = abs(area.get_node("CollisionShape2D").position.x)*-1
+	else:
+		$MELEE.position = Vector2(+16, -16)
+		for meleeWeapon in $MeleeHitArea.get_children():
+			for area in meleeWeapon.get_children():
+				area.get_node("CollisionShape2D").position.x = abs(area.get_node("CollisionShape2D").position.x)*+1
 	$Weapons/currentWeapon.mirror(side)
 	$Weapons/currentWeapon.position.x = abs($Weapons/currentWeapon.position.x)*getSide()
 	$UNDERSLIDING_DETECTOR.cast_to.x = abs($UNDERSLIDING_DETECTOR.cast_to.x)*getSide()
@@ -246,7 +288,7 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 
 func selectWeapon(weaponIndex):
 	if $Weapons.has_node("currentWeapon"):
-		get_node("Weapons").remove_child(get_node("Weapons").get_node("currentWeapon"))
+		$Weapons.remove_child($Weapons.get_node("currentWeapon"))
 	currentWeaponIndex = weaponIndex
 	var currentWeapon = WEAPONS[currentWeaponIndex].instance()
 	currentWeapon.set_name("currentWeapon")
@@ -258,9 +300,9 @@ func selectWeapon(weaponIndex):
 		currentWeapon.position.x = getSide()*14
 		currentWeapon.position.y = -5
 	currentWeapon.mirror(getSideBool())
-	if !actionState in [AIMING, ATTACKING]:
+	if !actionState in [AIMING, ATTACKING] or meleeComboCount > 0:
 		currentWeapon.visible = false
-	get_node("Weapons").add_child(currentWeapon)
+	$Weapons.add_child(currentWeapon)
 	currentWeapon.adjustSpeed()
 
 func selectNextWeapon():
@@ -326,13 +368,13 @@ func _physics_process(delta):
 				$AetherCircle.scale.y -= 0.01
 		
 		#Movimentação: Eixo X
-		if Input.is_action_pressed("CG_RIGHT") and !isUndersliding():
+		if Input.is_action_pressed("CG_RIGHT") and !isUndersliding() and (meleeComboCount == 0 || !is_on_floor()):
 			mirror(false)
 			if actionState == SLIDING:
 				velocity.x = MOVESPEED*2
 			else:
 				velocity.x = MOVESPEED
-		elif Input.is_action_pressed("CG_LEFT") and !isUndersliding():
+		elif Input.is_action_pressed("CG_LEFT") and !isUndersliding() and (meleeComboCount == 0 || !is_on_floor()):
 			mirror(true)
 			if actionState == SLIDING:
 				velocity.x = -MOVESPEED*2
@@ -425,6 +467,20 @@ func _physics_process(delta):
 					$Weapons/currentWeapon.shoot("Player")
 					ammunition[$Weapons/currentWeapon.WEAPON_AMMO_TYPE_INDEX] -= 1
 			
+			if Input.is_action_just_pressed("CG_MELEE"): #Ataque Corpo a Corpo
+				if actionState != ATTACKING or (meleeComboCount > 0 and !$Timers/COMBO_MOMENTUM.is_stopped()):
+					if actionState == AIMING:
+						$Weapons/currentWeapon.visible = false
+					if meleeComboCount == 0:
+						meleeCombo(true)
+						actionState = ATTACKING
+					if meleeComboCount < 3:
+						meleeComboCount += 1
+						$MELEE.frame = 0
+						$MELEE.play("saber_" + str(meleeComboCount)) #NOTA / WIP: Depois, generalizar para qualquer melee...
+						meleeHit("Saber", meleeComboCount)
+						$Timers/COMBO_MOMENTUM.start()
+			
 			if Input.is_action_pressed("CG_DOWN") and $Timers/SLIDING_COOLDOWN.time_left == 0 and isUnderslidingPossible() and is_on_floor(): #Slide Start
 				if actionState != SLIDING:
 					if velocity.x != 0:
@@ -491,3 +547,7 @@ func _on_DAMAGE_BOBBING_timeout():
 	bobbingFrequency = bkpFrequency
 	$Camera2D.offset.x = 0
 	$Camera2D.offset.y = -20
+
+func _on_COMBO_MOMENTUM_timeout():
+	meleeCombo(false)
+	actionState = STANDBY

@@ -3,6 +3,8 @@
 [ext_resource path="res://assets/scripts/environment/object/dynamic/bullet/Bullet.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/environment/object/dynamic/bullet/bullet.png" type="Texture" id=2]
 
+
+
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],

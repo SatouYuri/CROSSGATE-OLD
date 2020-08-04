@@ -20,8 +20,17 @@ var isPlayerInsideDialogArea = false
 func die():
 	queue_free()
 
+func hitConfirm():
+	$Sprite.material.set_shader_param("mixture", 1.00)
+
+func hitConfirmBlink():
+	if $Sprite.material.get_shader_param("mixture") - 0.1 >= 0.00:
+		$Sprite.material.set_shader_param("mixture", $Sprite.material.get_shader_param("mixture") - 0.1)
+
 func takeDamage(damage):
+	hitConfirm()
 	lifepoints -= damage
+	print(self.name + ": " + str(lifepoints + damage) + " - " + str(damage) + " = " + str(lifepoints))
 	if lifepoints <= 0:
 		lifepoints = 0
 		die()
@@ -52,7 +61,10 @@ func getPlayer():
 func _physics_process(delta):
 	#Teste de diálogo
 	triggerDialog()
-		
+	
+	#Feedback de que este corpo tomou dano
+	hitConfirmBlink()
+	
 	if !stopped:
 		if is_on_floor():
 			#velocity.y = JUMP_HEIGHT #Quicar
