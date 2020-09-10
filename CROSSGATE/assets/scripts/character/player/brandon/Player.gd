@@ -2,6 +2,7 @@ extends KinematicBody2D
 
 #Constantes
 const SCRIPT_TYPE = "Player"
+const pConst = preload("res://assets/util/PROJECT_CONSTANTS.gd")
 const DEAD = 0
 const STANDBY = 1
 const AIMING = 2
@@ -19,10 +20,6 @@ const WEAPONS = [
 
 #Variáveis de Estado
 var time
-var bobbingAmplitude #Amplitude da onda senoidal que descreve o balanço da tela
-var bobbingFrequency #Frequência da onda senoidal que descreve o balanço da tela
-var bkpAmplitude
-var bkpFrequency
 var velocity
 var actionState
 var stopped
@@ -42,15 +39,6 @@ var meleeComboCount #0: Aguardando 1º hit; 1: Aguardando 2º hit; 2: Aguardando
 func _ready():
 	#Inicializando variáveis de estado
 	time = 0
-	#NOTA / WIP: Algumas combinações (Ampl, Freq) para teste: (0.0625; 1) - Idle (balanço suave); (2; 100) - Dano; (0.25; 20) - Balanço do Trem; 
-	#NOTA / WIP: Não fazer balanços de tela mais violentos que o de dano, exceto em cutscenes.
-	#NOTA / WIP: O balanço de visão do estágio deve ser inicializado em _ready() utilizando valores das constantes de amplitude e frequência padrões do estágio.
-	#Definindo o balanço de tela padrão do estágio (bobbingAmplitude e bobbingFrequency)
-	if get_parent().get_node("Environment").has_node("loadedStage"):
-		setViewBobbing(get_parent().get_node("Environment").get_node("loadedStage").DEFAULT_AMPLITUDE, get_parent().get_node("Environment").get_node("loadedStage").DEFAULT_FREQUENCY)
-		
-	bkpAmplitude = 0
-	bkpFrequency = 0
 	velocity = Vector2()
 	actionState = STANDBY
 	stopped = false
@@ -66,17 +54,14 @@ func _ready():
 	ammunition = [115, 50] #NOTA / WIP: A quantidade de cada munição em posse do jogador deve vir de dados salvos depois... // Array com cada posição sendo a quantidade de munição do respectivo calibre na posse do jogador [9mm; CAL45;]
 	meleeComboCount = 0
 	
-	#[DEPRECATED após transferir a TIMESTOP_MASK para a cena do HUD] Configurando máscara TIMESTOP_MASK (Ajustar isso depois: Se a resolução for atualizada, reinicialize estes valores)
-	$TIMESTOP_MASK.margin_top = -(get_viewport().size.y/2)*1.2
-	$TIMESTOP_MASK.margin_right = +(get_viewport().size.x/2)*1.2
-	$TIMESTOP_MASK.margin_bottom = +(get_viewport().size.y/2)*1.2
-	$TIMESTOP_MASK.margin_left = -(get_viewport().size.x/2)*1.2
-	
 	#Atualizando o HUD
 	$hud.update()
 	
 	#Instanciando arma atual
 	selectWeapon(currentWeaponIndex)
+	
+	#Inicializando balanço de tela
+	$hud.playShake("train")
 
 #Funções
 func die():
@@ -85,26 +70,23 @@ func die():
 func takeDamage(damage):
 	lifepoints -= damage
 	$hud.updateLifepoints()
-	if $Timers/DAMAGE_BOBBING.is_stopped():
-		bkpAmplitude = bobbingAmplitude
-		bkpFrequency = bobbingFrequency
-	setViewBobbing(2, 100)
-	$Timers/DAMAGE_BOBBING.start()
+	$hud.playShake("damage")
+	$hud/Status/LowHealth.modulate.a = 1.0 - lifepoints/float(maxLifepoints)
 	if lifepoints <= 0:
 		lifepoints = 0
 		die()
 
 func bodyLayerAdjust(anim): #Configura o valor de z-index em cada parte individual do corpo.
 	if('idle' in anim):
-		$UBODY.z_index = 3
-		$DBODY.z_index = 2
-		$LARM.z_index  = 2
-		$RARM.z_index  = 2
+		$UBODY.z_index = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_3
+		$DBODY.z_index = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_2
+		$LARM.z_index  = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_2
+		$RARM.z_index  = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_2
 	elif('run' in anim):
-		$UBODY.z_index = 3
-		$DBODY.z_index = 2
-		$LARM.z_index  = 1
-		$RARM.z_index  = 4
+		$UBODY.z_index = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_3
+		$DBODY.z_index = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_2
+		$LARM.z_index  = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_1
+		$RARM.z_index  = pConst.PLAYER_RESERVED_Z_INDEX_LAYER_4
 
 func playAnim(anim): #Inicia, para todas as partes do corpo, a animação inserida.
 	bodyLayerAdjust(anim) #configura o z-index, dada a animação inserida.
@@ -276,6 +258,7 @@ func timeStop(): #Paraliza/Desparaliza essa cena. Essa função deve ser chamada
 		$DBODY.stop()
 		$Weapons/currentWeapon/AnimatedSprite.stop()
 		$AetherCircle.playFX($AetherCircle.ACTIVATESKILL_FX)
+		
 	else:
 		stopped = false
 		for t in $Timers.get_children():
@@ -292,7 +275,7 @@ func selectWeapon(weaponIndex):
 	currentWeaponIndex = weaponIndex
 	var currentWeapon = WEAPONS[currentWeaponIndex].instance()
 	currentWeapon.set_name("currentWeapon")
-	currentWeapon.z_index = 5
+	currentWeapon.z_index = pConst.PLAYER_WEAPON_RESERVED_Z_INDEX
 	if actionState == AIMING and velocity.x != 0:
 		currentWeapon.position.x = getSide()*13
 		currentWeapon.position.y = 1
@@ -323,14 +306,6 @@ func getPrevWeaponIndex():
 	else:
 		return ownedWeapons[ownedWeapons.find(currentWeaponIndex) - 1]
 
-func viewBobbing():
-	$Camera2D.offset.x += bobbingAmplitude*cos(bobbingFrequency*time)
-	$Camera2D.offset.y += bobbingAmplitude*sin(bobbingFrequency*time)
-
-func setViewBobbing(amplitude, frequency):
-	bobbingAmplitude = amplitude
-	bobbingFrequency = frequency
-
 func setInteractionIconVisible(isVisible):
 	$InteractionIcon.visible = isVisible
 	$InteractionIcon.playing = isVisible
@@ -351,9 +326,8 @@ func _input(event):
 
 func _physics_process(delta):
 	if !stopped: #Se o tempo não estiver parado...
-		#Atualizando o timeclock e o balanço de visão
+		#Atualizando o timeclock
 		time += delta
-		viewBobbing()
 		
 		if !$hud.isDialogRunning():
 			#Ajustando a máscara TIMESTOP_MASK (tempo voltando a correr)...
@@ -541,12 +515,6 @@ func _on_SLIDING_timeout():
 func _on_TIMESTOP_COUNTDOWN_timeout(): #Tempo voltando a correr (timeout da pausa no tempo atingido)...
 	if stopped:
 		theWorld("SKILL")
-
-func _on_DAMAGE_BOBBING_timeout():
-	bobbingAmplitude = bkpAmplitude
-	bobbingFrequency = bkpFrequency
-	$Camera2D.offset.x = 0
-	$Camera2D.offset.y = -20
 
 func _on_COMBO_MOMENTUM_timeout():
 	meleeCombo(false)

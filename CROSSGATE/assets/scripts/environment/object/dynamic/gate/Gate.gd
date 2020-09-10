@@ -36,6 +36,12 @@ func gateClose():
 	for node in get_node("SpriteSetClosed").get_children():
 		node.play("closing")
 
+func getWorld():
+	return get_parent().get_parent()
+
+func getPlayer():
+	return getWorld().get_node("Player")
+
 #Código Inicial
 func _ready():
 	open = false
@@ -64,12 +70,6 @@ func _physics_process(delta):
 		$SpriteSetClosed/Closed3.rotate(-3.1415/800)
 		$SpriteSetClosed/Closed4.rotate(-3.1415/360)
 		$SpriteSetClosed/Closed5.rotate(-3.1415/720)
-		
-	if Input.is_action_just_pressed("CG_TEST"): #NOTA / WIP: Remover depois
-		if !open:
-			gateOpen();
-		else:
-			gateClose();
 
 func _on_Closed1_animation_finished():
 	if $SpriteSetClosed/Closed1.animation == "opening":
@@ -79,21 +79,21 @@ func _on_Closed1_animation_finished():
 		open = false
 		#for node in get_node("SpriteSetClosed").get_children(): #NOTA / WIP : Isso seria usado em um Gate fixo no mapa. Não é o caso.
 		#	node.play("locked")
-		get_parent().get_parent().gateList.erase(self)
+		getWorld().gateList.erase(self)
 		queue_free()
 
 func _on_Interact_body_entered(body):
-	if open and get_parent().get_parent().gateList.size() >= 2:
+	if open and getWorld().gateList.size() >= 2:
 		if "Player" in body.name:
 			flashing = true
 			if !body.crossingGates:
 				body.crossingGates = true
-				for i in range(get_parent().get_parent().gateList.size()):
-					if get_parent().get_parent().gateList[i].name == name:
-						if i == (get_parent().get_parent().gateList.size() - 1):
-							body.position = get_parent().get_parent().gateList[0].position
+				for i in range(getWorld().gateList.size()):
+					if getWorld().gateList[i].name == name:
+						if i == (getWorld().gateList.size() - 1):
+							body.position = getWorld().gateList[0].position
 						else:
-							body.position = get_parent().get_parent().gateList[i + 1].position
+							body.position = getWorld().gateList[i + 1].position
 
 func _on_Interact_body_exited(body):
 	if open: #Se o portal está aberto...
@@ -102,17 +102,17 @@ func _on_Interact_body_exited(body):
 			body.crossingGates = false
 
 func _on_Interact_area_entered(area):
-	if open and get_parent().get_parent().gateList.size() >= 2:
+	if open and getWorld().gateList.size() >= 2:
 		if "Bullet" in area.name:
 			flashing = true
 			if !area.crossingGates:
 				area.crossingGates = true
-				for i in range(get_parent().get_parent().gateList.size()):
-					if get_parent().get_parent().gateList[i].name == name:
-						if i == (get_parent().get_parent().gateList.size() - 1):
-							area.position = get_parent().get_parent().gateList[0].position
+				for i in range(getWorld().gateList.size()):
+					if getWorld().gateList[i].name == name:
+						if i == (getWorld().gateList.size() - 1):
+							area.position = getWorld().gateList[0].position
 						else:
-							area.position = get_parent().get_parent().gateList[i + 1].position
+							area.position = getWorld().gateList[i + 1].position
 
 func _on_Interact_area_exited(area):
 	if open: #Se o portal está aberto...

@@ -30,7 +30,7 @@ func hitConfirmBlink():
 func takeDamage(damage):
 	hitConfirm()
 	lifepoints -= damage
-	print(self.name + ": " + str(lifepoints + damage) + " - " + str(damage) + " = " + str(lifepoints))
+	#print(self.name + ": " + str(lifepoints + damage) + " - " + str(damage) + " = " + str(lifepoints))
 	if lifepoints <= 0:
 		lifepoints = 0
 		die()

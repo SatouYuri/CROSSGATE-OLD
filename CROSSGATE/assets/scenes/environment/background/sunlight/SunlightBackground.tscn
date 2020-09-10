@@ -1,9 +1,11 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://assets/scripts/environment/background/sunlight/SunlightBackground.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/environment/background/sunlight/sky.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/environment/background/sunlight/dunes.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/environment/background/sunlight/sand_cactus.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/environment/background/sunlight/sand_close.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/environment/background/sunlight/rails.png" type="Texture" id=6]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -31,7 +33,7 @@ shader_param/scrollSpeed = null
 shader_param/time = null
 shader_param/stopped = null
 
-[sub_resource type="Shader" id=3]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 uniform float scrollSpeed;
 uniform float time;
@@ -52,7 +54,7 @@ void vertex() {
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 3 )
+shader = SubResource( 7 )
 shader_param/scrollSpeed = null
 shader_param/time = null
 shader_param/stopped = null
@@ -83,7 +85,60 @@ shader_param/scrollSpeed = 0.0
 shader_param/time = null
 shader_param/stopped = null
 
+[sub_resource type="Shader" id=8]
+code = "shader_type canvas_item;
+uniform float scrollSpeed;
+uniform float time;
+uniform bool stopped;
+
+void fragment() {
+	vec2 shiftedUV = UV;
+	shiftedUV.x += time * scrollSpeed;
+	vec4 col = texture(TEXTURE, shiftedUV);
+	COLOR = col;	
+}
+
+void vertex() {
+	if(stopped){
+		VERTEX.x += cos(TIME) * 30.0;
+		VERTEX.y += sin(TIME) * 30.0;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=9]
+shader = SubResource( 8 )
+shader_param/scrollSpeed = null
+shader_param/time = null
+shader_param/stopped = null
+
+[sub_resource type="Shader" id=10]
+code = "shader_type canvas_item;
+uniform float scrollSpeed;
+uniform float time;
+uniform bool stopped;
+
+void fragment() {
+	vec2 shiftedUV = UV;
+	shiftedUV.x += time * scrollSpeed;
+	vec4 col = texture(TEXTURE, shiftedUV);
+	COLOR = col;	
+}
+
+void vertex() {
+	if(stopped){
+		VERTEX.x += cos(TIME) * 30.0;
+		VERTEX.y += sin(TIME) * 30.0;
+	}
+}"
+
+[sub_resource type="ShaderMaterial" id=11]
+shader = SubResource( 10 )
+shader_param/scrollSpeed = null
+shader_param/time = null
+shader_param/stopped = null
+
 [node name="SunlightBackground" type="Node2D"]
+z_index = -1
 script = ExtResource( 1 )
 __meta__ = {
 "_edit_vertical_guides_": [  ]
@@ -217,3 +272,79 @@ margin_bottom = 387.0
 rect_scale = Vector2( 0.4, 0.4 )
 texture = ExtResource( 4 )
 stretch_mode = 2
+
+[node name="CloseSand" type="Node2D" parent="."]
+position = Vector2( 0, -1 )
+
+[node name="Region0" type="Node2D" parent="CloseSand"]
+editor/display_folded = true
+position = Vector2( -819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="CloseSand/Region0"]
+material = SubResource( 9 )
+margin_left = -409.0
+margin_top = -125.0
+margin_right = 1639.0
+margin_bottom = 899.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
+
+[node name="Region1" type="Node2D" parent="CloseSand"]
+editor/display_folded = true
+
+[node name="TextureRect" type="TextureRect" parent="CloseSand/Region1"]
+material = SubResource( 9 )
+margin_left = -409.0
+margin_top = -125.0
+margin_right = 1639.0
+margin_bottom = 899.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
+
+[node name="Region2" type="Node2D" parent="CloseSand"]
+editor/display_folded = true
+position = Vector2( 819, 0 )
+
+[node name="TextureRect" type="TextureRect" parent="CloseSand/Region2"]
+material = SubResource( 9 )
+margin_left = -409.0
+margin_top = -125.0
+margin_right = 1639.0
+margin_bottom = 899.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 5 )
+
+[node name="Rail" type="Node2D" parent="."]
+
+[node name="Region0" type="Node2D" parent="Rail"]
+editor/display_folded = true
+position = Vector2( -1228, -338 )
+
+[node name="TextureRect" type="TextureRect" parent="Rail/Region0"]
+material = SubResource( 11 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+
+[node name="Region1" type="Node2D" parent="Rail"]
+editor/display_folded = true
+position = Vector2( -409, -338 )
+
+[node name="TextureRect" type="TextureRect" parent="Rail/Region1"]
+material = SubResource( 11 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )
+
+[node name="Region2" type="Node2D" parent="Rail"]
+editor/display_folded = true
+position = Vector2( 410, -338 )
+
+[node name="TextureRect" type="TextureRect" parent="Rail/Region2"]
+material = SubResource( 11 )
+margin_right = 40.0
+margin_bottom = 40.0
+rect_scale = Vector2( 0.4, 0.4 )
+texture = ExtResource( 6 )

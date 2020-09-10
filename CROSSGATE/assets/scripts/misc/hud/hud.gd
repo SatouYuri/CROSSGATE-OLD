@@ -3,6 +3,7 @@ extends CanvasLayer
 
 #Constantes
 const SCRIPT_TYPE = "HUD"
+const pConst = preload("res://assets/util/PROJECT_CONSTANTS.gd")
 
 #Sinais
 signal dialogBoxReady
@@ -22,6 +23,14 @@ var dialogText : String = ""
 var dialogExpression : String
 var dialogConversation : Array
 var dialogCurrentIndex : int = 0
+
+var shakePlaying : bool
+var shakePattern : String
+var shakeBkpPattern : String
+var shakeAmplitude : float
+var shakeFrequency : float
+
+var lowHealthSignal : int = + 1
 
 func update():
 	updateLifepoints()
@@ -158,6 +167,46 @@ func playDialogExpression(charName : String, expression : String):
 			node.play(expression)
 		node.frame = charIndex
 
+func playShake(pattern : String) -> void:
+	if pattern == "train":
+		shakePattern = pattern
+		setShake(pConst.SHAKE_PATTERN_TRAIN_AMPLITUDE, pConst.SHAKE_PATTERN_TRAIN_FREQUENCY)
+		startShake()
+	elif pattern == "damage":
+		if shakePattern != pattern:
+			shakeBkpPattern = shakePattern
+		shakePattern = pattern
+		$Timers/DAMAGE_SHAKE.start()
+		setShake(pConst.SHAKE_PATTERN_DAMAGE_AMPLITUDE, pConst.SHAKE_PATTERN_DAMAGE_FREQUENCY)
+		startShake()
+
+func startShake() -> void:
+	shakePlaying = true
+
+func pauseShake() -> void:
+	shakePlaying = false
+
+func stopShake() -> void:
+	shakePlaying = false
+	shakePattern = ""
+	shakeAmplitude = 0
+	shakeFrequency = 0
+	getPlayerCamera().offset.x = pConst.DEFAULT_CAMERA_POSITION.x
+	getPlayerCamera().offset.y = pConst.DEFAULT_CAMERA_POSITION.y
+
+func getPlayer():
+	return get_parent()
+
+func getPlayerCamera():
+	return getPlayer().get_node("Camera2D")
+
+func getPlayerTime():
+	return getPlayer().time
+
+func setShake(amplitude : float, frequency : float) -> void:
+	shakeAmplitude = amplitude
+	shakeFrequency = frequency
+
 #Código Inicial
 func _ready():
 	#Ajustes iniciais no WeaponSelect
@@ -166,6 +215,12 @@ func _ready():
 	
 	#Ajustes inicias na DialogBox
 	$DialogBox/AnimatedSprite.modulate.a = 0
+	
+	#Inicializando variáveis do balanço de tela
+	shakePlaying = false
+	shakePattern = ""
+	shakeAmplitude = 0
+	shakeFrequency = 0
 
 #Código Principal
 func _physics_process(delta):
@@ -175,8 +230,26 @@ func _physics_process(delta):
 	elif $StatusBars/DELAY/TextureProgress.value <= $StatusBars/HP/TextureProgress.value:
 		$Timers/DELAY_SPEED.stop()
 	
+	#ScreenFX: HP Baixo
+	if getPlayer().lifepoints/float(getPlayer().maxLifepoints) <= 0.3:
+		if $Status/LowHealth.modulate.a <= 0:
+			lowHealthSignal = abs(lowHealthSignal)
+		elif $Status/LowHealth.modulate.a >= (1.0 - getPlayer().lifepoints/float(getPlayer().maxLifepoints))*0.5:
+			lowHealthSignal = -abs(lowHealthSignal)
+		$Status/LowHealth.modulate.a += 0.01*lowHealthSignal*pow((1.0 - getPlayer().lifepoints/float(getPlayer().maxLifepoints)), (1.0 - getPlayer().lifepoints/float(getPlayer().maxLifepoints)))
+	else:
+		if $Status/LowHealth.modulate.a >= 0:
+			$Status/LowHealth.modulate.a -= 0.01
+		else:
+			$Status/LowHealth.modulate.a = 0.0
+	
 	#Caixa de Diálogo
 	dialogBox()
+	
+	#Balanço de Tela
+	if shakePlaying and !getPlayer().stopped:
+		getPlayerCamera().offset.x += shakeAmplitude*cos(shakeFrequency*getPlayerTime())
+		getPlayerCamera().offset.y += shakeAmplitude*sin(shakeFrequency*getPlayerTime())
 	
 	#Troca de Armas
 	if get_parent().get_node("Weapons").has_node("currentWeapon"):
@@ -235,3 +308,7 @@ func _on_AnimatedSprite_animation_finished():
 
 func _on_hud_dialogBoxReady():
 	updateDialog()
+
+func _on_DAMAGE_SHAKE_timeout():
+	stopShake()
+	playShake(shakeBkpPattern)

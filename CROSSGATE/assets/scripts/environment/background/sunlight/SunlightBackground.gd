@@ -2,6 +2,7 @@ extends Node2D
 
 #Constantes
 const SCRIPT_TYPE = "Background"
+const pConst = preload("res://assets/util/PROJECT_CONSTANTS.gd")
 
 #Variáveis de Estado
 var scrollSpeed = 0.25
@@ -63,6 +64,10 @@ func updateRegionConfig(side): #Atualiza o vetor de configuação atual das regi
 func updateShaders(shaderParamName, shaderParamValue):
 	for node in $Sand.get_children():
 		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
+	for node in $CloseSand.get_children():
+		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
+	for node in $Rail.get_children():
+		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
 	for node in $Dunes.get_children():
 		node.get_node("TextureRect").material.set_shader_param(shaderParamName, shaderParamValue)
 	for node in $Sky.get_children():
@@ -70,8 +75,16 @@ func updateShaders(shaderParamName, shaderParamValue):
 
 #Código Inicial
 func _ready():
+	#Ajustando o z-index
+	z_index = pConst.BACKGROUND_Z_INDEX
+	
+	#Definindo variáveis do shader
 	for node in $Sand.get_children():
 		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed)
+	for node in $CloseSand.get_children():
+		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed * 1.25)
+	for node in $Rail.get_children():
+		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed * 1.25)
 	for node in $Dunes.get_children():
 		node.get_node("TextureRect").material.set_shader_param("scrollSpeed", scrollSpeed * 0.6)
 	for node in $Sky.get_children():
