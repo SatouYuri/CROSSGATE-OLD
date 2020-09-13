@@ -8,97 +8,97 @@
 [ext_resource path="res://assets/sprites/character/player/brandon/DBODY/idle/DBODY_BW_idle2.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/character/player/brandon/DBODY/idle/DBODY_BW_idle3.png" type="Texture" id=7]
 [ext_resource path="res://assets/sprites/character/player/brandon/DBODY/idle/DBODY_BW_idle4.png" type="Texture" id=8]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run1.png" type="Texture" id=9]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run2.png" type="Texture" id=10]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run3.png" type="Texture" id=11]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run4.png" type="Texture" id=12]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run5.png" type="Texture" id=13]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run6.png" type="Texture" id=14]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run7.png" type="Texture" id=15]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run8.png" type="Texture" id=16]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run9.png" type="Texture" id=17]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run10.png" type="Texture" id=18]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run11.png" type="Texture" id=19]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run12.png" type="Texture" id=20]
-[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/idle_jump/DBODY_BW_idle_jump.png" type="Texture" id=21]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/idle_jump/DBODY_BW_idle_jump.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run1.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run2.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run3.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run4.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run5.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run6.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run7.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run8.png" type="Texture" id=17]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run9.png" type="Texture" id=18]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run10.png" type="Texture" id=19]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run11.png" type="Texture" id=20]
+[ext_resource path="res://assets/sprites/character/player/brandon/DBODY/run/DBODY_BW_run12.png" type="Texture" id=21]
 [ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle/LARM_BW_idle1.png" type="Texture" id=22]
 [ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle/LARM_BW_idle2.png" type="Texture" id=23]
 [ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle/LARM_BW_idle3.png" type="Texture" id=24]
 [ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle/LARM_BW_idle4.png" type="Texture" id=25]
 [ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming1.png" type="Texture" id=26]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming2.png" type="Texture" id=27]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming3.png" type="Texture" id=28]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming4.png" type="Texture" id=29]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming5.png" type="Texture" id=30]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming6.png" type="Texture" id=31]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming7.png" type="Texture" id=32]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming8.png" type="Texture" id=33]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming9.png" type="Texture" id=34]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming10.png" type="Texture" id=35]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming11.png" type="Texture" id=36]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming12.png" type="Texture" id=37]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot/LARM_BW_run_shoot1.png" type="Texture" id=38]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot/LARM_BW_run_shoot2.png" type="Texture" id=39]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot/LARM_BW_run_shoot3.png" type="Texture" id=40]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming1.png" type="Texture" id=41]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_fall/LARM_BW_idle_fall1.png" type="Texture" id=42]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run1.png" type="Texture" id=43]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run2.png" type="Texture" id=44]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run3.png" type="Texture" id=45]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run4.png" type="Texture" id=46]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run5.png" type="Texture" id=47]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run6.png" type="Texture" id=48]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run7.png" type="Texture" id=49]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run8.png" type="Texture" id=50]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run9.png" type="Texture" id=51]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run10.png" type="Texture" id=52]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run11.png" type="Texture" id=53]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run12.png" type="Texture" id=54]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming2.png" type="Texture" id=55]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming3.png" type="Texture" id=56]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming4.png" type="Texture" id=57]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot/LARM_BW_idle_shoot1.png" type="Texture" id=58]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot/LARM_BW_idle_shoot2.png" type="Texture" id=59]
-[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot/LARM_BW_idle_shoot3.png" type="Texture" id=60]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_fall/LARM_BW_idle_fall1.png" type="Texture" id=27]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot/LARM_BW_run_shoot1.png" type="Texture" id=28]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot/LARM_BW_run_shoot2.png" type="Texture" id=29]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot/LARM_BW_run_shoot3.png" type="Texture" id=30]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming1.png" type="Texture" id=31]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot/LARM_BW_idle_shoot1.png" type="Texture" id=32]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot/LARM_BW_idle_shoot2.png" type="Texture" id=33]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot/LARM_BW_idle_shoot3.png" type="Texture" id=34]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run12.png" type="Texture" id=35]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming2.png" type="Texture" id=36]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming3.png" type="Texture" id=37]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming4.png" type="Texture" id=38]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming5.png" type="Texture" id=39]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming6.png" type="Texture" id=40]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming7.png" type="Texture" id=41]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming8.png" type="Texture" id=42]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming9.png" type="Texture" id=43]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming10.png" type="Texture" id=44]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming11.png" type="Texture" id=45]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run_shoot_aiming/LARM_BW_run_shoot_aiming12.png" type="Texture" id=46]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run1.png" type="Texture" id=47]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run2.png" type="Texture" id=48]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run3.png" type="Texture" id=49]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run4.png" type="Texture" id=50]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run5.png" type="Texture" id=51]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run6.png" type="Texture" id=52]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run7.png" type="Texture" id=53]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run8.png" type="Texture" id=54]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run9.png" type="Texture" id=55]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run10.png" type="Texture" id=56]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/run/LARM_BW_run11.png" type="Texture" id=57]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming2.png" type="Texture" id=58]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming3.png" type="Texture" id=59]
+[ext_resource path="res://assets/sprites/character/player/brandon/LARM/idle_shoot_aiming/LARM_BW_idle_shoot_aiming4.png" type="Texture" id=60]
 [ext_resource path="res://assets/sprites/character/player/brandon/RARM/idle/RARM_BW_idle1.png" type="Texture" id=61]
 [ext_resource path="res://assets/sprites/character/player/brandon/RARM/idle/RARM_BW_idle2.png" type="Texture" id=62]
 [ext_resource path="res://assets/sprites/character/player/brandon/RARM/idle/RARM_BW_idle3.png" type="Texture" id=63]
 [ext_resource path="res://assets/sprites/character/player/brandon/RARM/idle/RARM_BW_idle4.png" type="Texture" id=64]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run1.png" type="Texture" id=65]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run2.png" type="Texture" id=66]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run3.png" type="Texture" id=67]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run4.png" type="Texture" id=68]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run5.png" type="Texture" id=69]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run6.png" type="Texture" id=70]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run7.png" type="Texture" id=71]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run8.png" type="Texture" id=72]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run9.png" type="Texture" id=73]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run10.png" type="Texture" id=74]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run11.png" type="Texture" id=75]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run12.png" type="Texture" id=76]
-[ext_resource path="res://assets/sprites/character/player/brandon/RARM/idle_fall/RARM_BW_idle_fall1.png" type="Texture" id=77]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/idle_fall/RARM_BW_idle_fall1.png" type="Texture" id=65]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run1.png" type="Texture" id=66]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run2.png" type="Texture" id=67]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run3.png" type="Texture" id=68]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run4.png" type="Texture" id=69]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run5.png" type="Texture" id=70]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run6.png" type="Texture" id=71]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run7.png" type="Texture" id=72]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run8.png" type="Texture" id=73]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run9.png" type="Texture" id=74]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run10.png" type="Texture" id=75]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run11.png" type="Texture" id=76]
+[ext_resource path="res://assets/sprites/character/player/brandon/RARM/run/RARM_BW_run12.png" type="Texture" id=77]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/slide/BW_slide1.png" type="Texture" id=78]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/slide/BW_slide2.png" type="Texture" id=79]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle/UBODY_BW_idle1.png" type="Texture" id=80]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle/UBODY_BW_idle2.png" type="Texture" id=81]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle/UBODY_BW_idle3.png" type="Texture" id=82]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle/UBODY_BW_idle4.png" type="Texture" id=83]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run1.png" type="Texture" id=84]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run2.png" type="Texture" id=85]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run3.png" type="Texture" id=86]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run4.png" type="Texture" id=87]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run5.png" type="Texture" id=88]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run6.png" type="Texture" id=89]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run7.png" type="Texture" id=90]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run8.png" type="Texture" id=91]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run9.png" type="Texture" id=92]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run10.png" type="Texture" id=93]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run11.png" type="Texture" id=94]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run12.png" type="Texture" id=95]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump1.png" type="Texture" id=96]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump2.png" type="Texture" id=97]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump3.png" type="Texture" id=98]
-[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump4.png" type="Texture" id=99]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump1.png" type="Texture" id=84]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump2.png" type="Texture" id=85]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump3.png" type="Texture" id=86]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/idle_jump/UBODY_BW_idle_jump4.png" type="Texture" id=87]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run1.png" type="Texture" id=88]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run2.png" type="Texture" id=89]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run3.png" type="Texture" id=90]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run4.png" type="Texture" id=91]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run5.png" type="Texture" id=92]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run6.png" type="Texture" id=93]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run7.png" type="Texture" id=94]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run8.png" type="Texture" id=95]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run9.png" type="Texture" id=96]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run10.png" type="Texture" id=97]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run11.png" type="Texture" id=98]
+[ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run/UBODY_BW_run12.png" type="Texture" id=99]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run_jump/UBODY_BW_run_jump1.png" type="Texture" id=100]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run_jump/UBODY_BW_run_jump2.png" type="Texture" id=101]
 [ext_resource path="res://assets/sprites/character/player/brandon/UBODY/run_jump/UBODY_BW_run_jump3.png" type="Texture" id=102]
@@ -121,23 +121,23 @@
 [ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber18.png" type="Texture" id=119]
 [ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber19.png" type="Texture" id=120]
 [ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber20.png" type="Texture" id=121]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber22.png" type="Texture" id=122]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber23.png" type="Texture" id=123]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber24.png" type="Texture" id=124]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber25.png" type="Texture" id=125]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber26.png" type="Texture" id=126]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber27.png" type="Texture" id=127]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber28.png" type="Texture" id=128]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber29.png" type="Texture" id=129]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber30.png" type="Texture" id=130]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber2.png" type="Texture" id=131]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber3.png" type="Texture" id=132]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber4.png" type="Texture" id=133]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber5.png" type="Texture" id=134]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber6.png" type="Texture" id=135]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber7.png" type="Texture" id=136]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber8.png" type="Texture" id=137]
-[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber9.png" type="Texture" id=138]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber2.png" type="Texture" id=122]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber3.png" type="Texture" id=123]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber4.png" type="Texture" id=124]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber5.png" type="Texture" id=125]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber6.png" type="Texture" id=126]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber7.png" type="Texture" id=127]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber8.png" type="Texture" id=128]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber9.png" type="Texture" id=129]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber22.png" type="Texture" id=130]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber23.png" type="Texture" id=131]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber24.png" type="Texture" id=132]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber25.png" type="Texture" id=133]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber26.png" type="Texture" id=134]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber27.png" type="Texture" id=135]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber28.png" type="Texture" id=136]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber29.png" type="Texture" id=137]
+[ext_resource path="res://assets/sprites/character/player/brandon/MELEE/SABER/BW_saber30.png" type="Texture" id=138]
 [ext_resource path="res://assets/sprites/misc/hud/interaction_icon/interaction_icon1.png" type="Texture" id=139]
 [ext_resource path="res://assets/sprites/misc/hud/interaction_icon/interaction_icon2.png" type="Texture" id=140]
 [ext_resource path="res://assets/sprites/misc/hud/interaction_icon/interaction_icon3.png" type="Texture" id=141]
@@ -192,49 +192,49 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "run_shoot_aiming",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
-"loop": true,
-"name": "run_shoot",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 21 ) ],
-"loop": true,
-"name": "idle_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 21 ) ],
+"frames": [ ExtResource( 9 ) ],
 "loop": true,
 "name": "idle_fall",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ), ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
 "loop": true,
-"name": "run",
+"name": "run_shoot",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 20 ) ],
+"frames": [ ExtResource( 9 ) ],
+"loop": true,
+"name": "idle_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 8 ) ],
+"loop": true,
+"name": "idle_shoot",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 21 ) ],
 "loop": true,
 "name": "run_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 9 ) ],
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
 "loop": true,
-"name": "run_fall",
-"speed": 5.0
+"name": "run_shoot_aiming",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 10 ), ExtResource( 11 ), ExtResource( 12 ), ExtResource( 13 ), ExtResource( 14 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 17 ), ExtResource( 18 ), ExtResource( 19 ), ExtResource( 20 ), ExtResource( 21 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
 }, {
 "frames": [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ), ExtResource( 8 ) ],
 "loop": true,
 "name": "idle_shoot_aiming",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 8 ) ],
+"frames": [ ExtResource( 10 ) ],
 "loop": true,
-"name": "idle_shoot",
+"name": "run_fall",
 "speed": 5.0
 } ]
 
@@ -250,12 +250,17 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ) ],
+"frames": [ ExtResource( 26 ) ],
 "loop": true,
-"name": "run_shoot_aiming",
-"speed": 20.0
+"name": "run_air_shoot_aiming",
+"speed": 0.0
 }, {
-"frames": [ ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ) ],
+"frames": [ ExtResource( 22 ), ExtResource( 27 ) ],
+"loop": false,
+"name": "idle_fall",
+"speed": 2.0
+}, {
+"frames": [ ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ) ],
 "loop": false,
 "name": "run_shoot",
 "speed": 18.0
@@ -265,45 +270,40 @@ animations = [ {
 "name": "idle_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 41 ) ],
+"frames": [ ExtResource( 31 ) ],
 "loop": true,
 "name": "idle_air_shoot_aiming",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 22 ), ExtResource( 42 ) ],
+"frames": [ ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ) ],
 "loop": false,
-"name": "idle_fall",
-"speed": 2.0
+"name": "idle_shoot",
+"speed": 18.0
 }, {
-"frames": [ ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ) ],
-"loop": true,
-"name": "run",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 54 ) ],
+"frames": [ ExtResource( 35 ) ],
 "loop": true,
 "name": "run_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 43 ) ],
+"frames": [ ExtResource( 26 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ) ],
 "loop": true,
-"name": "run_fall",
-"speed": 5.0
+"name": "run_shoot_aiming",
+"speed": 20.0
 }, {
-"frames": [ ExtResource( 41 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ) ],
+"frames": [ ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 35 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 31 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ) ],
 "loop": true,
 "name": "idle_shoot_aiming",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 26 ) ],
+"frames": [ ExtResource( 47 ) ],
 "loop": true,
-"name": "run_air_shoot_aiming",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ) ],
-"loop": false,
-"name": "idle_shoot",
-"speed": 18.0
+"name": "run_fall",
+"speed": 5.0
 } ]
 
 [sub_resource type="SpriteFrames" id=5]
@@ -318,12 +318,12 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ) ],
-"loop": true,
-"name": "run_shoot_aiming",
-"speed": 20.0
+"frames": [ ExtResource( 61 ), ExtResource( 65 ) ],
+"loop": false,
+"name": "idle_fall",
+"speed": 2.0
 }, {
-"frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ) ],
+"frames": [ ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ) ],
 "loop": true,
 "name": "run_shoot",
 "speed": 20.0
@@ -333,34 +333,34 @@ animations = [ {
 "name": "idle_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 61 ), ExtResource( 77 ) ],
-"loop": false,
-"name": "idle_fall",
-"speed": 2.0
-}, {
-"frames": [ ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ) ],
+"frames": [ ExtResource( 64 ) ],
 "loop": true,
-"name": "run",
-"speed": 20.0
+"name": "idle_shoot",
+"speed": 5.0
 }, {
-"frames": [ ExtResource( 76 ) ],
+"frames": [ ExtResource( 77 ) ],
 "loop": true,
 "name": "run_jump",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 65 ) ],
+"frames": [ ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ) ],
 "loop": true,
-"name": "run_fall",
-"speed": 5.0
+"name": "run_shoot_aiming",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
 }, {
 "frames": [ ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ) ],
 "loop": true,
 "name": "idle_shoot_aiming",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 64 ) ],
+"frames": [ ExtResource( 66 ) ],
 "loop": true,
-"name": "idle_shoot",
+"name": "run_fall",
 "speed": 5.0
 } ]
 
@@ -376,50 +376,50 @@ animations = [ {
 "name": "idle",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ) ],
-"loop": true,
-"name": "run_shoot_aiming",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ) ],
-"loop": true,
-"name": "run_shoot",
-"speed": 20.0
-}, {
-"frames": [ ExtResource( 96 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ) ],
-"loop": true,
-"name": "idle_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 96 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ) ],
+"frames": [ ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ) ],
 "loop": true,
 "name": "idle_fall",
 "speed": 15.0
 }, {
-"frames": [ ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ), ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ) ],
+"frames": [ ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 96 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ) ],
 "loop": true,
-"name": "run",
+"name": "run_shoot",
 "speed": 20.0
 }, {
-"frames": [ ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 105 ), ExtResource( 106 ), ExtResource( 107 ), ExtResource( 108 ), ExtResource( 109 ), ExtResource( 110 ), ExtResource( 111 ) ],
+"frames": [ ExtResource( 84 ), ExtResource( 85 ), ExtResource( 86 ), ExtResource( 87 ) ],
 "loop": true,
-"name": "run_jump",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 105 ), ExtResource( 106 ), ExtResource( 107 ), ExtResource( 108 ), ExtResource( 109 ), ExtResource( 110 ), ExtResource( 111 ) ],
-"loop": true,
-"name": "run_fall",
-"speed": 15.0
-}, {
-"frames": [ ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 83 ) ],
-"loop": true,
-"name": "idle_shoot_aiming",
+"name": "idle_jump",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 83 ) ],
 "loop": true,
 "name": "idle_shoot",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 105 ), ExtResource( 106 ), ExtResource( 107 ), ExtResource( 108 ), ExtResource( 109 ), ExtResource( 110 ), ExtResource( 111 ) ],
+"loop": true,
+"name": "run_jump",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 96 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ) ],
+"loop": true,
+"name": "run_shoot_aiming",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 88 ), ExtResource( 89 ), ExtResource( 90 ), ExtResource( 91 ), ExtResource( 92 ), ExtResource( 93 ), ExtResource( 94 ), ExtResource( 95 ), ExtResource( 96 ), ExtResource( 97 ), ExtResource( 98 ), ExtResource( 99 ) ],
+"loop": true,
+"name": "run",
+"speed": 20.0
+}, {
+"frames": [ ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 83 ) ],
+"loop": true,
+"name": "idle_shoot_aiming",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 100 ), ExtResource( 101 ), ExtResource( 102 ), ExtResource( 103 ), ExtResource( 104 ), ExtResource( 105 ), ExtResource( 106 ), ExtResource( 107 ), ExtResource( 108 ), ExtResource( 109 ), ExtResource( 110 ), ExtResource( 111 ) ],
+"loop": true,
+"name": "run_fall",
+"speed": 15.0
 } ]
 
 [sub_resource type="SpriteFrames" id=7]
@@ -429,14 +429,14 @@ animations = [ {
 "name": "saber_2",
 "speed": 60.0
 }, {
-"frames": [ ExtResource( 122 ), ExtResource( 123 ), ExtResource( 124 ), ExtResource( 125 ), ExtResource( 126 ), ExtResource( 127 ), ExtResource( 128 ), ExtResource( 129 ), ExtResource( 130 ) ],
-"loop": false,
-"name": "saber_3",
-"speed": 60.0
-}, {
-"frames": [ ExtResource( 131 ), ExtResource( 132 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 136 ), ExtResource( 137 ), ExtResource( 138 ) ],
+"frames": [ ExtResource( 122 ), ExtResource( 123 ), ExtResource( 124 ), ExtResource( 125 ), ExtResource( 126 ), ExtResource( 127 ), ExtResource( 128 ), ExtResource( 129 ) ],
 "loop": false,
 "name": "saber_1",
+"speed": 60.0
+}, {
+"frames": [ ExtResource( 130 ), ExtResource( 131 ), ExtResource( 132 ), ExtResource( 133 ), ExtResource( 134 ), ExtResource( 135 ), ExtResource( 136 ), ExtResource( 137 ), ExtResource( 138 ) ],
+"loop": false,
+"name": "saber_3",
 "speed": 60.0
 } ]
 

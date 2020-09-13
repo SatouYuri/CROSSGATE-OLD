@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Clockwise.ogg-1565859b14431995f6fc40b1d07d5291.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/soundfx/Clockwise.ogg"
+dest_files=[ "res://.import/Clockwise.ogg-1565859b14431995f6fc40b1d07d5291.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

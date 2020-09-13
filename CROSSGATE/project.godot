@@ -16,8 +16,12 @@ _global_script_class_icons={
 [application]
 
 config/name="CROSSGATE"
-run/main_scene="res://assets/scenes/environment/world/World.tscn"
-config/icon="res://icon.png"
+run/main_scene="res://assets/scenes/ui/mainmenu/MainMenu.tscn"
+config/icon="res://assets/sprites/ui/mainmenu/icon.png"
+
+[autoload]
+
+Global="*res://assets/scripts/autoload/global.gd"
 
 [display]
 
@@ -96,6 +100,11 @@ CG_INTERACT={
 CG_MELEE={
 "deadzone": 0.5,
 "events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":88,"unicode":0,"echo":false,"script":null)
+ ]
+}
+CG_CONSOLE={
+"deadzone": 0.5,
+"events": [ Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"alt":false,"shift":false,"control":false,"meta":false,"command":false,"pressed":false,"scancode":96,"unicode":0,"echo":false,"script":null)
  ]
 }
 
