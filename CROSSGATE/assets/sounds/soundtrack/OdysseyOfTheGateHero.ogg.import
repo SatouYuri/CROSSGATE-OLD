@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/OdysseyOfTheGateHero.ogg-5048046bcfb3c3f90a6dfc0c1ca90431.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/soundtrack/OdysseyOfTheGateHero.ogg"
+dest_files=[ "res://.import/OdysseyOfTheGateHero.ogg-5048046bcfb3c3f90a6dfc0c1ca90431.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

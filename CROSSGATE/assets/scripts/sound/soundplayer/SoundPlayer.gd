@@ -15,7 +15,7 @@ func _ready():
 
 #Funções
 func play(soundPath : String, isSoundtrack : bool): #NOTA / WIP: Adicionar parâmetros para fadeIn e fadeOut depois...
-	if Directory.new().file_exists(soundPath):
+	#if Directory.new().file_exists(soundPath): #NOTA / WIP: Essa checagem não está funcionando no jogo exportado...
 		var soundNodeAlreadyExists = false
 		for sNode in get_children():
 			if soundPath == sNode.audioPath:
@@ -36,13 +36,12 @@ func play(soundPath : String, isSoundtrack : bool): #NOTA / WIP: Adicionar parâ
 				newSoundFxNode.name = "SoundFxNode_Id_" + str(get_children().size()) + "_" + soundPath
 				newSoundFxNode.stream = load(soundPath)
 				newSoundFxNode.audioPath = soundPath
-				newSoundFxNode.volume_db = -10.0
 				add_child(newSoundFxNode)
 				newSoundFxNode.play()
 			
 		playing = true
-	else:
-		push_error("SoundPlayer: O arquivo de som cujo caminho especificado é '" + soundPath + "' é inválido ou não pôde ser aberto.")
+	#else:
+	#	push_error("SoundPlayer: O arquivo de som cujo caminho especificado é '" + soundPath + "' é inválido ou não pôde ser aberto.")
 
 func pause():
 	pass

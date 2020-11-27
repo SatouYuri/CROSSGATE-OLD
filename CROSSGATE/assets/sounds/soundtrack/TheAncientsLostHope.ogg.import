@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/TheAncientsLostHope.ogg-c39d9da9efa54ea3d7e5da24c0733206.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/soundtrack/TheAncientsLostHope.ogg"
+dest_files=[ "res://.import/TheAncientsLostHope.ogg-c39d9da9efa54ea3d7e5da24c0733206.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

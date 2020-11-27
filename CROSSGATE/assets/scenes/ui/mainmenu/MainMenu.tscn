@@ -31,20 +31,20 @@ font_path = "res://assets/fonts/Basis33/basis33.ttf"
 size = 35
 font_data = SubResource( 3 )
 
-[sub_resource type="DynamicFontData" id=9]
-font_path = "res://assets/fonts/Basis33/basis33.ttf"
-
-[sub_resource type="DynamicFont" id=10]
-font_data = SubResource( 9 )
-
 [sub_resource type="DynamicFontData" id=5]
 font_path = "res://assets/fonts/Basis33/basis33.ttf"
 
 [sub_resource type="DynamicFont" id=6]
-size = 35
 font_data = SubResource( 5 )
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="DynamicFontData" id=7]
+font_path = "res://assets/fonts/Basis33/basis33.ttf"
+
+[sub_resource type="DynamicFont" id=8]
+size = 35
+font_data = SubResource( 7 )
+
+[sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
 render_mode unshaded;
 
@@ -67,8 +67,8 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=8]
-shader = SubResource( 7 )
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
 shader_param/grayscale = false
 shader_param/displaceAmount = 0.008
 shader_param/abberationAmount = 0.003
@@ -121,7 +121,7 @@ rect_scale = Vector2( 2, 2 )
 texture = ExtResource( 2 )
 
 [node name="Background" type="TextureRect" parent="V1"]
-modulate = Color( 0, 0.835294, 1, 0 )
+modulate = Color( 0, 0.627451, 1, 0 )
 material = SubResource( 2 )
 margin_right = 640.0
 margin_bottom = 360.0
@@ -153,12 +153,12 @@ custom_fonts/font = SubResource( 4 )
 text = "PRESSIONE QUALQUER TECLA"
 
 [node name="Production" type="Label" parent="V1"]
-margin_left = 1087.0
+margin_left = 1122.0
 margin_top = 704.0
 margin_right = 1276.0
 margin_bottom = 720.0
-custom_fonts/font = SubResource( 10 )
-text = "IRONRAIL PROJECT, 2019-2020"
+custom_fonts/font = SubResource( 6 )
+text = "IRONRAIL PROJECT, 2020"
 
 [node name="Options" type="Node2D" parent="V1"]
 
@@ -169,7 +169,7 @@ margin_left = 573.0
 margin_top = 480.0
 margin_right = 708.0
 margin_bottom = 516.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 text = "TestStage"
 
 [node name="WagonTestStage" type="Label" parent="V1/Options"]
@@ -179,7 +179,7 @@ margin_left = 535.5
 margin_top = 516.0
 margin_right = 745.5
 margin_bottom = 552.0
-custom_fonts/font = SubResource( 6 )
+custom_fonts/font = SubResource( 8 )
 text = "WagonTestStage"
 
 [node name="Black" type="TextureRect" parent="."]
@@ -198,7 +198,7 @@ texture = ExtResource( 5 )
 
 [node name="GLITCH_MASK" type="ColorRect" parent="."]
 visible = false
-material = SubResource( 8 )
+material = SubResource( 10 )
 margin_right = 1280.0
 margin_bottom = 720.0
 

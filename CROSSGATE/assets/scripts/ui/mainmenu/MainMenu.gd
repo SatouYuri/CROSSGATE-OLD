@@ -22,10 +22,11 @@ func _ready():
 	newSoundPlayer.name = "SoundPlayer"
 	add_child(newSoundPlayer)
 	if currentMenu == "V1":
-		newSoundPlayer.play("res://assets/sounds/soundtrack/The Ancients' Lost Hope.ogg", true)
+		newSoundPlayer.play("res://assets/sounds/soundtrack/TheAncientsLostHope.ogg", true)
 	
 	$Black.visible = true
 	$GLITCH_MASK.visible = false
+	$TIMESTOP_MASK.visible = false
 	
 	cLogoFadeIn = false
 	cLogoFadeOut = false

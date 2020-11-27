@@ -2,12 +2,12 @@
 
 importer="ogg_vorbis"
 type="AudioStreamOGGVorbis"
-path="res://.import/anyKeyPressed.ogg-ab37557e3b78c03d1d123a7aa376b565.oggstr"
+path="res://.import/AnyKeyPressed.ogg-a4fab8c2380bf02365a60c2020040199.oggstr"
 
 [deps]
 
-source_file="res://assets/sounds/soundfx/mainmenu/anyKeyPressed.ogg"
-dest_files=[ "res://.import/anyKeyPressed.ogg-ab37557e3b78c03d1d123a7aa376b565.oggstr" ]
+source_file="res://assets/sounds/soundfx/mainmenu/AnyKeyPressed.ogg"
+dest_files=[ "res://.import/AnyKeyPressed.ogg-a4fab8c2380bf02365a60c2020040199.oggstr" ]
 
 [params]
 
