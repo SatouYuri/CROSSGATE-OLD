@@ -2,7 +2,10 @@ extends AudioStreamPlayer2D
 
 #Variáveis de Estado
 var audioPath : String
+var repeat : bool = false
 
-#Código Inicial
-func _ready():
-	audioPath = ""
+func _on_SoundFX_finished():
+	if !repeat:
+		queue_free()
+	else:
+		play()

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/Courage&Despair.ogg-8bdc56e6621a3991761b38c298189f27.oggstr"
+
+[deps]
+
+source_file="res://assets/sounds/soundtrack/Courage&Despair.ogg"
+dest_files=[ "res://.import/Courage&Despair.ogg-8bdc56e6621a3991761b38c298189f27.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

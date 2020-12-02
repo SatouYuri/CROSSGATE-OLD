@@ -4,3 +4,4 @@
 
 [node name="Soundtrack" type="AudioStreamPlayer"]
 script = ExtResource( 1 )
+[connection signal="finished" from="." to="." method="_on_Soundtrack_finished"]

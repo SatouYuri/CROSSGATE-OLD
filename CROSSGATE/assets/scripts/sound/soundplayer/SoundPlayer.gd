@@ -14,7 +14,7 @@ func _ready():
 	playing = false
 
 #Funções
-func play(soundPath : String, isSoundtrack : bool): #NOTA / WIP: Adicionar parâmetros para fadeIn e fadeOut depois...
+func play(soundPath : String, isSoundtrack : bool, repeat : bool): #NOTA / WIP: Adicionar parâmetros para fadeIn e fadeOut depois...
 	#if Directory.new().file_exists(soundPath): #NOTA / WIP: Essa checagem não está funcionando no jogo exportado...
 		var soundNodeAlreadyExists = false
 		for sNode in get_children():
@@ -29,6 +29,7 @@ func play(soundPath : String, isSoundtrack : bool): #NOTA / WIP: Adicionar parâ
 				newSoundtrackNode.name = "SoundtrackNode_Id_" + str(get_children().size()) + "_" + soundPath
 				newSoundtrackNode.stream = load(soundPath)
 				newSoundtrackNode.audioPath = soundPath
+				newSoundtrackNode.repeat = repeat
 				add_child(newSoundtrackNode)
 				newSoundtrackNode.play()
 			else:
@@ -36,6 +37,7 @@ func play(soundPath : String, isSoundtrack : bool): #NOTA / WIP: Adicionar parâ
 				newSoundFxNode.name = "SoundFxNode_Id_" + str(get_children().size()) + "_" + soundPath
 				newSoundFxNode.stream = load(soundPath)
 				newSoundFxNode.audioPath = soundPath
+				newSoundFxNode.repeat = repeat
 				add_child(newSoundFxNode)
 				newSoundFxNode.play()
 			

@@ -11,5 +11,5 @@ dest_files=[ "res://.import/OdysseyOfTheGateHero.ogg-5048046bcfb3c3f90a6dfc0c1ca
 
 [params]
 
-loop=true
+loop=false
 loop_offset=0

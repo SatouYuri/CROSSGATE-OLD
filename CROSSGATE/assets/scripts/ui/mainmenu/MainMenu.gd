@@ -22,7 +22,7 @@ func _ready():
 	newSoundPlayer.name = "SoundPlayer"
 	add_child(newSoundPlayer)
 	if currentMenu == "V1":
-		newSoundPlayer.play("res://assets/sounds/soundtrack/TheAncientsLostHope.ogg", true)
+		newSoundPlayer.play("res://assets/sounds/soundtrack/TheAncientsLostHope.ogg", true, true)
 	
 	$Black.visible = true
 	$GLITCH_MASK.visible = false
@@ -64,25 +64,29 @@ func _input(event):
 			$Timers/OPTION_BLINK.stop()
 			for option in optionList:
 				option.visible = true
-			get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/anyKeyPressed.ogg", false)
+			get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/AnyKeyPressed.ogg", false, false)
 		elif showOptions:
 			if event.is_action_pressed("CG_DOWN") and selectedOption < (optionList.size() - 1):
 				selectedOption += 1
-				get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/optionChange.ogg", false)
+				get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/OptionChange.ogg", false, false)
 			elif event.is_action_pressed("CG_UP") and (selectedOption - 1) >= 0:
 				selectedOption -= 1
-				get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/optionChange.ogg", false)
+				get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/OptionChange.ogg", false, false)
 			elif event.is_action_pressed("CG_GATE"): 
 				if currentMenu == "V1":
 					if selectedOption == 0:
-						getGlobal().stageName = "TestStage"
+						getGlobal().stageName = "Prologue"
 						fadeIn = true
 						changingScene = true
 					elif selectedOption == 1:
+						getGlobal().stageName = "TestStage"
+						fadeIn = true
+						changingScene = true
+					elif selectedOption == 2:
 						getGlobal().stageName = "WagonTestStage"
 						fadeIn = true
 						changingScene = true
-					get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/anyKeyPressed.ogg", false)
+					get_node("SoundPlayer").play("res://assets/sounds/soundfx/mainmenu/AnyKeyPressed.ogg", false, false)
 					$TIMESTOP_MASK.visible = true
 
 #Código Principal
@@ -165,4 +169,7 @@ func _on_OPTION_BLINK_timeout():
 
 func _on_SCENE_CHANCE_DELAY_timeout():
 	if currentMenu == "V1":
-		get_tree().change_scene("res://assets/scenes/environment/world/World.tscn")
+		if getGlobal().stageName == "Prologue": #NOTA / WIP: Depois, ao invés de carregar a cutscene, o que deve ser carregado é o estágio do prólogo (em "Environment.tscn", o nó dos estágios em "World.tscn"), e do estágio, a depender do save, serão carregadas as cutscenes. Por hora, como teste, essa opção no menu serve apenas para assistir a cutscene 1 do prólogo.
+			get_tree().change_scene("res://assets/scenes/cutscenes/prologue/Prologue1.tscn")
+		else:
+			get_tree().change_scene("res://assets/scenes/environment/world/World.tscn")

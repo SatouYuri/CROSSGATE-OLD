@@ -1,11 +1,12 @@
-[gd_scene load_steps=19 format=2]
+[gd_scene load_steps=18 format=2]
 
 [ext_resource path="res://assets/scripts/ui/mainmenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/ui/mainmenu/whitescreen.png" type="Texture" id=2]
 [ext_resource path="res://assets/sprites/ui/mainmenu/bg.png" type="Texture" id=3]
 [ext_resource path="res://assets/sprites/ui/mainmenu/logo.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/ui/mainmenu/companylogo.png" type="Texture" id=5]
-[ext_resource path="res://assets/sprites/misc/ShaderFX/glitch.jpg" type="Texture" id=6]
+[ext_resource path="res://assets/scenes/misc/filter/GLITCH_MASK.tscn" type="PackedScene" id=6]
+[ext_resource path="res://assets/sprites/misc/ShaderFX/glitch.jpg" type="Texture" id=7]
 
 [sub_resource type="Shader" id=1]
 code = "shader_type canvas_item;
@@ -53,38 +54,6 @@ uniform sampler2D displace : hint_albedo;
 uniform float displaceAmount : hint_range(0, 0.1);
 uniform float abberationAmount : hint_range(0, 0.1);
 uniform float displaceSize : hint_range(0, 1);
-uniform float displaceFrequency : hint_range(0, 100);
-
-void fragment() {
-	vec4 disp = texture(displace, SCREEN_UV * abs(cos(TIME * displaceFrequency))*displaceSize);
-	vec2 newUV = SCREEN_UV + disp.xy * abs(sin(TIME))*displaceAmount;
-	COLOR.r = texture(SCREEN_TEXTURE, newUV - cos(TIME)*abberationAmount).r;
-	COLOR.g = texture(SCREEN_TEXTURE, newUV).g;
-	COLOR.b = texture(SCREEN_TEXTURE, newUV - sin(TIME)*abberationAmount).b;
-	COLOR.a = texture(SCREEN_TEXTURE, newUV).a;
-	if(grayscale){
-		COLOR.rgb = vec3(dot(COLOR.rgb, vec3(0.299, 0.587, 0.114)));
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=10]
-shader = SubResource( 9 )
-shader_param/grayscale = false
-shader_param/displaceAmount = 0.008
-shader_param/abberationAmount = 0.003
-shader_param/displaceSize = 1.0
-shader_param/displaceFrequency = 5.0
-shader_param/displace = ExtResource( 6 )
-
-[sub_resource type="Shader" id=11]
-code = "shader_type canvas_item;
-render_mode unshaded;
-
-uniform bool grayscale = false;
-uniform sampler2D displace : hint_albedo;
-uniform float displaceAmount : hint_range(0, 0.1);
-uniform float abberationAmount : hint_range(0, 0.1);
-uniform float displaceSize : hint_range(0, 1);
 uniform float displaceFrequency : hint_range(0, 10);
 
 void fragment() {
@@ -99,17 +68,20 @@ void fragment() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=12]
-shader = SubResource( 11 )
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
 shader_param/grayscale = false
 shader_param/displaceAmount = 0.02
 shader_param/abberationAmount = 0.012
 shader_param/displaceSize = 1.0
 shader_param/displaceFrequency = 8.456
-shader_param/displace = ExtResource( 6 )
+shader_param/displace = ExtResource( 7 )
 
 [node name="MainMenu" type="Node2D"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_vertical_guides_": [ 640.0 ]
+}
 
 [node name="V1" type="Node2D" parent="."]
 
@@ -162,13 +134,23 @@ text = "IRONRAIL PROJECT, 2020"
 
 [node name="Options" type="Node2D" parent="V1"]
 
+[node name="Prologue" type="Label" parent="V1/Options"]
+visible = false
+modulate = Color( 1, 1, 1, 0.498039 )
+margin_left = 527.79
+margin_top = 479.13
+margin_right = 752.79
+margin_bottom = 515.13
+custom_fonts/font = SubResource( 8 )
+text = "Jogar o Prólogo"
+
 [node name="TestStage" type="Label" parent="V1/Options"]
 visible = false
 modulate = Color( 1, 1, 1, 0.498039 )
 margin_left = 573.0
-margin_top = 480.0
+margin_top = 516.31
 margin_right = 708.0
-margin_bottom = 516.0
+margin_bottom = 552.31
 custom_fonts/font = SubResource( 8 )
 text = "TestStage"
 
@@ -176,9 +158,9 @@ text = "TestStage"
 visible = false
 modulate = Color( 1, 1, 1, 0.498039 )
 margin_left = 535.5
-margin_top = 516.0
+margin_top = 554.58
 margin_right = 745.5
-margin_bottom = 552.0
+margin_bottom = 590.58
 custom_fonts/font = SubResource( 8 )
 text = "WagonTestStage"
 
@@ -196,15 +178,11 @@ position = Vector2( 640, 360 )
 scale = Vector2( 4, 4 )
 texture = ExtResource( 5 )
 
-[node name="GLITCH_MASK" type="ColorRect" parent="."]
-visible = false
-material = SubResource( 10 )
-margin_right = 1280.0
-margin_bottom = 720.0
+[node name="GLITCH_MASK" parent="." instance=ExtResource( 6 )]
 
 [node name="TIMESTOP_MASK" type="ColorRect" parent="."]
 visible = false
-material = SubResource( 12 )
+material = SubResource( 10 )
 margin_right = 1280.0
 margin_bottom = 720.0
 
