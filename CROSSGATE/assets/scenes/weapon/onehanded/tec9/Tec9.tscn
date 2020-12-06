@@ -8,8 +8,6 @@
 [ext_resource path="res://assets/sprites/weapon/onehanded/tec9/shoot/tec9_shoot4.png" type="Texture" id=6]
 [ext_resource path="res://assets/sprites/weapon/hands/left_hand_brandon.png" type="Texture" id=7]
 
-
-
 [sub_resource type="SpriteFrames" id=1]
 animations = [ {
 "frames": [ ExtResource( 2 ) ],

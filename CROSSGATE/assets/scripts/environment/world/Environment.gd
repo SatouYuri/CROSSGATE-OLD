@@ -17,6 +17,10 @@ func loadStage(stageName): #Carrega e instancia o estágio alvo.
 		stage = preload("res://assets/scenes/environment/stage/WagonTestStage.tscn").instance()
 		stage.set_name("loadedStage")
 		get_parent().get_node("Background").loadBackground("Sunlight")
+	elif "Prologue" == stageName:
+		stage = preload("res://assets/scenes/environment/stage/Prologue.tscn").instance()
+		stage.set_name("loadedStage")
+		get_parent().get_node("Background").loadBackground("Sunlight")
 	#/*Adicione mais Stages...*/#
 	add_child(stage)
 

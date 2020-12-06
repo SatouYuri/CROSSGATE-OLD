@@ -33,7 +33,7 @@ shader_param/scrollSpeed = null
 shader_param/time = null
 shader_param/stopped = null
 
-[sub_resource type="Shader" id=7]
+[sub_resource type="Shader" id=3]
 code = "shader_type canvas_item;
 uniform float scrollSpeed;
 uniform float time;
@@ -54,7 +54,7 @@ void vertex() {
 }"
 
 [sub_resource type="ShaderMaterial" id=4]
-shader = SubResource( 7 )
+shader = SubResource( 3 )
 shader_param/scrollSpeed = null
 shader_param/time = null
 shader_param/stopped = null
@@ -85,7 +85,7 @@ shader_param/scrollSpeed = 0.0
 shader_param/time = null
 shader_param/stopped = null
 
-[sub_resource type="Shader" id=8]
+[sub_resource type="Shader" id=7]
 code = "shader_type canvas_item;
 uniform float scrollSpeed;
 uniform float time;
@@ -105,13 +105,13 @@ void vertex() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=9]
-shader = SubResource( 8 )
+[sub_resource type="ShaderMaterial" id=8]
+shader = SubResource( 7 )
 shader_param/scrollSpeed = null
 shader_param/time = null
 shader_param/stopped = null
 
-[sub_resource type="Shader" id=10]
+[sub_resource type="Shader" id=9]
 code = "shader_type canvas_item;
 uniform float scrollSpeed;
 uniform float time;
@@ -131,8 +131,8 @@ void vertex() {
 	}
 }"
 
-[sub_resource type="ShaderMaterial" id=11]
-shader = SubResource( 10 )
+[sub_resource type="ShaderMaterial" id=10]
+shader = SubResource( 9 )
 shader_param/scrollSpeed = null
 shader_param/time = null
 shader_param/stopped = null
@@ -281,7 +281,7 @@ editor/display_folded = true
 position = Vector2( -819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="CloseSand/Region0"]
-material = SubResource( 9 )
+material = SubResource( 8 )
 margin_left = -409.0
 margin_top = -125.0
 margin_right = 1639.0
@@ -293,7 +293,7 @@ texture = ExtResource( 5 )
 editor/display_folded = true
 
 [node name="TextureRect" type="TextureRect" parent="CloseSand/Region1"]
-material = SubResource( 9 )
+material = SubResource( 8 )
 margin_left = -409.0
 margin_top = -125.0
 margin_right = 1639.0
@@ -306,7 +306,7 @@ editor/display_folded = true
 position = Vector2( 819, 0 )
 
 [node name="TextureRect" type="TextureRect" parent="CloseSand/Region2"]
-material = SubResource( 9 )
+material = SubResource( 8 )
 margin_left = -409.0
 margin_top = -125.0
 margin_right = 1639.0
@@ -321,7 +321,7 @@ editor/display_folded = true
 position = Vector2( -1228, -338 )
 
 [node name="TextureRect" type="TextureRect" parent="Rail/Region0"]
-material = SubResource( 11 )
+material = SubResource( 10 )
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 0.4, 0.4 )
@@ -332,7 +332,7 @@ editor/display_folded = true
 position = Vector2( -409, -338 )
 
 [node name="TextureRect" type="TextureRect" parent="Rail/Region1"]
-material = SubResource( 11 )
+material = SubResource( 10 )
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 0.4, 0.4 )
@@ -343,7 +343,7 @@ editor/display_folded = true
 position = Vector2( 410, -338 )
 
 [node name="TextureRect" type="TextureRect" parent="Rail/Region2"]
-material = SubResource( 11 )
+material = SubResource( 10 )
 margin_right = 40.0
 margin_bottom = 40.0
 rect_scale = Vector2( 0.4, 0.4 )
