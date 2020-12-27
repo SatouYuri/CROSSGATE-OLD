@@ -7,6 +7,7 @@ const pConst = preload("res://assets/util/PROJECT_CONSTANTS.gd")
 #Variáveis de Estado
 var stopped = false
 var wagonIndex = -1 #Esse índice deve ser ajustado antes de instanciar o vagão
+var dynamicRenderMode = true #Se a variável global stageMap está sendo utilizada, este booleano deve ser definido como verdadeiro.
 
 #Código Inicial
 func _ready():
@@ -65,4 +66,5 @@ func _physics_process(delta):
 		else:
 			$Exterior.modulate.a = 1.0
 
-	watchRenderingTrigger()
+	if dynamicRenderMode:
+		watchRenderingTrigger()

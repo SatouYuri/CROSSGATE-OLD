@@ -162,7 +162,7 @@ margin_top = 554.58
 margin_right = 745.5
 margin_bottom = 590.58
 custom_fonts/font = SubResource( 8 )
-text = "WagonTestStage"
+text = "WagonTestStage (deprecated)"
 
 [node name="Black" type="TextureRect" parent="."]
 visible = false

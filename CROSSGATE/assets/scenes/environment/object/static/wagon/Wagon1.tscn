@@ -61,12 +61,12 @@ script = ExtResource( 1 )
 [node name="Exterior" type="AnimatedSprite" parent="."]
 frames = SubResource( 1 )
 animation = "const_speed"
-frame = 4
 playing = true
 
 [node name="Interior" type="AnimatedSprite" parent="."]
 frames = SubResource( 2 )
 animation = "const_speed"
+frame = 1
 playing = true
 
 [node name="Floor" type="CollisionShape2D" parent="."]
