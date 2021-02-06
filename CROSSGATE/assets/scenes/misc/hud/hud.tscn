@@ -41,9 +41,9 @@
 [ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_neutral_brandon.png" type="Texture" id=39]
 [ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_open_brandon.png" type="Texture" id=40]
 [ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_scream_brandon.png" type="Texture" id=41]
-[ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_teeth_brandon.png" type="Texture" id=42]
-[ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_smile_brandon.png" type="Texture" id=43]
-[ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_sad_brandon.png" type="Texture" id=44]
+[ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_smile_brandon.png" type="Texture" id=42]
+[ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_sad_brandon.png" type="Texture" id=43]
+[ext_resource path="res://assets/sprites/misc/dialog/brandon/mouth_teeth_brandon.png" type="Texture" id=44]
 [ext_resource path="res://assets/sprites/misc/dialog/brandon/extra_sweat_brandon.png" type="Texture" id=45]
 [ext_resource path="res://assets/scenes/misc/filter/TIMESTOP_MASK.tscn" type="PackedScene" id=46]
 
@@ -131,59 +131,14 @@ animations = [ {
 "name": "angry_talking",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "neutral",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 28 ) ],
 "loop": false,
 "name": "surprise_talking_loud_sweat",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 27 ) ],
-"loop": false,
-"name": "tense",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "smile_kind",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "sad_talking",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "talking_loud",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 28 ) ],
-"loop": false,
-"name": "surprise_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "sad_silence",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 28 ) ],
-"loop": false,
-"name": "despair",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 25 ) ],
 "loop": false,
 "name": "sigh",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 29 ) ],
-"loop": false,
-"name": "pain_teeth_sweat",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 25 ) ],
@@ -193,12 +148,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
 "loop": false,
-"name": "angry_teeth",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
-"loop": false,
-"name": "smile_confident",
+"name": "sad_silence",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
@@ -208,7 +158,57 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
 "loop": false,
+"name": "smile_kind",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 28 ) ],
+"loop": false,
+"name": "surprise_sweat",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "sad_talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "angry_teeth",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 29 ) ],
+"loop": false,
+"name": "pain_teeth_sweat",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 27 ) ],
+"loop": false,
+"name": "tense",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "neutral",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": false,
 "name": "talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "talking_loud",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 28 ) ],
+"loop": false,
+"name": "despair",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 26 ) ],
+"loop": false,
+"name": "smile_confident",
 "speed": 0.0
 } ]
 
@@ -234,34 +234,34 @@ animations = [ {
 "name": "angry_talking",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
-"loop": false,
-"name": "neutral",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 33 ) ],
 "loop": false,
 "name": "surprise_talking_loud_sweat",
 "speed": 0.0
 }, {
+"frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
+"loop": false,
+"name": "sigh",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
+"loop": false,
+"name": "great_sigh",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
+"loop": false,
+"name": "sad_silence",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 23 ), ExtResource( 32 ) ],
 "loop": false,
-"name": "tense",
+"name": "angry_neutral",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 33 ) ],
 "loop": false,
 "name": "smile_kind",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
-"loop": false,
-"name": "sad_talking",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
-"loop": false,
-"name": "talking_loud",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 33 ) ],
@@ -271,27 +271,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
 "loop": false,
-"name": "sad_silence",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 33 ) ],
-"loop": false,
-"name": "despair",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
-"loop": false,
-"name": "sigh",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 32 ) ],
-"loop": false,
-"name": "pain_teeth_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 34 ) ],
-"loop": false,
-"name": "great_sigh",
+"name": "sad_talking",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 32 ) ],
@@ -299,19 +279,39 @@ animations = [ {
 "name": "angry_teeth",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
+"frames": [ ExtResource( 23 ), ExtResource( 32 ) ],
 "loop": false,
-"name": "smile_confident",
+"name": "pain_teeth_sweat",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 32 ) ],
 "loop": false,
-"name": "angry_neutral",
+"name": "tense",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
+"loop": false,
+"name": "neutral",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
 "loop": false,
 "name": "talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
+"loop": false,
+"name": "talking_loud",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 33 ) ],
+"loop": false,
+"name": "despair",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 30 ) ],
+"loop": false,
+"name": "smile_confident",
 "speed": 0.0
 } ]
 
@@ -337,34 +337,34 @@ animations = [ {
 "name": "angry_talking",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
-"loop": false,
-"name": "neutral",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 37 ) ],
 "loop": false,
 "name": "surprise_talking_loud_sweat",
 "speed": 0.0
 }, {
+"frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
+"loop": false,
+"name": "sigh",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
+"loop": false,
+"name": "great_sigh",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
+"loop": false,
+"name": "sad_silence",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 23 ), ExtResource( 36 ) ],
 "loop": false,
-"name": "tense",
+"name": "angry_neutral",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 37 ) ],
 "loop": false,
 "name": "smile_kind",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
-"loop": false,
-"name": "sad_talking",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
-"loop": false,
-"name": "talking_loud",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 37 ) ],
@@ -374,27 +374,7 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
 "loop": false,
-"name": "sad_silence",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 37 ) ],
-"loop": false,
-"name": "despair",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
-"loop": false,
-"name": "sigh",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 36 ) ],
-"loop": false,
-"name": "pain_teeth_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 38 ) ],
-"loop": false,
-"name": "great_sigh",
+"name": "sad_talking",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 36 ) ],
@@ -402,19 +382,39 @@ animations = [ {
 "name": "angry_teeth",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
+"frames": [ ExtResource( 23 ), ExtResource( 36 ) ],
 "loop": false,
-"name": "smile_confident",
+"name": "pain_teeth_sweat",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 36 ) ],
 "loop": false,
-"name": "angry_neutral",
+"name": "tense",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
+"loop": false,
+"name": "neutral",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
 "loop": false,
 "name": "talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
+"loop": false,
+"name": "talking_loud",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 37 ) ],
+"loop": false,
+"name": "despair",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 35 ) ],
+"loop": false,
+"name": "smile_confident",
 "speed": 0.0
 } ]
 
@@ -440,49 +440,9 @@ animations = [ {
 "name": "angry_talking",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
-"loop": false,
-"name": "neutral",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 41 ) ],
 "loop": false,
 "name": "surprise_talking_loud_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 42 ) ],
-"loop": false,
-"name": "tense",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 43 ) ],
-"loop": false,
-"name": "smile_kind",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 44 ) ],
-"loop": false,
-"name": "sad_talking",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 41 ) ],
-"loop": false,
-"name": "talking_loud",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
-"loop": false,
-"name": "surprise_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
-"loop": false,
-"name": "sad_silence",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 40 ) ],
-"loop": false,
-"name": "despair",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 40 ) ],
@@ -490,24 +450,14 @@ animations = [ {
 "name": "sigh",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 42 ) ],
-"loop": false,
-"name": "pain_teeth_sweat",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 41 ) ],
 "loop": false,
 "name": "great_sigh",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 42 ) ],
+"frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
 "loop": false,
-"name": "angry_teeth",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 43 ) ],
-"loop": false,
-"name": "smile_confident",
+"name": "sad_silence",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
@@ -515,9 +465,59 @@ animations = [ {
 "name": "angry_neutral",
 "speed": 0.0
 }, {
+"frames": [ ExtResource( 23 ), ExtResource( 42 ) ],
+"loop": false,
+"name": "smile_kind",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
+"loop": false,
+"name": "surprise_sweat",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 43 ) ],
+"loop": false,
+"name": "sad_talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 44 ) ],
+"loop": false,
+"name": "angry_teeth",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 44 ) ],
+"loop": false,
+"name": "pain_teeth_sweat",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 44 ) ],
+"loop": false,
+"name": "tense",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 39 ) ],
+"loop": false,
+"name": "neutral",
+"speed": 0.0
+}, {
 "frames": [ ExtResource( 23 ), ExtResource( 40 ) ],
 "loop": false,
 "name": "talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 41 ) ],
+"loop": false,
+"name": "talking_loud",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 40 ) ],
+"loop": false,
+"name": "despair",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 42 ) ],
+"loop": false,
+"name": "smile_confident",
 "speed": 0.0
 } ]
 
@@ -543,49 +543,9 @@ animations = [ {
 "name": "angry_talking",
 "speed": 0.0
 }, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "neutral",
-"speed": 0.0
-}, {
 "frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
 "loop": false,
 "name": "surprise_talking_loud_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
-"loop": false,
-"name": "tense",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "smile_kind",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "sad_talking",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": true,
-"name": "talking_loud",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
-"loop": false,
-"name": "surprise_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "sad_silence",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "despair",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
@@ -595,22 +555,12 @@ animations = [ {
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
 "loop": false,
-"name": "pain_teeth_sweat",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
-"loop": false,
 "name": "great_sigh",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
 "loop": false,
-"name": "angry_teeth",
-"speed": 0.0
-}, {
-"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
-"loop": false,
-"name": "smile_confident",
+"name": "sad_silence",
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
@@ -619,9 +569,59 @@ animations = [ {
 "speed": 0.0
 }, {
 "frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "smile_kind",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
+"loop": false,
+"name": "surprise_sweat",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "sad_talking",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "angry_teeth",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
+"loop": false,
+"name": "pain_teeth_sweat",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 45 ) ],
+"loop": false,
+"name": "tense",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "neutral",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
 "loop": true,
 "name": "talking",
 "speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": true,
+"name": "talking_loud",
+"speed": 5.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "despair",
+"speed": 0.0
+}, {
+"frames": [ ExtResource( 23 ), ExtResource( 23 ) ],
+"loop": false,
+"name": "smile_confident",
+"speed": 0.0
 } ]
 
 [node name="hud" type="CanvasLayer"]

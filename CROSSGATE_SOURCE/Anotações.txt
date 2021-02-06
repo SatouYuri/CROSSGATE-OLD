@@ -1,0 +1,54 @@
+O que Draith e Zan sabem no início da história:
+- Pular do trem é arriscado (todos que pularam nunca mais voltaram)
+- Sabem que o trem está numa linha circular (mas não sabem que o trem é uma "roda")
+- *Sabem sobre as runas e o éter
+- *Sabem sobre a especificidade do CROSSGATE
+- *Já lembraram de onde vieram e sabem que quando se vem a esse mundo, passa-se por um período de amnésia
+- Se lembram relativamente do estranho fenômeno do círculo escuro que os trouxe para esse mundo, mas não entendem como ele funciona.
+- Sabem que Brandon vai desenvolver um familiar (Syrus), pois viram isso ocorrer com Yve
+- *Sabem que não se sente sede ou fome nesse mundo
+- Especulam que a resposta para tudo isso esteja no final do trem, na cabine do maquinista (uma hipótese sugerida por Yvetam, quando os 3 estavam juntos)
+- *Desde que Yvetam desapareceu, eles passaram a se esconder em vagões abandonados, utilizando a runa do Zan
+- *Sabem sobre os corrompidos e que caso você seja derrotado em batalha, terá seu éter sugado por eles, fazendo você se tornar um deles (eles não sabem sobre a entidade e também nunca sentiram a sensação de terem suas mentes dominadas por ela (sussuros))
+
+
+A exploração do trem recomeça. Nos vagões, o xerife enfrenta corrompidos um pouco mais fortes que os vistos no prólogo, e desta vez, com alguns deles usando armas diferentes e até poderes de runas. Após algum tempo de exploração, os vagões começam novamente a se repetir. Draith e Zan ficam espantados, e ajudam o protagonista a resolver o quebra-cabeça que acabara de aparecer. Já esperando por um corrompido altíssimo, Brandon se surpreende ao sentir a presença de um portal o qual não havia sido aberto por ele, uma fenda natural no espaço-tempo, já estava ali antes. Não conseguia ver tal portal, mas sabia que estava por perto. 
+
+Nenhum corrompido altíssimo apareceu. O xerife decide voltar ao vagão cujo módulo central do quebra-cabeça estava localizado e descobre a tal fenda natural, agora visível. Draith comenta que, ao que parece, resolver o quebra-cabeça fez com que essa fenda se torna-se visível para Brandon, como se o quebra-cabeça funcionasse como uma espécie de proteção. Zan adiciona a esse comentário a hipótese de que é como se alguém não quisesse que tal portal fosse descoberto. Com apenas Brandon podendo vê-lo, ele adentra a tal fenda misteriosa.
+
+Lá dentro, os três personagens se deparam com um cenário completamente diferente. Um grande salão de temática archtopiana, todo destruído, preenchia a sala (esse salão, mais tarde, é revelado como algum lugar dos mundos anteriores devorados pela entidade que se perderam dentro dela, e se tornaram um amálgama espaço-temporal com o mundo devorado atual, a linha de trem). Além disso, o que mais chamava a atenção do trio era o grande cristal no meio do lugar, brilhante. Era possível sentir o movimento do éter no ambiente ao se aproximar de tal objeto.
+
+
+Em ProdutoBean:
+selecionar() -> getProduto() -> listaProdutoFornecedor -> Setup das variáveis qte, unid e preço última compra.
+
+
+
+
+SCRIPT (ANTES DE INICIAR):
+> *Ajustar o banco do condutor*
+> *Ajustar os 3 espelhos*
+> *Colocar o cinto de segurança*
+
+SCRIPT (INICIAR):
+> *Ligar o carro*
+> *ATIVAR SETA DE SINALIZAÇÃO*
+> *Pressione "Freio + Embreagem" adequadamente*
+> *DESABILITAR FREIO DE MÃO*
+> *Iniciar saída*
+
+SCRIPT (SAÍDA):
+> *Configure a marcha RÉ*
+> *VOLANTE PARA FULL_LDC*
+> *Use a embreagem com a RÉ configurada para apontar o carro para fora da vaga*
+> *Configure a marcha 1ª*
+> *VOLANTE PARA ANGULO_ZERO*
+> *Acelere para concluir a saída*
+
+
+
+
+
+
+Não estou conseguindo adicionar contatos ou autorizados...
+Depois de algumas inserções de arquivos .OFX, o sistema se recusa a ler mais deles.
